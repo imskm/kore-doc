@@ -58,6 +58,32 @@ Nothing
 
 ---
 
+# http\_response\_fileref
+
+### Synopsis
+
+```
+void http_response_fileref(struct http_request *req, struct kore_fileref *ref)
+```
+
+### Description
+
+Creates an HTTP response for an HTTP request much like _http\_response\(\).
+
+This function however takes a kore filereference data structure as its argument
+and will send the ondisk file it represents to the client.
+
+| Parameter | Description |
+| --- | --- |
+| req | The HTTP request to respond to. |
+| ref | The kore file reference. |
+
+### Returns
+
+Nothing
+
+---
+
 # http\_request\_header
 
 ### Synopsis
@@ -78,7 +104,7 @@ Attempts to find the given _header_ in an HTTP request and returns the value of 
 
 ### Returns
 
-KORE\_RESULT\_OK if a result was set in _out_.  
+KORE\_RESULT\_OK if a result was set in _out_.
 KORE\_RESULT\_ERROR if the header was not present in the request.
 
 ---
