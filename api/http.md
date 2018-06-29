@@ -68,7 +68,7 @@ void http_response_fileref(struct http_request *req, struct kore_fileref *ref)
 
 ### Description
 
-Creates an HTTP response for an HTTP request much like _http\_response\(\).
+Creates an HTTP response for an HTTP request much like _http\_response\(\)_.
 
 This function however takes a kore filereference data structure as its argument
 and will send the ondisk file it represents to the client.
