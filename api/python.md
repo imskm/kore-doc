@@ -3,6 +3,7 @@
 This page contains a reference of all exported Kore functions to Python.
 
 Kore must be compiled with **PYTHON=1** for this to work.
+Python 3.6 or higher should be used.
 
 ---
 
