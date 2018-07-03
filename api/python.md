@@ -17,7 +17,37 @@ Note that the Python code is expected to run inside of the Kore worker
 process, the kore module being imported is not available outside of
 this worker process.
 
-# Constants
+## Shortcuts
+
+* [Kore module](#koremodule)
+  * [constants](#koremoduleconstants)
+  * [functions](#koremodulefunctions)
+    * [log](#log)
+    * [fatal](#fatal)
+    * [register\_database](#registerdatabase)
+    * [websocket\_broadcast](#websocketbroadcast)
+
+
+* [Http module](#httpmodule)
+  * [constants](#httpmoduleconstants)
+  * [functions](#httpmodulefunctions)
+    * [pgsql](#pgsql)
+    * [cookie](#cookie)
+    * [response](#response)
+    * [argument](#argument)
+    * [body\_read](#bodyread)
+    * [file\_lookup](#filelookup)
+    * [populate\_get](#populateget)
+    * [populate\_post](#populatepost)
+    * [populate\_cookies](#populatecookies)
+    * [populate\_multipart](#populatemultipart)
+    * [request\_header](#requestheader)
+    * [response\_header](#responseheader)
+    * [websocket\_handshake](#websockethandshake)
+
+# <a name="koremodule"></a>Kore
+
+## <a name="koremoduleconstants"></a>Constants
 
 The kore module exports some constant that can be used by the Python code.
 
@@ -32,6 +62,138 @@ The kore module exports some constant that can be used by the Python code.
 * CONN\_PROTO\_UNKNOWN
 * CONN\_PROTO\_WEBSOCKET
 * CONN\_STATE\_ESTABLISHED
+
+## <a name="koremodulefunctions"></a>Functions
+
+---
+
+# <a name="log"></a>log
+
+### Synopsis
+
+```python
+kore.log(priority, string)
+```
+
+### Description
+
+Logs the given string to syslog.
+
+| Parameter | Description |
+| --- | --- |
+| priority | Log level priority (kore.LOG\_ constants). |
+| string | The string to be sent to syslog. |
+
+### Returns
+
+Nothing
+
+### Example
+
+```python
+kore.log(kore.LOG_INFO, 'this is a log string from a worker process')
+```
+
+---
+
+# <a name="fatal"></a>fatal
+
+### Synopsis
+
+```python
+kore.fatal(reason)
+```
+
+### Description
+
+Terminates the worker process with the given reason as the error message.
+
+| Parameter | Description |
+| --- | --- |
+| reason | String containing the reason why the worker is terminating. |
+
+### Returns
+
+Nothing
+
+### Example
+
+```python
+kore.fatal('worker going dead')
+```
+
+---
+
+# <a name="websocketbroadcast"></a>websocket\_broadcast
+
+### Synopsis
+
+```python
+kore.websocket_broadcast(src, op, data, scope)
+```
+
+### Description
+
+Broadcast a websocket message to all other connected websocket clients.
+
+| Parameter | Description |
+| --- | --- |
+| src | The source **kore.connection** object. |
+| op | The websocket op type. |
+| data | The data to be broadcasted. |
+| scope | Wether or not this is broadcasted to all workers or just this one. |
+
+### Returns
+
+Nothing
+
+### Example
+
+```python
+def onmessage(c, op, data):
+	kore.websocket_broadcast(c, op, data, kore.WEBSOCKET_BROADCAST_GLOBAL)
+```
+
+---
+
+# <a name="registerdatabase"></a>register\_database
+
+### Synopsis
+
+```python
+kore.register_database(name, connstring)
+```
+
+### Description
+
+Associates a pgsql connection string with a shortname for a database that
+can be used later in <a href="#pgsql">pgsql</a>.
+
+| Parameter | Description |
+| --- | --- |
+| name | The friendly name for the database. |
+| connstring | The pgsql connection string. |
+
+### Returns
+
+Nothing
+
+### Example
+
+```python
+kore.register_database("db", "host=/tmp dbname=hello")
+```
+
+---
+
+
+# <a name="httpmodule"></a>HTTP
+
+Like the C API Kore will pass an http\_request data structure to your
+Python page handler. This data structure is of type **kore.http\_request**
+
+## <a name="httpmoduleconstants"></a>Constants
+
 * HTTP\_METHOD\_GET
 * HTTP\_METHOD\_PUT
 * HTTP\_METHOD\_HEAD
@@ -40,12 +202,7 @@ The kore module exports some constant that can be used by the Python code.
 * HTTP\_METHOD\_OPTIONS
 * HTTP\_METHOD\_PATCH
 
-# HTTP
-
-Like the C API Kore will pass an http\_request data structure to your
-Python page handler. This data structure is of type **kore.http\_request**
-
-## Getters
+## <a name="httpmodulegetters"></a>Getters
 
 * host - The domain as a unicode string.
 * agent - The user agent as a unicode string.
@@ -55,33 +212,7 @@ Python page handler. This data structure is of type **kore.http\_request**
 * body\_path - The path to the HTTP body on disk (if enabled).
 * connection - The underlying client connection as a **kore.connection** object.
 
-## Methods
-
-[pgsql](#pgsql)
-
-[cookie](#cookie)
-
-[response](#response)
-
-[argument](#argument)
-
-[body\_read](#bodyread)
-
-[file\_lookup](#filelookup)
-
-[populate\_get](#populateget)
-
-[populate\_post](#populatepost)
-
-[populate\_cookies](#populatecookies)
-
-[populate\_multipart](#populatemultipart)
-
-[request\_header](#requestheader)
-
-[response\_header](#responseheader)
-
-[websocket\_handshake](#websockethandshake)
+## <a name="httpmodulefunctions"></a>Functions
 
 ---
 
