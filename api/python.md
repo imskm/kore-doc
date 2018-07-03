@@ -56,9 +56,35 @@ Python page handler. This data structure is of type **kore.http\_request**
 
 ## Methods
 
+[pgsql](#pgsql)
+
+[cookie](#cookie)
+
+[response](#response)
+
+[argument](#argument)
+
+[body\_read](#bodyread)
+
+[file\_lookup](#filelookup)
+
+[populate\_get](#populateget)
+
+[populate\_post](#populatepost)
+
+[populate\_cookies](#populatecookies)
+
+[populate\_multipart](#populatemultipart)
+
+[request\_header](#requestheader)
+
+[response\_header](#responseheader)
+
+[websocket\_handshake](#websockethandshake)
+
 ---
 
-# pgsql
+# <a name="pgsql"></a>pgsql
 
 ### Synopsis
 
@@ -89,7 +115,7 @@ async def myquery(req):
 
 ---
 
-# cookie
+# <a name="cookie"></a>cookie
 
 ### Synopsis
 
@@ -120,7 +146,7 @@ def handler(req):
 
 ---
 
-# response
+# <a name="response"></a>response
 
 ### Synopsis
 
@@ -150,7 +176,7 @@ def handler(req):
 
 ---
 
-# argument
+# <a name="argument"></a>argument
 
 ### Synopsis
 
@@ -182,7 +208,7 @@ def handler(req):
 
 ---
 
-# body\_read
+# <a name="bodyread"></a>body\_read
 
 ### Synopsis
 
@@ -220,7 +246,7 @@ def handler(req):
 
 ---
 
-# file\_lookup
+# <a name="filelookup"></a>file\_lookup
 
 ### Synopsis
 
@@ -257,7 +283,7 @@ def handler(req):
 
 ---
 
-# populate\_get
+# <a name="populateget"></a>populate\_get
 
 ### Synopsis
 
@@ -276,7 +302,7 @@ Nothing
 
 ---
 
-# populate\_post
+# <a name="populatepost"></a>populate\_post
 
 ### Synopsis
 
@@ -296,7 +322,7 @@ Nothing
 
 ---
 
-# populate\_multipart
+# <a name="populatemultipart"></a>populate\_multipart
 
 ### Synopsis
 
@@ -316,7 +342,7 @@ Nothing
 
 ---
 
-# populate\_cookies
+# <a name="populatecookies"></a>populate\_cookies
 
 ### Synopsis
 
@@ -334,7 +360,7 @@ Nothing
 
 ---
 
-# request\_header
+# <a name="requestheader"></a>request\_header
 
 ### Synopsis
 
@@ -367,7 +393,7 @@ def myhandler(req):
 
 ---
 
-# response\_header
+# <a name="responseheader"></a>response\_header
 
 ### Synopsis
 
@@ -401,7 +427,7 @@ def myhandler(req):
 
 ---
 
-# websocket\_handshake
+# <a name="websockethandshake"></a>websocket\_handshake
 
 ### Synopsis
 
