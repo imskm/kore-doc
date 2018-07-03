@@ -16,6 +16,7 @@
   * [Miscellaneous](api/miscellaneous.md)
   * [Tasks](api/tasks.md)
   * [Pgsql](api/pgsql.md)
+  * [Python](api/python.md)
   * [Websockets](api/websockets.md)
 * [Examples](examples.md)
 
