@@ -6,6 +6,7 @@ Kore must be compiled with **PYTHON=1** for this to work.
 
 ---
 
+# Intro
 Before you write any Python code you must import the kore module:
 ```python
 import kore
@@ -14,6 +15,31 @@ import kore
 Note that the Python code is expected to run inside of the Kore worker
 process, the kore module being imported is not available outside of
 this worker process.
+
+# Constants
+
+The kore module exports some constant that can be used by the Python code.
+
+* LOG\_INFO
+* LOG\_NOTICE
+* RESULT\_OK
+* RESULT\_RETRY
+* RESULT\_ERROR
+* MODULE\_LOAD
+* MODULE\_UNLOAD
+* CONN\_PROTO\_HTTP
+* CONN\_PROTO\_UNKNOWN
+* CONN\_PROTO\_WEBSOCKET
+* CONN\_STATE\_ESTABLISHED
+* HTTP\_METHOD\_GET
+* HTTP\_METHOD\_PUT
+* HTTP\_METHOD\_HEAD
+* HTTP\_METHOD\_POST
+* HTTP\_METHOD\_DELETE
+* HTTP\_METHOD\_OPTIONS
+* HTTP\_METHOD\_PATCH
+
+# HTTP
 
 Like the C API Kore will pass an http\_request data structure to your
 Python page handler. This data structure is of type **kore.http\_request**
