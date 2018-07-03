@@ -80,7 +80,7 @@ By default Kore will accept as many new connections it can up to worker_max_conn
 **tls_version** (default: 1.2 only)
 > The TLS versions allowed, by default this is set to only TLSv1.2.
 
-**tls_cipher** (default: A very sane set of ciphersuites prefering AEAD ciphers and ephemiral key exchanges over static RSA).
+**tls_cipher** (default: A very sane set of ciphersuites prefering AEAD ciphers and ephemiral key exchanges, RSA key exchanges are not enabled).
 > The server TLS ciphersuites that are allowed.
 
 **tls_dhparam** (default: dh2048.pem)
