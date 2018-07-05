@@ -1,4 +1,8 @@
 {
+	"plugins": [
+		"highlight"
+	],
+
 	"pluginsConfig": {
 		"fontsettings": {
 			"theme": "white"
