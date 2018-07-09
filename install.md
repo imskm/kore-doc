@@ -11,9 +11,16 @@ Kore has been tested to run on the following platforms:
 
 Basic compilation requires the following libraries:
 
-* openssl
+* openssl 1.0.2 or 1.1.0 / libressl
 
-Download the latest release tarball from [https://github.com/jorisvink/kore/releases](https://github.com/jorisvink/kore/releases) and build it:
+Get the 3.0.0 release tarball and signature from [https://kore.io/releases/3.0.0](https://kore.io/releases/3.0.0) and verify it using minisign:
+
+```
+minisign -Vm kore-3.0.0.tgz -P RWSxkEDc2y+whfKTmvhqs/YaFmEwblmvar7l6RXMjnu6o9tZW3LC0Hc9
+```
+
+If verification is successfull, build it. Do not build distributions that
+cannot be verified by the minisign key seen above.
 
 ```
 $ cd kore
@@ -54,14 +61,6 @@ Kore is available on Homebrew under OSx and can be installed with:
 
 ```
 $ brew install kore
-```
-
-### Verification
-
-All releases can be verified with [minisign](https://jedisct1.github.io/minisign/) and the following public key:
-
-```
-RWSxkEDc2y+whfKTmvhqs/YaFmEwblmvar7l6RXMjnu6o9tZW3LC0Hc9
 ```
 
 

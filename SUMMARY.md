@@ -1,7 +1,7 @@
 # Summary
 
 * [Introduction](README.md)
-* [Installation](chapter1.md)
+* [Installation](install.md)
 * [Applications](applications/README.md)
   * [The kodev tool](applications/integrated_tools.md)
   * [Build framework](applications/building.md)
