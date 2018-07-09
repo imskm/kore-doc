@@ -1,12 +1,11 @@
 # Kore web framework
 
-Kore is a web application framework written in C that allows you to create blazing fast web applications. It focuses on security, stability and rapid development.
+Kore is an easy to use web platform for writing scalable web APIs in C.
+Its primary goals are security, scalability and allowing rapid development and deployment of such APIs.
 
-The latest version is [3.0.0](https://github.com/jorisvink/kore/releases) and was released DD/MM/2018 \(release is upcoming\).
+Because of this Kore is an ideal candidate for building robust, scalable and secure web things.
 
-This gitbook serves as the main documentation for the project.
-
-The documentation is correct for the latest 3.0.0 release but may not be correct for the latest master branch on github.
+This Gitbook documentation is for the 3.0.0 release.
 
 # Features
 
