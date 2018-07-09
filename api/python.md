@@ -7,6 +7,14 @@ Python 3.6 or higher should be used.
 
 ---
 
+# Pulling in python files
+You can import python files into your Kore application using the
+**python_import** configuration option:
+
+```
+python_import ./src/hello.py
+```
+
 # Intro
 Before you write any Python code you must import the kore module:
 ```python
