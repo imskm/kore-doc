@@ -128,6 +128,34 @@ KORE\_RESULT\_OK or KORE\_RESULT\_ERROR.
 
 ---
 
+# kore\_pgsql\_query\_params
+
+### Synopsis
+
+```
+int kore_pgsql_query(struct kore_pgsql *pgsql, const char *query, int result, int count, ...)
+```
+
+### Description
+
+Creates and runs a parameterized query
+
+| Parameter | Description |
+| --- | --- |
+| pgsql | A previously initialized pgsql data structure. |
+| query | The query to send, has `$1`,`$2`,... in places where values are substituted |
+| result | 0 if the query's result should be a string, 1 if the query's result should be binary data. |
+| count | The number of parameters to substitute in a query |
+| ... | The parameters to substitute into the query. Parameters are passed in groups of 3 :`value`, `length`, `format`. |
+
+The `format` argument may be 0 (`value` is a null-terminated string) or 1 (`value` is binary data of length `length` binary). If `format` is 0, `length` may be set to 0 to have the system find the length of `value`.
+
+### Returns
+
+KORE\_RESULT\_OK or KORE\_RESULT\_ERROR.
+
+---
+
 # kore\_pgsql\_register
 
 ### Synopsis
