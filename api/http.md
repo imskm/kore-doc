@@ -41,13 +41,13 @@ void http_response_stream(struct http_request *req, int status, void *base, size
 
 Creates an HTTP response for an HTTP request much like _http\_response\(\)_.
 
-However unlike that function this one does not copy the response body data but rather stream from it. It will call the given callback _cb_ when all data has been sent.
+However unlike that function this one does not copy the response body data but rather streams from it. It will call the given callback _cb_ when all data has been sent.
 
 | Parameter | Description |
 | --- | --- |
 | req | The HTTP request to respond to. |
 | status | The HTTP status code to include in the response. |
-| base | The base pointer of the data tobe sent in the response body. |
+| base | The base pointer of the data to be sent in the response body. |
 | length | The length of the data to be sent. |
 | cb | A callback that is called when all data has been sent. |
 | arg | A user supplied argument that is passed in the callback. |
@@ -158,7 +158,7 @@ Read file data from the given file up to _length_ size.
 
 ### Returns
 
-Returns the number of bytes successfully read from the file or 0 on end of file or -1 on error.
+Returns the number of bytes successfully read from the file, or 0 on end of file, or -1 on error.
 
 ---
 
@@ -196,7 +196,7 @@ void http_populate_post(struct http_request *req)
 
 Processes an HTTP POST by taking the HTTP body and parsing it according to _application/x-www-form-urlencoded_.
 
-This function will automatically match any fields found against configured validators to check if they contained sensible date. If the validators fail the field is automatically removed.
+This function will automatically match any fields found against configured validators to check if they contained sensible data. If the validators fail the field is automatically removed.
 
 | Parameter | Description |
 | --- | --- |
@@ -427,7 +427,7 @@ KORE\_RESULT\_OK if the argument was found or KORE\_RESULT\_ERROR if it was not 
 ### Synopsis
 
 ```
-int http_argument_get_uint16(struct http_request *req, const char *name, int16_t *out)
+int http_argument_get_uint16(struct http_request *req, const char *name, uint16_t *out)
 ```
 
 ### Description
@@ -451,7 +451,7 @@ KORE\_RESULT\_OK if the argument was found or KORE\_RESULT\_ERROR if it was not 
 ### Synopsis
 
 ```
-int http_argument_get_int32(struct http_request *req, const char *name, int16_t *out)
+int http_argument_get_int32(struct http_request *req, const char *name, int32_t *out)
 ```
 
 ### Description
@@ -475,7 +475,7 @@ KORE\_RESULT\_OK if the argument was found or KORE\_RESULT\_ERROR if it was not 
 ### Synopsis
 
 ```
-int http_argument_get_uint32(struct http_request *req, const char *name, int16_t *out)
+int http_argument_get_uint32(struct http_request *req, const char *name, uint32_t *out)
 ```
 
 ### Description
@@ -499,7 +499,7 @@ KORE\_RESULT\_OK if the argument was found or KORE\_RESULT\_ERROR if it was not 
 ### Synopsis
 
 ```
-int http_argument_get_int64(struct http_request *req, const char *name, int16_t *out)
+int http_argument_get_int64(struct http_request *req, const char *name, int64_t *out)
 ```
 
 ### Description
@@ -523,7 +523,7 @@ KORE\_RESULT\_OK if the argument was found or KORE\_RESULT\_ERROR if it was not 
 ### Synopsis
 
 ```
-int http_argument_get_uint64(struct http_request *req, const char *name, int16_t *out)
+int http_argument_get_uint64(struct http_request *req, const char *name, uint64_t *out)
 ```
 
 ### Description
@@ -547,7 +547,7 @@ KORE\_RESULT\_OK if the argument was found or KORE\_RESULT\_ERROR if it was not 
 ### Synopsis
 
 ```
-int http_argument_get_uint64(struct http_request *req, const char *name, float *out)
+int http_argument_get_float(struct http_request *req, const char *name, float *out)
 ```
 
 ### Description
@@ -571,7 +571,7 @@ KORE\_RESULT\_OK if the argument was found or KORE\_RESULT\_ERROR if it was not 
 ### Synopsis
 
 ```
-int http_argument_get_uint64(struct http_request *req, const char *name, double *out)
+int http_argument_get_double(struct http_request *req, const char *name, double *out)
 ```
 
 ### Description

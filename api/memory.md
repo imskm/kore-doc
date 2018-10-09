@@ -2,7 +2,7 @@
 
 The memory system in Kore for heap allocation is based on pools. At startup Kore will initialize at least 10 pools for commonly sized objects \(ranging from 8 to 8192 bytes\).
 
-Any data allocated via _kore\_malloc\(\)_, _kore\_strdup\(\)_ or _kore\_realloc\(\)_ comes from the common pools unless it is larger then 8192 in which case _calloc\(\)_ is used.
+Any data allocated via _kore\_malloc\(\)_, _kore\_strdup\(\)_ or _kore\_realloc\(\)_ comes from the common pools unless it is larger than 8192 in which case _calloc\(\)_ is used.
 
 ---
 
@@ -61,7 +61,7 @@ void *kore_realloc(void *ptr, size_t length)
 
 ### Description
 
-Grows or shrinks a existing allocated memory pointer.
+Grows or shrinks an existing allocated memory pointer.
 
 | Parameter | Description |
 | --- | --- |

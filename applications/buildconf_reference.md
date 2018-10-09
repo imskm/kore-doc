@@ -1,6 +1,6 @@
 # build.conf
 
-The **build.conf** file dictates build flavors, their CFLAGS and LDFLAGS and whether or not a single binary should be constructed or not.
+The **build.conf** file dictates build flavors, their CFLAGS and LDFLAGS, and whether or not a single binary should be constructed.
 
 A default **build.conf** looks like this:
 

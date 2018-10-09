@@ -7,8 +7,8 @@ Python 3.6 or higher should be used.
 
 ---
 
-# Pulling in python files
-You can import python files into your Kore application using the
+# Pulling in Python files
+You can import Python files into your Kore application using the
 **python_import** configuration option:
 
 ```
@@ -57,7 +57,7 @@ this worker process.
 
 ## <a name="koremoduleconstants"></a>Constants
 
-The kore module exports some constant that can be used by the Python code.
+The kore module exports some constants that can be used by the Python code.
 
 * LOG\_INFO
 * LOG\_NOTICE
@@ -142,14 +142,14 @@ kore.websocket_broadcast(src, op, data, scope)
 
 ### Description
 
-Broadcast a websocket message to all other connected websocket clients.
+Broadcasts a websocket message to all other connected websocket clients.
 
 | Parameter | Description |
 | --- | --- |
 | src | The source **kore.connection** object. |
 | op | The websocket op type. |
 | data | The data to be broadcasted. |
-| scope | Wether or not this is broadcasted to all workers or just this one. |
+| scope | Whether or not this is broadcasted to all workers or just this one. |
 
 ### Returns
 
@@ -198,7 +198,7 @@ kore.register_database("db", "host=/tmp dbname=hello")
 # <a name="httpmodule"></a>HTTP
 
 Like the C API Kore will pass an http\_request data structure to your
-Python page handler. This data structure is of type **kore.http\_request**
+Python page handler. This data structure is of type **kore.http\_request**.
 
 ## <a name="httpmoduleconstants"></a>Constants
 
@@ -216,7 +216,7 @@ Python page handler. This data structure is of type **kore.http\_request**
 * agent - The user agent as a unicode string.
 * path - The requested path as a unicode string.
 * body - The entire incoming HTTP body as a PyBuffer.
-* method - The requested method as an PyLong. (kore.HTTP\_METHOD\_GET, etc).
+* method - The requested method as a PyLong. (kore.HTTP\_METHOD\_GET, etc).
 * body\_path - The path to the HTTP body on disk (if enabled).
 * connection - The underlying client connection as a **kore.connection** object.
 
@@ -300,7 +300,7 @@ Creates an HTTP response for the given HTTP request.
 
 | Parameter | Description |
 | --- | --- |
-| status | The HTTP status code to for the response. |
+| status | The HTTP status code to include in the response. |
 | body | The HTTP body to be included in the response, this must be a binary buffer. |
 
 ### Returns

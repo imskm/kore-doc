@@ -56,7 +56,7 @@ Obtain a pointer to a free element from the given pool. If a pool runs out of fr
 | pool | A pointer to a pool. |
 
 ### Returns
-Returns a pointer to an area that is large enough to hold the data length the pool was initializes with.
+Returns a pointer to an area that is large enough to hold the data length the pool was initialized with.
 
 ---
 

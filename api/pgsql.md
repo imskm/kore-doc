@@ -1,6 +1,6 @@
 # Pgsql
 
-The pgsql API in Kore allows you to use Postgresql in a straight forward manner. It supports both synchronous and asynchronous queries.
+The pgsql API in Kore allows you to use PostgreSQL in a straight forward manner. It supports both synchronous and asynchronous queries.
 
 Note that you must have built Kore with PGSQL=1 in order to use this API.
 
@@ -67,8 +67,7 @@ void kore_pgsql_bind_request(struct kore_pgsql *pgsql, struct http_request *req)
 
 ### Description
 
-Bind a kore\_pgsql data structure to an HTTP request. This causes the HTTP request to be notified for any changes to the pgsql  
-data structure.
+Bind a kore\_pgsql data structure to an HTTP request. This causes the HTTP request to be notified for any changes to the pgsql data structure.
 
 | Parameter | Description |
 | --- | --- |
@@ -86,13 +85,12 @@ Nothing.
 ### Synopsis
 
 ```
-void kore_pgsql_bind_callback(struct kore_pgsql *pgsql,  void (*cb)(struct kore_pgsql *, void *), void *ar)
+void kore_pgsql_bind_callback(struct kore_pgsql *pgsql, void (*cb)(struct kore_pgsql *, void *), void *ar)
 ```
 
 ### Description
 
-Bind a kore\_pgsql data structure to a callback function. This function is called for any state change related to the  
-pgsql data structure.
+Bind a kore\_pgsql data structure to a callback function. This function is called for any state change related to the pgsql data structure.
 
 | Parameter | Description |
 | --- | --- |
@@ -171,7 +169,7 @@ Register a database connection.
 | Parameter | Description |
 | --- | --- |
 | dbname | The name to give to this connection. |
-| connstring | A postgresql connection string. |
+| connstring | A PostgreSQL connection string. |
 
 ### Returns
 
@@ -212,7 +210,7 @@ void kore_pgsql_cleanup(struct kore_pgsql *pgsql)
 
 ### Description
 
-Cleanup a previously initialize pgsql data structure and relinquish the database connection it held.
+Cleanup a previously initialized pgsql data structure and relinquish the database connection it held.
 
 | Parameter | Description |
 | --- | --- |

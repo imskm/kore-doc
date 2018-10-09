@@ -137,7 +137,7 @@ Nothing
 char *kore_buf_stringify(struct kore_buf *buf, size_t *length)
 ```
 ### Description
-Returns the data in a buffer as a C string. The result is NUL-terminated before it is returning to the caller. The caller should not free this data.
+Returns the data in a buffer as a C string. The result is NUL-terminated before it is returned to the caller. The caller should not free this data.
 
 | Parameter | Description |
 | -- | -- |

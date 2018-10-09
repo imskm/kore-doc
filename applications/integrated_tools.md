@@ -12,7 +12,7 @@ kodev info
 
 ### Creating an application
 
-Creating a new application is done via the _ kodev create_ tool. This tool will create a new directory and populated it with all required files to get hacking.
+Creating a new application is done via the _ kodev create_ tool. This tool will create a new directory and populate it with all required files to get hacking.
 
 The tool will automatically generate a self-signed X.509 certificate for development purposes.
 

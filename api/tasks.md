@@ -145,7 +145,7 @@ NOTE: This is a blocking operation.
 | length | The maximum number of bytes that *out* can hold. |
 
 ### Returns
-Returns the number of original bytes from the message, if this is larger then
+Returns the number of original bytes from the message, if this is larger than
 the *length* parameter then truncation has occurred.
 
 ---

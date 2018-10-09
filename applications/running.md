@@ -7,7 +7,7 @@ Starting Kore applications is done in one or two ways:
 
 The first method will keep the process in the foreground allowing you to shut it down using CTRL-C.
 
-This method is aimed when developing.
+This method is aimed at developing.
 
 The second method will read the configuration file passed on the command line, load in all required application modules and attempt to change root and drop privileges accordingly.
 
@@ -18,10 +18,10 @@ You can skip chroot\(\) and privdrops using -n and -r.
 ### Random
 
 **Important** If you are running Kore chrooted and privilege seperated (which
-you **should** be doing production) Kore will require /dev/urandom to be
+you **should** be doing production), Kore will require /dev/urandom to be
 created under the chroot environment for both the keymgr and worker processes.
 
-Failing to do so will make your setup not work.
+Failing to do so will prevent your application from working.
 
 ### Halting applications
 

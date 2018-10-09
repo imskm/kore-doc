@@ -2,11 +2,11 @@
 
 The configuration file of an application describes to Kore what modules to load, how validators work, what page handlers to map to which functions and more.
 
-Therefor it is an integral part of Kore as a whole.
+Therefore it is an integral part of Kore as a whole.
 
 Below we will quickly go over all available quick toggle configuration options, their default settings and what they do.
 
-There are more options then what is listed below, specifically for validators, authentication blocks and domains. Please find those in https://github.com/jorisvink/kore/blob/master/conf/kore.conf.example.
+There are more options than what is listed below, specifically for validators, authentication blocks and domains. Please find those in https://github.com/jorisvink/kore/blob/master/conf/kore.conf.example.
 
 ---
 
@@ -78,9 +78,9 @@ By default Kore will accept as many new connections it can up to worker_max_conn
 > The number of OS threads to use for background tasks.
 
 **tls_version** (default: 1.2 only)
-> The TLS versions allowed, by default this is set to only TLSv1.2.
+> The TLS versions allowed, by default this is set to TLSv1.2 only.
 
-**tls_cipher** (default: A very sane set of ciphersuites prefering AEAD ciphers and ephemiral key exchanges, RSA key exchanges are not enabled).
+**tls_cipher** (default: A very sane set of ciphersuites preferring AEAD ciphers and ephemeral key exchanges, RSA key exchanges are not enabled).
 > The server TLS ciphersuites that are allowed.
 
 **tls_dhparam** (default: dh2048.pem)

@@ -19,7 +19,7 @@ Get the 3.0.0 release tarball and signature from [https://kore.io/releases/3.0.0
 minisign -Vm kore-3.0.0.tgz -P RWSxkEDc2y+whfKTmvhqs/YaFmEwblmvar7l6RXMjnu6o9tZW3LC0Hc9
 ```
 
-If verification is successfull, build it. Do not build distributions that
+If verification is successful, build it. Do not build distributions that
 cannot be verified by the minisign key seen above.
 
 ```

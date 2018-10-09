@@ -40,7 +40,7 @@ Bounded C string copying. The result is always NUL-terminated.
 | length | The maximum number of bytes that the destination buffer holds. |
 
 ### Returns
-The length of the original string. If this length is equal or larger then the destination buffer then truncation of the string has occurred.
+The length of the original string. If this length is equal or larger than the destination buffer then truncation of the string has occurred.
 
 ---
 
