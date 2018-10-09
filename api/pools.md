@@ -17,7 +17,7 @@ Initializes a new pool.
 | Parameter | Description |
 | -- | -- |
 | pool | A pointer to a pool. |
-| name | The name to give to the pool. This name is shown in the logs if the pool is exhausted. |
+| name | The name to give to the pool. This name is shown in the logs if the pool is exhausted. |
 | len | The size in bytes of each element. |
 | elm | The number of initial elements to preallocate to the pool. |
 

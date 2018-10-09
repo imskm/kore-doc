@@ -19,7 +19,7 @@ Creates a new task which when run will call the given callback.
 | Parameter | Description |
 | -- | -- |
 | t | A task data structure. |
-| entry | The entry point of the task when run. |
+| entry | The entry point of the task when run. |
 
 ### Returns
 Nothing
@@ -53,8 +53,8 @@ Using this in combination with the HTTP state machine allows you to build reques
 
 | Parameter | Description |
 | -- | -- |
-| t | A task data structure. |
-| req | The HTTP request to be bound to the task. |
+| t | A task data structure. |
+| req | The HTTP request to be bound to the task. |
 
 ### Returns
 Nothing
@@ -87,7 +87,7 @@ Destroys a task.
 
 | Parameter | Description |
 | -- | -- |
-| t | A task data structure. |
+| t | A task data structure. |
 
 ### Returns
 Nothing
@@ -103,7 +103,7 @@ Check if a task has finished running.
 
 | Parameter | Description |
 | -- | -- |
-| t | A task data structure. |
+| t | A task data structure. |
 
 ### Returns
 Returns 1 if the task has finished running, otherwise 0.
@@ -119,9 +119,9 @@ Write data on the task channel for the other end to read. This works both from t
 
 | Parameter | Description |
 | -- | -- |
-| t | A task data structure. |
-| data | The data to be written on the channel. |
-| length | The length of the data to be written. |
+| t | A task data structure. |
+| data | The data to be written on the channel. |
+| length | The length of the data to be written. |
 
 ### Returns
 Nothing

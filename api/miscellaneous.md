@@ -17,7 +17,7 @@ Note that when running in the foreground these go to stdout.
 | Parameter | Description |
 | -- | -- |
 | prio   |  The priority of the log message (see syslog(3)).  |
-| fmt | The format string. |
+| fmt | The format string. |
 | ... | List of arguments. |
 
 ### Returns
@@ -36,8 +36,8 @@ Bounded C string copying. The result is always NUL-terminated.
 | Parameter | Description |
 | -- | -- |
 | dst | The destination buffer. |
-| src | The source C string. |
-| length | The maximum number of bytes that the destination buffer holds. |
+| src | The source C string. |
+| length | The maximum number of bytes that the destination buffer holds. |
 
 ### Returns
 The length of the original string. If this length is equal or larger then the destination buffer then truncation of the string has occurred.
@@ -54,11 +54,11 @@ Safely convert a C string holding a number into an integer.
 
 | Parameter | Description |
 | -- | -- |
-| str | The C string to convert. |
-| base | The base on which to operate. |
-| min | The minimum value the converted integer is allowed to have. |
-| max | The maximum value the converted integer is allowed to have. |
-| err | A pointer to an integer that holds the error value. |
+| str | The C string to convert. |
+| base | The base on which to operate. |
+| min | The minimum value the converted integer is allowed to have. |
+| max | The maximum value the converted integer is allowed to have. |
+| err | A pointer to an integer that holds the error value. |
 
 ### Returns
 Returns the converted integer. If the *err* parameter was set to KORE_RESULT_OK the conversion went OK otherwise there was an error and the returned value is considered garbage.
@@ -115,7 +115,7 @@ Safely strip all occurences of a certain character from a C string. The result m
 | Parameter | Description |
 | -- | -- |
 | in | The input C string. |
-| strip | The character to be stripped out of the string. |
+| strip | The character to be stripped out of the string. |
 | out | A pointer to where the new result is stored. |
 
 ### Returns

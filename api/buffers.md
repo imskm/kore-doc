@@ -104,7 +104,7 @@ Append data given in the form of a format and a variadic argument list.
 | -- | -- |
 | buf | The buffer. |
 | fmt | The format string. |
-| args | Variadic argument list. |
+| args | Variadic argument list. |
 
 
 ### Returns
@@ -123,8 +123,8 @@ Append data given in the form of a string format and list of arguments. Much lik
 | Parameter | Description |
 | -- | -- |
 | buf | The buffer. |
-| fmt | The format string. |
-| ... | Any arguments for the format string. |
+| fmt | The format string. |
+| ... | Any arguments for the format string. |
 
 ### Returns
 Nothing
