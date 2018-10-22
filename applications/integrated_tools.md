@@ -22,9 +22,9 @@ created hello/src/hello.c
 created hello/conf/hello.conf
 created hello/conf/build.conf
 created hello/.gitignore
-created hello/dh2048.pem
+created dh2048.pem
 hello created successfully!
-note: do NOT use the created DH parameters/certificates in production
+WARNING: DO NOT USE THE GENERATED DH PARAMETERS AND CERTIFICATES IN PRODUCTION
 $
 ```
 
