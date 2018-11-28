@@ -16,27 +16,43 @@ There are more options than what is listed below, specifically for validators, a
 **bind**
 > Bind to a given IP address and port number.
 
-**chroot**
-> The directory the worker processes will chroot() into.
+**bind_unix**
+> Bind to a given unix path. On Linux if this is prefixed with an '@' the
+> socket will become an abstract socket.
+
+**root**
+> The directory the worker processes will chroot() or chdir() into.
 
 **runas**
 > The username the worker processes drop privileges to.
 
-**workers** (default: 1)
+**workers** (default: number of cores on system)
 > The number of worker processes to spawn and keep alive.
 
-**worker_max_connections** (default: 250)
+**worker_max_connections** (default: 748)
 > The number of active connections each worker will accept.
 
 **worker_rlimit_nofiles** (default: 1024)
 > Limit of maximum open files per worker.
 
-**worker_accept_threshold** (default: disabled)
-> Limit the number of new connections a worker can accept in a single event loop.
-By default Kore will accept as many new connections it can up to worker_max_connections.
+**worker_accept_threshold** (default: 16)
+> The number of accepts a worker will do in one go before going up its
+> accept lock to another worker.
 
 **worker_set_affinity** (default: enabled)
 > Workers bind themselves to a single CPU by default. Turn this off by setting this option to 0.
+
+**rand_file** (default: none)
+> The entropy file to be loaded at startup time.
+
+**keymgr_root**
+> The root path for the keymgr process (if not set, will use root from above).
+
+**keymgr_runas**
+> The user the keymgr process will drop privileges towards.
+
+**filemap_index** (default: index.html)
+> The default filemap index file.
 
 **pidfile** (default: none)
 > Store the pid of the parent process in this file.
@@ -77,8 +93,8 @@ By default Kore will accept as many new connections it can up to worker_max_conn
 **task_threads** (default: 2)
 > The number of OS threads to use for background tasks.
 
-**tls_version** (default: 1.2 only)
-> The TLS versions allowed, by default this is set to TLSv1.2 only.
+**tls_version** (default: 1.2, 1.3)
+> The TLS versions allowed, by default this is set to TLSv1.2 + TLSv1.3.
 
 **tls_cipher** (default: A very sane set of ciphersuites preferring AEAD ciphers and ephemeral key exchanges, RSA key exchanges are not enabled).
 > The server TLS ciphersuites that are allowed.
