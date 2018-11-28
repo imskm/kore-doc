@@ -15,6 +15,13 @@ You can import Python files into your Kore application using the
 python_import ./src/hello.py
 ```
 
+If you would like to add a search path for modules (PYTHONPATH) you can
+specify this using the **python\_path** configuration option:
+
+```
+python_path /var/site-packages/mymodules/
+```
+
 # Intro
 Before you write any Python code you must import the kore module:
 ```python
@@ -31,6 +38,8 @@ this worker process.
   * [constants](#koremoduleconstants)
   * [functions](#koremodulefunctions)
     * [log](#log)
+    * [timer](#timer)
+    * [proc](#proc)
     * [fatal](#fatal)
     * [register\_database](#registerdatabase)
     * [websocket\_broadcast](#websocketbroadcast)
@@ -53,6 +62,10 @@ this worker process.
     * [response\_header](#responseheader)
     * [websocket\_handshake](#websockethandshake)
 
+
+* [Asynchronous functions](#async)
+
+
 # <a name="koremodule"></a>Kore
 
 ## <a name="koremoduleconstants"></a>Constants
@@ -66,6 +79,7 @@ The kore module exports some constants that can be used by the Python code.
 * RESULT\_ERROR
 * MODULE\_LOAD
 * MODULE\_UNLOAD
+* TIMER\_ONESHOT
 * CONN\_PROTO\_HTTP
 * CONN\_PROTO\_UNKNOWN
 * CONN\_PROTO\_WEBSOCKET
@@ -100,6 +114,98 @@ Nothing
 
 ```python
 kore.log(kore.LOG_INFO, 'this is a log string from a worker process')
+```
+
+---
+
+# <a name="timer"></a>timer
+
+### Synopsis
+
+```python
+kore.timer(method, delay, flags)
+```
+
+### Description
+
+Creates a timer that will run after **delay** milliseconds and call the
+**method** specified when expires.
+
+A timer can be primed to run at intervals or as a one-shot occasion.
+
+For a intervals, **flags** is 0 while for one-shot **flags** should
+be **kore.TIMER\_ONESHOT**
+
+A kore.timer object may be stopped by calling the **close** method on it.
+
+| Parameter | Description |
+| --- | --- |
+| method | The method to call when the timer fires. |
+| delay | The delay in milliseconds before the timer fires. |
+| flags | Either 0 for an interval timer or kore.TIMER_ONESHOT for a one-shot timer. |
+
+### Returns
+
+A kore.timer object.
+
+### Example
+
+```python
+def callback():
+	print("called")
+
+mytimer = kore.timer(callback, 100, kore.TIMER\_ONESHOT)
+
+# Stop the timer.
+mytimer.close()
+```
+
+---
+
+# <a name="proc"></a>proc
+
+### Synopsis
+
+```python
+kore.proc(command, optional_timeout)
+```
+
+### Description
+
+Spawns a new process with the given **command** and optional **timeout** in
+milliseconds.
+
+If timeout is non-zero Kore will raise TimeoutError if the process has not
+exited before the timeout expires.
+
+If a TimeoutError exception occurs the process is still active and **must**
+be killed by calling the **kill** method on the process object.
+
+See the [asynchronous process](#asyncproc) section for more.
+
+| Parameter | Description |
+| --- | --- |
+| command | The command to be executed. |
+| timeout | Optional timeout in milliseconds. |
+
+### Returns
+
+A kore.proc object.
+
+### Example
+
+```python
+async def request(req):
+	proc = kore.proc("ls -l /tmp")
+
+	try:
+		stdout = proc.recv(8192)
+		retcode = proc.reap()
+		req.response(200, stdout)
+	except TimeoutError:
+		proc.kill()
+		print("process timed out")
+		req.response(500, b'')
 ```
 
 ---
@@ -606,5 +712,385 @@ def ondisconnect(c):
 def ws_connect(req):
 	req.websocket_handshake("onconnect", "onmsg", "ondisconnect")
 ```
+
+---
+
+
+# <a name="async"></a>Async/await
+
+Kore exposes several functions that can be awaited upon allowing you to
+write concurrent page handlers without any callbacks.
+
+Kore currently supports:
+
+  * [Asynchronous socket i/o](#asyncsocket)
+  * [Locks](#asynclock)
+  * [Queues](#asyncqueue)
+  * [Processes](#asyncproc)
+  * [Gathering](#asyncgather)
+
+
+## <a name="asyncsocket"></a>Asynchronous sockets
+
+You can use an existing Python socket object and wrap it inside of a Kore
+socket. When you have a wrapped socket you can connect/accept, send or recv
+asynchronously.
+
+* [recv](#socketrecv)
+* [send](#socketsend)
+* [accept](#socketaccept)
+* [connect](#socketconnect)
+* [close](#socketclose)
+
+Example:
+
+```python
+import kore
+import socket
+
+async def page(req):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    # Wrap the socket in a Kore object.
+    ksock = kore.socket_wrap(sock)
+
+    # Connect and send some data.
+    await ksock.connect("127.0.0.1", 3332)
+    await ksock.send("hello world")
+
+    # Read a response.
+    response = await ksock.recv(1024)
+
+    # Closes the underlying socket automatically.
+    ksock.close()
+```
+
+---
+
+### <a name="socketrecv"></a>sock.recv
+
+### Synopsis
+
+```python
+data = await sock.recv(1024)
+```
+
+### Description
+
+Reads up to **maxlen** bytes from the socket.
+
+| Parameter | Description |
+| --- | --- |
+| maxlen | Maximum number of bytes to be read. |
+
+### Returns
+
+The bytes read as a byte object or None on EOF.
+
+### Example
+
+```python
+bytes = await sock.recv(1024)
+if bytes is None:
+    printf("eof!")
+else:
+    print("received %s" % bytes)
+```
+
+---
+
+### <a name="socketsend"></a>sock.send
+
+### Synopsis
+
+```python
+await sock.send(data)
+```
+
+### Description
+
+Sends the given data over the socket.
+
+| Parameter | Description |
+| --- | --- |
+| data | The data to be sent (as bytes). |
+
+### Returns
+
+Nothing. In case the peer closes the socket before all data is written
+a RuntimeException is thrown.
+
+### Example
+
+```python
+# Will return when all bytes are sent.
+await sock.send("Hello world")
+```
+
+---
+
+### <a name="socketaccept"></a>sock.accept
+
+### Synopsis
+
+```python
+await sock.accept()
+```
+
+### Description
+
+Accepts a new connection on the socket.
+
+### Returns
+
+A kore.socket data object that can be used to send/recv data on.
+
+### Example
+
+```python
+conn = await sock.accept()
+await conn.send("welcome")
+conn.close()
+```
+
+---
+
+### <a name="#socketconnect"></a>sock.connect
+
+### Synopsis
+
+```python
+await sock.connect()
+```
+
+### Description
+
+Connects to a peer.
+
+### Returns
+
+Nothing.
+
+### Example
+
+```python
+# AF_INET socket.
+await sock.connect("127.0.0.1", 8888)
+data = await sock.recv(1024)
+sock.close()
+
+# AF_UNIX socket.
+await sock.connect("/var/run/socket.sock")
+data = await sock.recv(1024)
+sock.close()
+
+```
+
+---
+
+## <a name="asynclock"></a>Locks
+
+Kore provides a locking mechanism where multiple coroutines can wait
+upon a lock in a non-blocking way. This allows synchronization between
+coroutines in a straight forward way.
+
+A lock is created by calling **kore.lock()**.
+
+An coroutine can use the lock with the Python "async with" syntax.
+
+Example:
+
+```python
+# Create the lock
+lock = kore.lock()
+
+async def request(req):
+	# Only allow one request at a time to this handler.
+	async with lock:
+		# do things
+		req.response(200, b'ok')
+```
+
+---
+
+## <a name="asyncqueue"></a>Queues
+
+Kore provides a queue system that allows objects to be sent back and forth
+between coroutines in a non-blocking fashion.
+
+The queue is a FIFO queue.
+
+* [push](#queuepush)
+* [pop](#queuepop)
+
+---
+
+### <a name="queuepush"></a>queue.push
+
+### Synopsis
+
+```python
+queue.push(object)
+```
+
+### Description
+
+Pushes the given **object** onto the queue. The coroutine that waited first
+on the queue using **pop** will be woken up.
+
+| Parameter | Description |
+| --- | --- |
+| object | The object to be pushed onto the queue. |
+
+### Returns
+
+Nothing.
+
+### Example
+
+```python
+queue = kore.queue()
+
+d = {
+    "foo": "bar"
+}
+
+queue.push(d)
+```
+
+---
+
+### <a name="queuepop"></a>queue.pop
+
+### Synopsis
+
+```python
+object = await queue.pop()
+```
+
+### Description
+
+Waits for an object to be pushed onto the queue and will return that object.
+
+### Returns
+
+The object that was received.
+
+### Example
+
+```python
+d = await queue.pop()
+```
+
+---
+
+## <a name="asyncproc"></a>Asynchronous processes
+
+For a more detailed example, see [this](https://git.kore.io/kore/file/examples/python-async/src/async_process.py) source file.
+
+* [kill](#prockill)
+* [reap](#procreap)
+* [recv](#procrecv)
+* [send](#procsend)
+* [close\_stdin](#procclosestdin)
+
+---
+
+### <a name="prockill"></a>proc.kill
+
+### Synopsis
+
+```python
+proc.kill()
+```
+
+### Description
+
+Sends an immediate SIGKILL to the process.
+
+### Returns
+
+Nothing
+
+---
+
+### <a name="procreap"></a>proc.reap
+
+### Synopsis
+
+```python
+retcode = proc.reap()
+```
+
+### Description
+
+Reaps the process and captures its exit code as the return value.
+
+### Returns
+
+The process exit code.
+
+---
+
+### <a name="procrecv"></a>proc.recv
+
+### Synopsis
+
+```python
+data = await proc.recv(1024)
+```
+
+### Description
+
+Reads up to **maxlen** bytes from the stdout pipe of the process.
+
+| Parameter | Description |
+| --- | --- |
+| maxlen | Maximum number of bytes to be read. |
+
+### Returns
+
+The bytes read as a byte object or None on EOF.
+
+---
+
+### <a name="procsend"></a>proc.send
+
+### Synopsis
+
+```python
+await proc.send(data)
+```
+
+### Description
+
+Sends the given data to the process its stdin.
+
+| Parameter | Description |
+| --- | --- |
+| data | The data to be sent (as bytes). |
+
+### Returns
+
+Nothing. In case the process closes its stdin before all data is written
+a RuntimeException is thrown.
+
+---
+
+### <a name="procclosestdin"></a>proc.close\_stdin
+
+### Synopsis
+
+```python
+proc.close_stdin()
+```
+
+### Description
+
+Closes the write pipe to the process, making the process see EOF on stdin.
+
+### Returns
+
+Nothing.
 
 ---
