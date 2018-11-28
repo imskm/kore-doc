@@ -5,7 +5,7 @@ Its primary goals are security, scalability and allowing rapid development and d
 
 Because of this Kore is an ideal candidate for building robust, scalable and secure web things.
 
-This Gitbook documentation is for the 3.0.0 release.
+This Gitbook documentation is for the 3.2.0 release.
 
 # Features
 
@@ -17,10 +17,10 @@ This Gitbook documentation is for the 3.0.0 release.
 * Built-in parameter validation.
 * Fully privilege separated by default.
 * Optional asynchronous PostgreSQL support.
-* Optional support for page handlers in Python.
 * Private keys isolated in separate process \(RSA and ECDSA\).
 * Default sane TLS ciphersuites \(PFS in all major browsers\).
 * Modules can be reloaded on-the-fly, even while serving content.
+* Optional support for page handlers in Python with async/await support.
 * Event driven \(epoll/kqueue\) architecture with per CPU worker processes.
 * Build your web application as a precompiled dynamic library or single binary.
 
