@@ -4,30 +4,6 @@ Kore provides a flexible way of building your applications through the **conf/bu
 
 This file contains build flavors that dictate CFLAGS and LDFLAGS.
 
-The **kodev** tool will pickup the following environment variables if set:
-
-**CFLAGS**
-> Any additional compiler flags.
-
-**LDFLAGS**
-> Any additional linker flags.
-
-**KORE_PREFIX**
-> The prefix where kore was installed.
-
-**KORE_SOURCE**
-> Path where to find kore source, overrides **kore_source** from build.conf.
-
-**KORE_FLAVOR**
-> Flavor to use, overrides **kore_flavor** from build.conf.
-
-**KORE_OBJDIR**
-> The directory where the .o files will be placed.
-
-**KODEV_OUTPUT**
-> The directory where the resulting binary is placed.
-
-
 Flavors can be switched using the **flavor** command:
 
 ```

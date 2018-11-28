@@ -72,3 +72,30 @@ $
 
 See the [Running](/applications/running.md) section on how to start your Kore application in the background for production purposes.
 
+### Environment Variables
+
+The **kodev** tool will pickup the following environment variables if set:
+
+**CFLAGS**
+> Any additional compiler flags.
+
+**LDFLAGS**
+> Any additional linker flags.
+
+**KORE_PREFIX**
+> The prefix where kore was installed.
+
+**KORE_SOURCE**
+> Path where to find kore source, overrides **kore_source** from build.conf.
+
+**KORE_FLAVOR**
+> Flavor to use, overrides **kore_flavor** from build.conf.
+
+**KORE_OBJDIR**
+> The directory where the .o files will be placed.
+
+**KODEV_OUTPUT**
+> The directory where the resulting binary is placed.
+
+
+
