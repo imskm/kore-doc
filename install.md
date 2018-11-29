@@ -11,12 +11,12 @@ Kore has been tested to run on the following platforms:
 
 Basic compilation requires the following libraries:
 
-* OpenSSL 1.0.2 or 1.1.0 / LibreSSL
+* OpenSSL 1.1.0, 1.1.1 / LibreSSL
 
-Get the 3.0.0 release tarball and signature from [https://kore.io/releases/3.0.0](https://kore.io/releases/3.0.0) and verify it using minisign:
+Get the 3.2.0 release tarball and signature from [https://kore.io/releases/3.2.0](https://kore.io/releases/3.2.0) and verify it using minisign:
 
 ```
-minisign -Vm kore-3.0.0.tgz -P RWSxkEDc2y+whfKTmvhqs/YaFmEwblmvar7l6RXMjnu6o9tZW3LC0Hc9
+minisign -Vm kore-3.2.0.tgz -P RWSxkEDc2y+whfKTmvhqs/YaFmEwblmvar7l6RXMjnu6o9tZW3LC0Hc9
 ```
 
 If verification is successful, build it. Do not build distributions that
