@@ -769,6 +769,8 @@ Kore currently supports:
   * [Processes](#asyncproc)
   * [Gathering](#asyncgather)
 
+For example code covering all asynchronous features, please see the
+[python-async](https://github.com/jorisvink/kore/tree/master/examples/python-async) example.
 
 ## <a name="asyncsocket"></a>Asynchronous sockets
 
