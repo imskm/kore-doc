@@ -64,7 +64,7 @@ this worker process.
     * [websocket\_handshake](#websockethandshake)
 
 
-* [Asynchronous functions](#koreasync)
+* [Asynchronous functions](#async)
 
 
 # <a name="koremodule"></a>Kore
@@ -756,7 +756,7 @@ def ws_connect(req):
 ---
 
 
-# <a name="koreasync"></a>Async/await
+# <a name="async"></a>Async/await
 
 Kore exposes several functions that can be awaited upon allowing you to
 write concurrent page handlers without any callbacks.
@@ -1029,6 +1029,8 @@ d = await queue.pop()
 ## <a name="asyncproc"></a>Asynchronous processes
 
 For a more detailed example, see [this](https://git.kore.io/kore/file/examples/python-async/src/async_process.py) source file.
+
+Or see the [kore.proc](https://docs.kore.io/3.2.0/api/python.html#proc) description.
 
 * [kill](#prockill)
 * [reap](#procreap)
