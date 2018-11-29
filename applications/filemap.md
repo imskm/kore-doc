@@ -11,7 +11,7 @@ domain kore.io {
 }
 ```
 
-Where the first argument is the URI root and the second is the on-disk
+The first argument is the URI root and the second is the on-disk
 path where the files will be served from.
 
 Thus from the example above the URL /3.2.0/index.html will be served from
