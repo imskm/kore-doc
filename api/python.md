@@ -1020,7 +1020,7 @@ sock.close()
 
 ---
 
-### sock.close {##socketclose}
+### sock.close {#socketclose}
 
 ### Synopsis
 
