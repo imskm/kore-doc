@@ -64,7 +64,7 @@ this worker process.
     * [websocket\_handshake](#websockethandshake)
 
 
-* [Asynchronous functions](#async)
+* [Asynchronous functions](#koreasync)
 
 
 # <a name="koremodule"></a>Kore
@@ -756,7 +756,7 @@ def ws_connect(req):
 ---
 
 
-# <a name="async"></a>Async/await
+# <a name="koreasync"></a>Async/await
 
 Kore exposes several functions that can be awaited upon allowing you to
 write concurrent page handlers without any callbacks.
