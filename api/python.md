@@ -1020,6 +1020,25 @@ sock.close()
 
 ---
 
+### sock.close {##socketclose}
+
+### Synopsis
+
+```python
+sock.close()
+```
+
+### Description
+
+Closes the underlying socket. If the socket was created from an
+underlying Python socket, it is not closed.
+
+### Returns
+
+Nothing.
+
+---
+
 ## Locks {#asynclock}
 
 Kore provides a locking mechanism where multiple coroutines can wait
