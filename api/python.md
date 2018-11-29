@@ -42,6 +42,8 @@ this worker process.
     * [proc](#proc)
     * [fatal](#fatal)
     * [tracer](#tracer)
+    * [task\_create](#taskcreate)
+    * [gather](#gather)
     * [register\_database](#registerdatabase)
     * [websocket\_broadcast](#websocketbroadcast)
 
@@ -65,6 +67,10 @@ this worker process.
 
 
 * [Asynchronous functions](#async)
+  * [Sockets](#asyncsocket)
+  * [Locks](#asynclock)
+  * [Queues](#asyncqueue)
+  * [Processes](#asyncproc)
 
 
 # Kore {#koremodule}
@@ -277,6 +283,89 @@ def kore_parent_configure(args):
 ```
 
 ---
+
+# task\_create {#taskcreate}
+
+### Synopsis
+
+```python
+kore.task_create(method)
+```
+
+### Description
+
+Creates a new task that will run the given method.
+
+There is no way to obtain the result from a task, it will run until
+it returns from the parent function.
+
+| Parameter | Description |
+| --- | --- |
+| method | The method to call from the new task. |
+
+### Returns
+
+Nothing
+
+### Example
+
+```python
+import kore
+
+def coro(id):
+	print("i am coro %d" % id)
+
+def kore_worker_configure():
+	kore.task_create(coro(1))
+	kore.task_create(coro(2))
+```
+
+---
+
+# gather {#gather}
+
+### Synopsis
+
+```python
+kore.gather(coroutines)
+```
+
+### Description
+
+Awaits all given coroutines and returns their result in a list.
+
+If a coroutine throws an exception that exception is returned as the
+result for that coroutine.
+
+| Parameter | Description |
+| --- | --- |
+| coroutines | The coroutines to wait for. |
+
+### Returns
+
+Nothing
+
+### Example
+
+```python
+import kore
+
+def coro(id):
+	print("i am coro %d" % id)
+
+async def request(req):
+	results = kore.gather(coro(1), coro(2))
+
+	for result in results:
+		if isinstance(result, Exception):
+			raise result
+		print("result is %s" % result)
+
+	req.response(200, b'')
+```
+
+---
+
 
 # websocket\_broadcast {#websocketbroadcast}
 
@@ -763,14 +852,15 @@ write concurrent page handlers without any callbacks.
 
 Kore currently supports:
 
-  * [Asynchronous socket i/o](#asyncsocket)
+  * [Sockets](#asyncsocket)
   * [Locks](#asynclock)
   * [Queues](#asyncqueue)
   * [Processes](#asyncproc)
-  * [Gathering](#asyncgather)
 
 For example code covering all asynchronous features, please see the
 [python-async](https://github.com/jorisvink/kore/tree/master/examples/python-async) example.
+
+You may choose to create new coroutines using <a href="#taskcreate">task_create</a> or await several coroutines using <a href="#gather">gather</a>.
 
 ## Asynchronous sockets {#asyncsocket}
 
