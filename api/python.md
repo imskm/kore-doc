@@ -67,9 +67,9 @@ this worker process.
 * [Asynchronous functions](#async)
 
 
-# <a name="koremodule"></a>Kore
+# Kore {#koremodule}
 
-## <a name="koremoduleconstants"></a>Constants
+## Constants {#koremoduleconstants}
 
 The kore module exports some constants that can be used by the Python code.
 
@@ -86,11 +86,11 @@ The kore module exports some constants that can be used by the Python code.
 * CONN\_PROTO\_WEBSOCKET
 * CONN\_STATE\_ESTABLISHED
 
-## <a name="koremodulefunctions"></a>Functions
+## Functions {#koremodulefunctions}
 
 ---
 
-# <a name="log"></a>log
+# log {#log}
 
 ### Synopsis
 
@@ -119,7 +119,7 @@ kore.log(kore.LOG_INFO, 'this is a log string from a worker process')
 
 ---
 
-# <a name="timer"></a>timer
+# timer {#timer}
 
 ### Synopsis
 
@@ -163,7 +163,7 @@ mytimer.close()
 
 ---
 
-# <a name="proc"></a>proc
+# proc {#proc}
 
 ### Synopsis
 
@@ -211,7 +211,7 @@ async def request(req):
 
 ---
 
-# <a name="fatal"></a>fatal
+# fatal {#fatal}
 
 ### Synopsis
 
@@ -239,7 +239,7 @@ kore.fatal('worker going dead')
 
 ---
 
-# <a name="tracer"></a>tracer
+# tracer {#tracer}
 
 ### Synopsis
 
@@ -278,7 +278,7 @@ def kore_parent_configure(args):
 
 ---
 
-# <a name="websocketbroadcast"></a>websocket\_broadcast
+# websocket\_broadcast {#websocketbroadcast}
 
 ### Synopsis
 
@@ -310,7 +310,7 @@ def onmessage(c, op, data):
 
 ---
 
-# <a name="registerdatabase"></a>register\_database
+# register\_database {#registerdatabase}
 
 ### Synopsis
 
@@ -341,12 +341,12 @@ kore.register_database("db", "host=/tmp dbname=hello")
 ---
 
 
-# <a name="httpmodule"></a>HTTP
+# HTTP {#httpmodule}
 
 Like the C API Kore will pass an http\_request data structure to your
 Python page handler. This data structure is of type **kore.http\_request**.
 
-## <a name="httpmoduleconstants"></a>Constants
+## Constants {#httpmoduleconstants}
 
 * HTTP\_METHOD\_GET
 * HTTP\_METHOD\_PUT
@@ -356,7 +356,7 @@ Python page handler. This data structure is of type **kore.http\_request**.
 * HTTP\_METHOD\_OPTIONS
 * HTTP\_METHOD\_PATCH
 
-## <a name="httpmodulegetters"></a>Getters
+## Getters {#httpmodulegetters}
 
 * host - The domain as a unicode string.
 * agent - The user agent as a unicode string.
@@ -366,11 +366,11 @@ Python page handler. This data structure is of type **kore.http\_request**.
 * body\_path - The path to the HTTP body on disk (if enabled).
 * connection - The underlying client connection as a **kore.connection** object.
 
-## <a name="httpmodulefunctions"></a>Functions
+## Functions {#httpmodulefunctions}
 
 ---
 
-# <a name="pgsql"></a>pgsql
+# pgsql {#pgsql}
 
 ### Synopsis
 
@@ -401,7 +401,7 @@ async def myquery(req):
 
 ---
 
-# <a name="cookie"></a>cookie
+# cookie {#cookie}
 
 ### Synopsis
 
@@ -432,7 +432,7 @@ def handler(req):
 
 ---
 
-# <a name="response"></a>response
+# response {#response}
 
 ### Synopsis
 
@@ -462,7 +462,7 @@ def handler(req):
 
 ---
 
-# <a name="argument"></a>argument
+# argument {#argument}
 
 ### Synopsis
 
@@ -494,7 +494,7 @@ def handler(req):
 
 ---
 
-# <a name="bodyread"></a>body\_read
+# body\_read {#bodyread}
 
 ### Synopsis
 
@@ -532,7 +532,7 @@ def handler(req):
 
 ---
 
-# <a name="filelookup"></a>file\_lookup
+# file\_lookup {#filelookup}
 
 ### Synopsis
 
@@ -569,7 +569,7 @@ def handler(req):
 
 ---
 
-# <a name="populateget"></a>populate\_get
+# populate\_get {#populateget}
 
 ### Synopsis
 
@@ -588,7 +588,7 @@ Nothing
 
 ---
 
-# <a name="populatepost"></a>populate\_post
+# populate\_post {#populatepost}
 
 ### Synopsis
 
@@ -608,7 +608,7 @@ Nothing
 
 ---
 
-# <a name="populatemultipart"></a>populate\_multipart
+# populate\_multipart {#populatemultipart}
 
 ### Synopsis
 
@@ -628,7 +628,7 @@ Nothing
 
 ---
 
-# <a name="populatecookies"></a>populate\_cookies
+# populate\_cookies {#populatecookies}
 
 ### Synopsis
 
@@ -646,7 +646,7 @@ Nothing
 
 ---
 
-# <a name="requestheader"></a>request\_header
+# request\_header {#requestheader}
 
 ### Synopsis
 
@@ -679,7 +679,7 @@ def myhandler(req):
 
 ---
 
-# <a name="responseheader"></a>response\_header
+# response\_header {#responseheader}
 
 ### Synopsis
 
@@ -713,7 +713,7 @@ def myhandler(req):
 
 ---
 
-# <a name="websockethandshake"></a>websocket\_handshake
+# websocket\_handshake {#websockethandshake}
 
 ### Synopsis
 
@@ -756,7 +756,7 @@ def ws_connect(req):
 ---
 
 
-# <a name="async"></a>Async/await
+# Async/await {#async}
 
 Kore exposes several functions that can be awaited upon allowing you to
 write concurrent page handlers without any callbacks.
@@ -772,7 +772,7 @@ Kore currently supports:
 For example code covering all asynchronous features, please see the
 [python-async](https://github.com/jorisvink/kore/tree/master/examples/python-async) example.
 
-## <a name="asyncsocket"></a>Asynchronous sockets
+## Asynchronous sockets {#asyncsocket}
 
 You can use an existing Python socket object and wrap it inside of a Kore
 socket. When you have a wrapped socket you can connect/accept, send or recv
@@ -809,7 +809,7 @@ async def page(req):
 
 ---
 
-### <a name="socketrecv"></a>sock.recv
+### sock.recv {#socketrecv}
 
 ### Synopsis
 
@@ -841,7 +841,7 @@ else:
 
 ---
 
-### <a name="socketsend"></a>sock.send
+### sock.send {#socketsend}
 
 ### Synopsis
 
@@ -871,7 +871,7 @@ await sock.send("Hello world")
 
 ---
 
-### <a name="socketaccept"></a>sock.accept
+### sock.accept {#socketaccept}
 
 ### Synopsis
 
@@ -897,7 +897,7 @@ conn.close()
 
 ---
 
-### <a name="#socketconnect"></a>sock.connect
+### sock.connect {##socketconnect}
 
 ### Synopsis
 
@@ -930,7 +930,7 @@ sock.close()
 
 ---
 
-## <a name="asynclock"></a>Locks
+## Locks {#asynclock}
 
 Kore provides a locking mechanism where multiple coroutines can wait
 upon a lock in a non-blocking way. This allows synchronization between
@@ -955,7 +955,7 @@ async def request(req):
 
 ---
 
-## <a name="asyncqueue"></a>Queues
+## Queues {#asyncqueue}
 
 Kore provides a queue system that allows objects to be sent back and forth
 between coroutines in a non-blocking fashion.
@@ -967,7 +967,7 @@ The queue is a FIFO queue.
 
 ---
 
-### <a name="queuepush"></a>queue.push
+### queue.push {#queuepush}
 
 ### Synopsis
 
@@ -1002,7 +1002,7 @@ queue.push(d)
 
 ---
 
-### <a name="queuepop"></a>queue.pop
+### queue.pop {#queuepop}
 
 ### Synopsis
 
@@ -1026,7 +1026,7 @@ d = await queue.pop()
 
 ---
 
-## <a name="asyncproc"></a>Asynchronous processes
+## Asynchronous processes {#asyncproc}
 
 For a more detailed example, see [this](https://git.kore.io/kore/file/examples/python-async/src/async_process.py) source file.
 
@@ -1040,7 +1040,7 @@ Or see the [kore.proc](https://docs.kore.io/3.2.0/api/python.html#proc) descript
 
 ---
 
-### <a name="prockill"></a>proc.kill
+### proc.kill {#prockill}
 
 ### Synopsis
 
@@ -1058,7 +1058,7 @@ Nothing
 
 ---
 
-### <a name="procreap"></a>proc.reap
+### proc.reap {#procreap}
 
 ### Synopsis
 
@@ -1076,7 +1076,7 @@ The process exit code.
 
 ---
 
-### <a name="procrecv"></a>proc.recv
+### proc.recv {#procrecv}
 
 ### Synopsis
 
@@ -1098,7 +1098,7 @@ The bytes read as a byte object or None on EOF.
 
 ---
 
-### <a name="procsend"></a>proc.send
+### proc.send {#procsend}
 
 ### Synopsis
 
@@ -1121,7 +1121,7 @@ a RuntimeException is thrown.
 
 ---
 
-### <a name="procclosestdin"></a>proc.close\_stdin
+### proc.close\_stdin {#procclosestdin}
 
 ### Synopsis
 
