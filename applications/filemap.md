@@ -34,7 +34,7 @@ Kore has the following built-in MIME types:
 | css | text/css |
 | html | text/html |
 
-Additional mime types can be added via the configuration option **http\_media\_type**
+Additional MIME types can be added via the **http\_media\_type** configuration option.
 
 ```
 http_media_type [mime type] ext1 ext2 extN
