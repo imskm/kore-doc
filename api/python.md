@@ -41,6 +41,7 @@ this worker process.
     * [timer](#timer)
     * [proc](#proc)
     * [fatal](#fatal)
+    * [tracer](#tracer)
     * [register\_database](#registerdatabase)
     * [websocket\_broadcast](#websocketbroadcast)
 
@@ -234,6 +235,45 @@ Nothing
 
 ```python
 kore.fatal('worker going dead')
+```
+
+---
+
+# <a name="tracer"></a>tracer
+
+### Synopsis
+
+```python
+kore.tracer(method)
+```
+
+### Description
+
+Sets the callback Kore will call for any uncaught exceptions.
+
+The callback will get 3 parameters:
+* The exception type
+* The exception value
+* The traceback
+
+| Parameter | Description |
+| --- | --- |
+| method | The method to call for uncaught exceptions. |
+
+### Returns
+
+Nothing
+
+### Example
+
+```python
+import traceback
+
+def tracer(etype, value, tb):
+	traceback.print_exception(etype, value, tb)
+
+def kore_parent_configure(args):
+	kore.tracer(tracer)
 ```
 
 ---
