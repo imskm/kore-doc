@@ -9,7 +9,7 @@
   * [Running](applications/running.md)
   * [Configuration](applications/koreconf.md)
     * [Routes](applications/routes.md)
-    * [Filemap](applications/filemap.md)
+    * [Filemaps](applications/filemap.md)
 * [API](api/README.md)
   * [Buffers](api/buffers.md)
   * [HTTP](api/http.md)
