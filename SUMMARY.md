@@ -2,7 +2,7 @@
 
 * [Introduction](README.md)
 * [Installation](install.md)
-* [Applications](applications/README.md)
+* [Using Kore](applications/README.md)
   * [Build framework](applications/building.md)
     * [kodev](applications/integrated_tools.md)
     * [build.conf](applications/buildconf_reference.md)
