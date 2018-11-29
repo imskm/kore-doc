@@ -17,7 +17,7 @@ path where the files will be served from.
 Thus from the example above the URL /3.2.0/index.html will be served from
 the file docs\_3\_2\_0/index.html.
 
-Kore has the following builtin mime types:
+Kore has the following built-in MIME types:
 
 | Extension | MIME type|
 | --- | --- |
