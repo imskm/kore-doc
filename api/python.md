@@ -881,7 +881,8 @@ import kore
 import socket
 
 async def page(req):
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM |
+                                         socket.SOCK_NONBLOCK)
 
     # Wrap the socket in a Kore object.
     ksock = kore.socket_wrap(sock)
