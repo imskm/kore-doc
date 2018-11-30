@@ -894,8 +894,8 @@ async def page(req):
     # Read a response.
     response = await ksock.recv(1024)
 
-    # Closes the underlying socket automatically.
     ksock.close()
+    sock.close()
 ```
 
 ---
