@@ -11,6 +11,7 @@
     * [Routes](applications/routes.md)
     * [Filemaps](applications/filemap.md)
 * [API](api/README.md)
+  * [Hooks](api/hooks.md)
   * [Buffers](api/buffers.md)
   * [HTTP](api/http.md)
   * [Pools](api/pools.md)
