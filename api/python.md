@@ -869,7 +869,9 @@ socket. When you have a wrapped socket you can connect/accept, send or recv
 asynchronously.
 
 * [recv](#socketrecv)
+* [recvfrom](#socketrecvfrom)
 * [send](#socketsend)
+* [sendto](#socketsendto)
 * [accept](#socketaccept)
 * [connect](#socketconnect)
 * [close](#socketclose)
@@ -932,6 +934,39 @@ else:
 
 ---
 
+### sock.recvfrom {#socketrecvfrom}
+
+### Synopsis
+
+```python
+address, port, data = await sock.recvfrom(1024)
+```
+
+### Description
+
+Reads up to **maxlen** bytes from the socket while returning the source
+ip and source port.
+
+| Parameter | Description |
+| --- | --- |
+| maxlen | Maximum number of bytes to be read. |
+
+### Returns
+
+A tuple of (adress, port, data) or None on EOF.
+
+### Example
+
+```python
+ip, port, bytes = await sock.recvfrom(1024)
+if bytes is None:
+    printf("eof!")
+else:
+    sock.sendto(ip, port, bytes)
+```
+
+---
+
 ### sock.send {#socketsend}
 
 ### Synopsis
@@ -958,6 +993,38 @@ a RuntimeException is thrown.
 ```python
 # Will return when all bytes are sent.
 await sock.send("Hello world")
+```
+
+---
+
+### sock.sendto {#socketsendto}
+
+### Synopsis
+
+```python
+await sock.sendto(address, port, data)
+```
+
+### Description
+
+Sends the given data over the socket to the specified destination.
+
+| Parameter | Description |
+| --- | --- |
+| address | The destination IP address. |
+| port | The destination port. |
+| data | The data to be sent (as bytes). |
+
+### Returns
+
+Nothing. In case the peer closes the socket before all data is written
+a RuntimeException is thrown.
+
+### Example
+
+```python
+# Will return when all bytes are sent.
+await sock.send("127.0.0.1", "3311", "Hello world")
 ```
 
 ---
