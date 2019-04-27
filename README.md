@@ -1,6 +1,6 @@
 # Kore web framework
 
-Kore is an easy to use web platform for writing scalable web APIs in C.
+Kore is an easy to use web platform for writing scalable web APIs in C and Python.
 Its primary goals are security, scalability and allowing rapid development and deployment of such APIs.
 
 Because of this Kore is an ideal candidate for building robust, scalable and secure web things.
