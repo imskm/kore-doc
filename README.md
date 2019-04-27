@@ -5,7 +5,7 @@ Its primary goals are security, scalability and allowing rapid development and d
 
 Because of this Kore is an ideal candidate for building robust, scalable and secure web things.
 
-This Gitbook documentation is for the 3.2.2 release.
+This Gitbook documentation is for the 3.3.0 release.
 
 # Features
 
