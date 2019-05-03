@@ -44,6 +44,7 @@ this worker process.
     * [tracer](#tracer)
     * [task\_create](#taskcreate)
     * [gather](#gather)
+    * [suspend](#suspend)
     * [register\_database](#registerdatabase)
     * [websocket\_broadcast](#websocketbroadcast)
 
@@ -366,6 +367,37 @@ async def request(req):
 
 ---
 
+# suspend {#suspend}
+
+### Synopsis
+
+```python
+kore.suspend(milliseconds)
+```
+
+### Description
+
+Suspends the current coroutine for the specified amount of milliseconds.
+
+| Parameter | Description |
+| --- | --- |
+| milliseconds | Number of milliseconds to suspend execution for. |
+
+### Returns
+
+Nothing
+
+### Example
+
+```python
+import kore
+
+async def request(req):
+	await kore.suspend(1000)
+	req.response(200, b'')
+```
+
+---
 
 # websocket\_broadcast {#websocketbroadcast}
 
