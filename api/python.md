@@ -957,11 +957,11 @@ The bytes read as a byte object or None on EOF.
 ### Example
 
 ```python
-bytes = await sock.recv(1024)
-if bytes is None:
+data = await sock.recv(1024)
+if data is None:
     printf("eof!")
 else:
-    print("received %s" % bytes)
+    print("received %s" % data)
 ```
 
 ---
@@ -990,11 +990,11 @@ A tuple of (adress, port, data) or None on EOF.
 ### Example
 
 ```python
-ip, port, bytes = await sock.recvfrom(1024)
-if bytes is None:
+ip, port, data = await sock.recvfrom(1024)
+if data is None:
     printf("eof!")
 else:
-    sock.sendto(ip, port, bytes)
+    sock.sendto(ip, port, data)
 ```
 
 ---
