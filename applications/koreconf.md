@@ -63,10 +63,16 @@ There are more options than what is listed below, specifically for validators, a
 **http_header_max** (default: 4096)
 > Maximum size of HTTP headers (in bytes).
 
+**http_header_timeout** (default: 10)
+>  Timeout in seconds for receiving the HTTP headers before the connection is closed.
+
 **http_body_max** (default: 1024000)
 > Maximum size of an HTTP body (in bytes).
 > 
 > If set to 0 disallows requests with a body all together.
+
+**http_body_timeout** (default: 60)
+> Timeout in seconds for receiving the HTTP body in full before the connection is closed with an 408.
 
 **http_body_disk_offload** (default: disabled)
 > Number of bytes after which Kore will use a temporary file to hold the HTTP body instead of holding it in memory.
