@@ -39,6 +39,9 @@ There are more options than what is listed below, specifically for validators, a
 > The number of accepts a worker will do in one go before going up its
 > accept lock to another worker.
 
+**worker_death_policy** (default: restart)
+> Workers are restarted when they unexpectedly exit. Setting this to "terminate" will instead bring down the entire Kore server.
+
 **worker_set_affinity** (default: enabled)
 > Workers bind themselves to a single CPU by default. Turn this off by setting this option to 0.
 
