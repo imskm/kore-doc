@@ -944,11 +944,16 @@ data = await sock.recv(1024)
 
 ### Description
 
-Reads up to **maxlen** bytes from the socket.
+Reads up to **maxlen** bytes from the socket. The optional **timeout** argument
+will throw a TimeoutError exception in case the timeout is hit before data is
+read from the socket. If no timeout argument is specified, the call will wait
+until data is available.
+
 
 | Parameter | Description |
 | --- | --- |
 | maxlen | Maximum number of bytes to be read. |
+| timeout | Optional timeout in milliseconds. |
 
 ### Returns
 
@@ -962,6 +967,12 @@ if data is None:
     printf("eof!")
 else:
     print("received %s" % data)
+
+# Use optional timeout argument
+try:
+    data = await sock.recv(1024, 1000)
+except TimeoutError as e:
+    print("timed out reading (%s)" % e)
 ```
 
 ---
