@@ -30,6 +30,7 @@ $ sudo make install
 
 Kore has several build flavors available:
 
+* CURL=1 \(compiles in asynchronous curl support\)
 * TASKS=1 \(compiles in task support\)
 * PGSQL=1 \(compiles in pgsql support\)
 * DEBUG=1 \(enables use of -d for debug\)
