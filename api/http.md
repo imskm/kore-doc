@@ -29,6 +29,30 @@ Nothing
 
 ---
 
+# http\_response\_header
+
+### Synopsis
+
+```
+void http_response_header(struct http_request *req, const char *header, const char *value)
+```
+
+### Description
+
+Includes HTTP header into response.
+
+| Parameter | Description |
+| --- | --- |
+| req | The HTTP request to respond to. |
+| header | The HTTP header to include in the response. |
+| value | The HTTP header value to include in the response. |
+
+### Returns
+
+Nothing
+
+---
+
 # http\_response\_stream
 
 ### Synopsis
