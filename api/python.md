@@ -795,7 +795,7 @@ def myhandler(req):
 	if xrequest != None:
 		req.response_header("x-response", xrequest)
 
-	req.response(200, b'hello world)
+	req.response(200, b'hello world')
 ```
 
 ---
@@ -829,7 +829,7 @@ def myhandler(req):
 	if xrequest != None:
 		req.response_header("x-response", xrequest)
 
-	req.response(200, b'hello world)
+	req.response(200, b'hello world')
 ```
 
 ---
