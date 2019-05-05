@@ -630,6 +630,8 @@ bytes read and data in a tuple.
 
 A returned length of 0 bytes indicates the end of the HTTP body.
 
+A RuntimeError exception is thrown if the *length* parameter is greater than 1024.
+
 | Parameter | Description |
 | --- | --- |
 | length | The number of bytes to read. |
