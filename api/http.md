@@ -330,6 +330,30 @@ This should be called from a page handler.
 
 ---
 
+# http\_state\_create
+
+### Synopsis
+
+```
+void * http_state_create(struct http_request *req, size_t len, void (*onfree)(struct http_request *))
+```
+
+### Description
+
+Creates an HTTP state machine.
+
+| Parameter | Description |
+| --- | --- |
+| req | The HTTP request. |
+| len | Size of the state context. |
+| onfree | Callback function called when an HTTP request is being free'd. |
+
+### Returns
+
+The state context.
+
+---
+
 # http\_status\_text
 
 ### Synopsis
