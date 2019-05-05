@@ -2,9 +2,38 @@
 
 This page contains all available public functions related to understanding and responding to HTTP requests.
 
+## Shortcuts
+
+* [http\_response](#http_response)
+* [http\_response\_header](#http_response_header)
+* [http\_response\_stream](#http_response_stream)
+* [http\_response\_fileref](#http_response_fileref)
+* [http\_request\_header](#http_request_header)
+* [http\_file\_lookup](#http_file_lookup)
+* [http\_file\_read](#http_file_read)
+* [http\_file\_rewind](#http_file_rewind)
+* [http\_populate\_post](#http_populate_post)
+* [http\_populate\_qs](#http_populate_qs)
+* [http\_populate\_multipart\_form](#http_populate_multipart_form)
+* [http\_body\_read](#http_body_read)
+* [http\_state\_run](#http_state_run)
+* [http\_state\_create](#http_state_create)
+* [http\_status\_text](#http_status_text)
+* [http\_method\_text](#http_method_text)
+* [http\_argument\_get\_string](#http_argument_get_string)
+* [http\_argument\_get\_byte](#http_argument_get_byte)
+* [http\_argument\_get\_int16](#http_argument_get_int16)
+* [http\_argument\_get\_uint16](#http_argument_get_uint16)
+* [http\_argument\_get\_int32](#http_argument_get_int32)
+* [http\_argument\_get\_uint32](#http_argument_get_uint32)
+* [http\_argument\_get\_int64](#http_argument_get_int64)
+* [http\_argument\_get\_uint64](#http_argument_get_uint64)
+* [http\_argument\_get\_float](#http_argument_get_float)
+* [http\_argument\_get\_double](#http_argument_get_double)
+
 ---
 
-# http\_response
+# http\_response {#http_response}
 
 ### Synopsis
 
@@ -29,7 +58,7 @@ Nothing
 
 ---
 
-# http\_response\_header
+# http\_response\_header {#http_response_header}
 
 ### Synopsis
 
@@ -53,7 +82,7 @@ Nothing
 
 ---
 
-# http\_response\_stream
+# http\_response\_stream {#http_response_stream}
 
 ### Synopsis
 
@@ -82,7 +111,7 @@ Nothing
 
 ---
 
-# http\_response\_fileref
+# http\_response\_fileref {#http_response_fileref}
 
 ### Synopsis
 
@@ -108,7 +137,7 @@ Nothing
 
 ---
 
-# http\_request\_header
+# http\_request\_header {#http_request_header}
 
 ### Synopsis
 
@@ -133,7 +162,7 @@ KORE\_RESULT\_ERROR if the header was not present in the request.
 
 ---
 
-# http\_file\_lookup
+# http\_file\_lookup {#http_file_lookup}
 
 ### Synopsis
 
@@ -162,7 +191,7 @@ You must call _http\_populate\_multipart\_form\(\)_ before this function will re
 
 ---
 
-# http\_file\_read
+# http\_file\_read {#http_file_read}
 
 ### Synopsis
 
@@ -186,7 +215,7 @@ Returns the number of bytes successfully read from the file, or 0 on end of file
 
 ---
 
-# http\_file\_rewind
+# http\_file\_rewind {#http_file_rewind}
 
 ### Synopsis
 
@@ -208,7 +237,7 @@ Nothing
 
 ---
 
-# http\_populate\_post
+# http\_populate\_post {#http_populate_post}
 
 ### Synopsis
 
@@ -232,7 +261,7 @@ Nothing
 
 ---
 
-# http\_populate\_qs
+# http\_populate\_qs {#http_populate_qs}
 
 ### Synopsis
 
@@ -254,7 +283,7 @@ Nothing
 
 ---
 
-# http\_populate\_multipart\_form
+# http\_populate\_multipart\_form {#http_populate_multipart_form}
 
 ### Synopsis
 
@@ -276,7 +305,7 @@ Nothing
 
 ---
 
-# http\_body\_read
+# http\_body\_read {#http_body_read}
 
 ### Synopsis
 
@@ -300,7 +329,7 @@ Returns the number of bytes copied or 0 on end of body or -1 on error.
 
 ---
 
-# http\_state\_run
+# http\_state\_run {#http_state_run}
 
 ### Synopsis
 
@@ -330,7 +359,7 @@ This should be called from a page handler.
 
 ---
 
-# http\_state\_create
+# http\_state\_create {#http_state_create}
 
 ### Synopsis
 
@@ -354,7 +383,7 @@ The state context.
 
 ---
 
-# http\_status\_text
+# http\_status\_text {#http_status_text}
 
 ### Synopsis
 
@@ -376,7 +405,7 @@ A pointer to a human readable string for the HTTP status code.
 
 ---
 
-# http\_method\_text
+# http\_method\_text {#http_method_text}
 
 ### Synopsis
 
@@ -398,7 +427,7 @@ A pointer to a human readable string for the HTTP method.
 
 ---
 
-# http\_argument\_get\_string
+# http\_argument\_get\_string {#http_argument_get_string}
 
 ### Synopsis
 
@@ -422,7 +451,7 @@ KORE\_RESULT\_OK if the argument was found or KORE\_RESULT\_ERROR if it was not 
 
 ---
 
-# http\_argument\_get\_byte
+# http\_argument\_get\_byte {#http_argument_get_byte}
 
 ### Synopsis
 
@@ -446,7 +475,7 @@ KORE\_RESULT\_OK if the argument was found or KORE\_RESULT\_ERROR if it was not 
 
 ---
 
-# http\_argument\_get\_int16
+# http\_argument\_get\_int16 {#http_argument_get_int16}
 
 ### Synopsis
 
@@ -470,7 +499,7 @@ KORE\_RESULT\_OK if the argument was found or KORE\_RESULT\_ERROR if it was not 
 
 ---
 
-# http\_argument\_get\_uint16
+# http\_argument\_get\_uint16 {#http_argument_get_uint16}
 
 ### Synopsis
 
@@ -494,7 +523,7 @@ KORE\_RESULT\_OK if the argument was found or KORE\_RESULT\_ERROR if it was not 
 
 ---
 
-# http\_argument\_get\_int32
+# http\_argument\_get\_int32 {#http_argument_get_int32}
 
 ### Synopsis
 
@@ -518,7 +547,7 @@ KORE\_RESULT\_OK if the argument was found or KORE\_RESULT\_ERROR if it was not 
 
 ---
 
-# http\_argument\_get\_uint32
+# http\_argument\_get\_uint32 {#http_argument_get_uint32}
 
 ### Synopsis
 
@@ -542,7 +571,7 @@ KORE\_RESULT\_OK if the argument was found or KORE\_RESULT\_ERROR if it was not 
 
 ---
 
-# http\_argument\_get\_int64
+# http\_argument\_get\_int64 {#http_argument_get_int64}
 
 ### Synopsis
 
@@ -566,7 +595,7 @@ KORE\_RESULT\_OK if the argument was found or KORE\_RESULT\_ERROR if it was not 
 
 ---
 
-# http\_argument\_get\_uint64
+# http\_argument\_get\_uint64 {#http_argument_get_uint64}
 
 ### Synopsis
 
@@ -590,7 +619,7 @@ KORE\_RESULT\_OK if the argument was found or KORE\_RESULT\_ERROR if it was not 
 
 ---
 
-# http\_argument\_get\_float
+# http\_argument\_get\_float {#http_argument_get_float}
 
 ### Synopsis
 
@@ -614,7 +643,7 @@ KORE\_RESULT\_OK if the argument was found or KORE\_RESULT\_ERROR if it was not 
 
 ---
 
-# http\_argument\_get\_double
+# http\_argument\_get\_double {#http_argument_get_double}
 
 ### Synopsis
 
