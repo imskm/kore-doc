@@ -111,3 +111,9 @@ There are more options than what is listed below, specifically for validators, a
 **tls_dhparam** (default: dh2048.pem)
 > The DH parameters to load (**required**)
 
+**curl_recv_max** (default: 2097152)
+> Maximum incoming bytes for a response.
+
+**curl_timeout** (default: 60)
+> Timeout in seconds before a transfer is cancelled.
+
