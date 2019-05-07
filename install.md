@@ -42,6 +42,10 @@ Kore has several build flavors available:
 
 These build flavors can be passed on the command line when building. Note that enabling these flavors may require additional libraries to be present on your system:
 
+Requirements for asynchronous libcurl support \(optional\):
+
+* libcurl
+
 Requirements for background tasks \(optional\)
 
 * pthreads
