@@ -82,6 +82,7 @@ The kore module exports some constants that can be used by the Python code.
 
 * LOG\_INFO
 * LOG\_NOTICE
+* LOG\_ERR
 * RESULT\_OK
 * RESULT\_RETRY
 * RESULT\_ERROR
