@@ -2,7 +2,7 @@
 
 This page contains all available public functions related to understanding and responding to HTTP requests.
 
-## Shortcuts
+## Index
 
 * [http\_response](#http_response)
 * [http\_response\_header](#http_response_header)
