@@ -32,7 +32,7 @@ Note that the Python code is expected to run inside of the Kore worker
 process, the kore module being imported is not available outside of
 this worker process.
 
-## Shortcuts
+## Index
 
 * [Kore module](#koremodule)
   * [constants](#koremoduleconstants)
@@ -45,6 +45,7 @@ this worker process.
     * [task\_create](#taskcreate)
     * [gather](#gather)
     * [suspend](#suspend)
+    * [httpclient](#httpclient)
     * [register\_database](#registerdatabase)
     * [websocket\_broadcast](#websocketbroadcast)
 
@@ -343,6 +344,10 @@ result for that coroutine.
 | --- | --- |
 | coroutines | The coroutines to wait for. |
 
+| Keywords | Description |
+| --- | --- |
+| concurrency | The number of coroutines to run at the same time. |
+
 ### Returns
 
 Nothing
@@ -380,6 +385,8 @@ kore.suspend(milliseconds)
 
 Suspends the current coroutine for the specified amount of milliseconds.
 
+This function must be awaited.
+
 | Parameter | Description |
 | --- | --- |
 | milliseconds | Number of milliseconds to suspend execution for. |
@@ -396,6 +403,75 @@ import kore
 async def request(req):
 	await kore.suspend(1000)
 	req.response(200, b'')
+```
+---
+
+## Asynchronous HTTP client {#httpclient}
+
+The Python API in Kore contains a full asynchronous HTTP client that allows
+you to fire off HTTP requests from your Python code and await their result.
+
+Before you can use the client you must set it up.
+
+```python
+client = kore.httpclient(url, keywords)
+```
+
+| Parameter | Description |
+| --- | --- |
+| url | The URL to send the request to. |
+
+Addiotnally, optional keyword parameters can be specified:
+
+| Keywords | Description |
+| --- | --- |
+| tlscert | A path to an x509 certificate to be used to authenticate this request. |
+| tlskey | A path to the private key to be used to authenticate this request. |
+| tlsverify | Should the peer its x509 certificate be verified (default: True). |
+| cabundle | A path to a PEM bundle containing the CAs you would like to use to verify the peer. |
+| unix | Use this unix socket path instead (On Linux if prefixed with '@' this becomes an abstract socket path. |
+
+Kore internally will re-use connections to the same hosts if they are
+available, as a developer you can go ahead and create multiple httpclient
+objects to the same host, they will all share underlying connections.
+
+Once the httpclient object is created you can call any of the following
+functions on it to perform the requested action (these calls return a coroutine and must be awaited):
+
+* get
+* put
+* post
+* head
+* patch
+* delete
+* options
+
+| Keywords | Description |
+| --- | --- |
+| body | For put, post and patch, add the given bytes as the HTTP body. |
+| headers | A dictionary containing the headers to be added to the request. |
+| return\_headers | Set to True to return the headers as well (default: False). |
+
+Unless the return\_headers keyword is True, these functions return a tuple
+containing the status and HTTP body. If return\_headers is True, the tuple
+returned will be status, headers, HTTP body.
+
+### Example
+
+```python
+client = kore.httpclient("https://kore.io")
+
+# Do a normal GET request.
+status, body = await client.get()
+
+# Do a POST.
+mybody = "Hello world"
+status, body = await client.post(
+	body=mybody.encode("utf-8"),
+	headers={
+		"x-header": "from-client"
+	}
+)
 ```
 
 ---
@@ -1361,3 +1437,4 @@ Closes the write pipe to the process, making the process see EOF on stdin.
 Nothing.
 
 ---
+
