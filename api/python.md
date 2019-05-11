@@ -472,6 +472,9 @@ status, body = await client.post(
 		"x-header": "from-client"
 	}
 )
+
+# Get the headers from a GET request.
+status, headers, body = await client.get(return_headers=True)
 ```
 
 ---

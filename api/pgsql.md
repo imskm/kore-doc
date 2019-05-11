@@ -131,7 +131,7 @@ KORE\_RESULT\_OK or KORE\_RESULT\_ERROR.
 ### Synopsis
 
 ```
-int kore_pgsql_query(struct kore_pgsql *pgsql, const char *query, int result, int count, ...)
+int kore_pgsql_query_params(struct kore_pgsql *pgsql, const char *query, int result, int count, ...)
 ```
 
 ### Description
@@ -336,5 +336,25 @@ A pointer to the data. This should not be freed by the caller.
 
 ---
 
+# kore\_pgsql\_column\_binary
 
+### Synopsis
 
+```
+int kore_pgsql_column_binary(struct kore_pgsql *pgsql, int col)
+```
+
+### Description
+
+Test if the given column contains binary or text data.
+
+| Parameter | Description |
+| --- | --- |
+| pgsql | The pgsql data structure. |
+| col | The column number. |
+
+### Returns
+
+Returns 1 if the column contains binary data or 0 if text.
+
+---
