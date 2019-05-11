@@ -18,6 +18,8 @@ This page contains all available public functions related to understanding and r
 * [http\_body\_read](#http_body_read)
 * [http\_state\_run](#http_state_run)
 * [http\_state\_create](#http_state_create)
+* [http\_state\_get](#http_state_get)
+* [http\_state\_cleanup](#http_state_cleanup)
 * [http\_status\_text](#http_status_text)
 * [http\_method\_text](#http_method_text)
 * [http\_argument\_get\_string](#http_argument_get_string)
@@ -364,12 +366,13 @@ This should be called from a page handler.
 ### Synopsis
 
 ```
-void * http_state_create(struct http_request *req, size_t len, void (*onfree)(struct http_request *))
+void *http_state_create(struct http_request *req, size_t len, void (*onfree)(struct http_request *))
 ```
 
 ### Description
 
-Creates an HTTP state machine.
+Allocates a state attached to the HTTP request that the user can use to
+store temporary data for the request.
 
 | Parameter | Description |
 | --- | --- |
@@ -380,6 +383,50 @@ Creates an HTTP state machine.
 ### Returns
 
 The state context.
+
+---
+
+# http\_state\_get {#http_state_get}
+
+### Synopsis
+
+```
+void *http_state_get(struct http_request *req)
+```
+
+### Description
+
+Get the user-defined state attached to the HTTP request.
+
+| Parameter | Description |
+| --- | --- |
+| req | The HTTP request. |
+
+### Returns
+
+The state context or NULL if none was set.
+
+---
+
+# http\_state\_cleanup {#http_state_cleanup}
+
+### Synopsis
+
+```
+void http_state_cleanup(struct http_request *req)
+```
+
+### Description
+
+Free the previously allocated user-defined state attached to the HTTP request.
+
+| Parameter | Description |
+| --- | --- |
+| req | The HTTP request. |
+
+### Returns
+
+Nothing
 
 ---
 
