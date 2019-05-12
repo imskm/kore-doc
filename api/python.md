@@ -576,27 +576,35 @@ Python page handler. This data structure is of type **kore.http\_request**.
 ### Synopsis
 
 ```python
-result = await req.pgsql(db, query)
+result = await req.pgsql(db, query, params=[v1, v2, ...])
 ```
 
 ### Description
 
-Performs an asynchronous PostgreSQL query.
+Performs an asynchronous PostgreSQL query. The query should be a parameterized
+and the arguments for each parameter are passed via the **params** keyword.
 
 | Parameter | Description |
 | --- | --- |
 | db | A previously configured database name. |
 | query | The query to be performed. |
+| params | A list of strings or byte object arguments. |
 
 ### Returns
 
-The result of the query as a dictionary.
+The result of the query as a dictionary where each key is the column name
+and the matching value for that column.
+
+If the returned data for a column was binary the returned value will be
+of the **bytes** type, otherwise the returned value will be a python string.
 
 ### Example
 
 ```python
 async def myquery(req):
-	result = await req.pgsql("db", "SELECT * FROM pg_delay(10)")
+	name = "bar"
+	result = await req.pgsql("db",
+		"SELECT * FROM table WHERE foo = $1", params=[name])
 	req.response(200, json.dumps(result).encode("utf-8"))
 ```
 
