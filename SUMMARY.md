@@ -13,6 +13,7 @@
 * [API](api/README.md)
   * [Hooks](api/hooks.md)
   * [Buffers](api/buffers.md)
+  * [Curl](api/curl.md)
   * [HTTP](api/http.md)
   * [Pools](api/pools.md)
   * [Memory](api/memory.md)
