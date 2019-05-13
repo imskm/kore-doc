@@ -27,12 +27,21 @@ Kore must be built with CURL=1 in order to use this API.
 
 See the included [example](https://github.com/jorisvink/kore/tree/master/examples/async-curl) in the Kore source tree for an implementation of this API.
 
-## The CURL handle
+## The data structure
 
-Once a kore\_curl context has been initialized with kore\_curl\_init() you
+The kore\_curl data structure contains the CURL easy handle, some information
+about HTTP call results and book-keeping information.
+
+Once a kore\_curl context has been initialized with [kore\_curl\_init()](#init) you
 may access the **handle** member to configure libcurl yourself if you
 would like modify certain libcurl options yourself. See [settings](#settings)
 for an overview of which libcurl options are set by the API itself.
+
+### HTTP request status
+
+You may be interested in the status code for an HTTP client request. This is
+found under the http.status member of the data structure once a call was
+made.
 
 ---
 
@@ -224,7 +233,7 @@ A pointer to the response as a C string.
 void kore_curl_http_setup(struct kore_curl *client, int method, const void *data, size_t len);
 ```
 ### Description
-Setup an HTTP client request. You must have called kore\_curl\_init() first.
+Setup an HTTP client request. You must have called [kore\_curl\_init()](#init) first.
 
 | Parameter | Description |
 | -- | -- |
@@ -277,7 +286,7 @@ Nothing
 int kore_curl_http_get_header(struct kore_curl *client, const char *header. const char **out);
 ```
 ### Description
-Obtain an HTTP header from the response (if kore\_curl\_success() was 1).
+Obtain an HTTP header from the response (if [kore\_curl\_success()](#success) was 1).
 
 | Parameter | Description |
 | -- | -- |
