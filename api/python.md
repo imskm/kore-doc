@@ -209,7 +209,7 @@ async def request(req):
 	proc = kore.proc("ls -l /tmp")
 
 	try:
-		stdout = proc.recv(8192)
+		stdout = await proc.recv(8192)
 		retcode = proc.reap()
 		req.response(200, stdout)
 	except TimeoutError:
@@ -315,7 +315,7 @@ Nothing
 ```python
 import kore
 
-def coro(id):
+async def coro(id):
 	print("i am coro %d" % id)
 
 def kore_worker_configure():
@@ -357,11 +357,11 @@ Nothing
 ```python
 import kore
 
-def coro(id):
+async def coro(id):
 	print("i am coro %d" % id)
 
 async def request(req):
-	results = kore.gather(coro(1), coro(2))
+	results = await kore.gather(coro(1), coro(2))
 
 	for result in results:
 		if isinstance(result, Exception):
@@ -1072,13 +1072,13 @@ except TimeoutError as e:
 ### Synopsis
 
 ```python
-address, port, data = await sock.recvfrom(1024)
+tuple = await sock.recvfrom(1024)
 ```
 
 ### Description
 
 Reads up to **maxlen** bytes from the socket while returning the source
-ip and source port.
+and data.
 
 | Parameter | Description |
 | --- | --- |
@@ -1086,7 +1086,10 @@ ip and source port.
 
 ### Returns
 
-A tuple of (adress, port, data) or None on EOF.
+A tuple of (adress, port, data) for AF\_INET,
+A tuple of (address, data) for AF\_UNIX.
+
+None on EOF.
 
 ### Example
 
@@ -1095,7 +1098,7 @@ ip, port, data = await sock.recvfrom(1024)
 if data is None:
     printf("eof!")
 else:
-    sock.sendto(ip, port, data)
+    await sock.sendto(ip, port, data)
 ```
 
 ---
@@ -1142,10 +1145,19 @@ await sock.sendto(address, port, data)
 
 Sends the given data over the socket to the specified destination.
 
+for AF\_INET:
+
 | Parameter | Description |
 | --- | --- |
 | address | The destination IP address. |
 | port | The destination port. |
+| data | The data to be sent (as bytes). |
+
+For AF\_UNIX:
+
+| Parameter | Description |
+| --- | --- |
+| address | The destination address path. |
 | data | The data to be sent (as bytes). |
 
 ### Returns
@@ -1156,8 +1168,11 @@ a RuntimeException is thrown.
 ### Example
 
 ```python
-# Will return when all bytes are sent.
-await sock.send("127.0.0.1", "3311", "Hello world")
+# AF_INET, will return when all bytes are sent.
+await sock.sendto("127.0.0.1", "3311", "Hello world")
+
+# AF_UNIX, will return when all bytes are sent.
+await sock.sendto("/tmp/service.sock", "Hello world")
 ```
 
 ---
@@ -1274,6 +1289,7 @@ The queue is a FIFO queue.
 
 * [push](#queuepush)
 * [pop](#queuepop)
+* [popnow](#queuepopnow)
 
 ---
 
@@ -1332,6 +1348,32 @@ The object that was received.
 
 ```python
 d = await queue.pop()
+```
+
+---
+
+### queue.popnow {#queuepopnow}
+
+### Synopsis
+
+```python
+object = queue.popnow()
+```
+
+### Description
+
+Attempts to pop an object from a queue immediately.
+
+### Returns
+
+A popped object from the queue or None if the queue was empty.
+
+### Example
+
+```python
+d = queue.popnow()
+if not d:
+	continue
 ```
 
 ---
