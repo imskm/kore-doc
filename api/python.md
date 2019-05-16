@@ -413,6 +413,8 @@ you to fire off HTTP requests from your Python code and await their result.
 
 Before you can use the client you must set it up.
 
+**note** Kore must be built with CURL=1 for the httpclient to be included.
+
 ```python
 client = kore.httpclient(url, keywords)
 ```
