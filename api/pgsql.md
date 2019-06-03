@@ -126,7 +126,7 @@ KORE\_RESULT\_OK or KORE\_RESULT\_ERROR.
 
 ---
 
-# kore\_pgsql\_query\_params
+# kore\_pgsql\_query\_params {#kore_pgsql_query_params}
 
 ### Synopsis
 
