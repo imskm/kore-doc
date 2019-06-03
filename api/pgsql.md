@@ -152,6 +152,18 @@ The `format` argument may be 0 (`value` is a null-terminated string) or 1 (`valu
 
 KORE\_RESULT\_OK or KORE\_RESULT\_ERROR.
 
+### Macros
+
+Passing arguments in a pair of 3 is hard to remember, so Kore provides a few
+useful macros to make your life easier:
+
+* KORE\_PGSQL\_PARAM\_TEXT(data)
+* KORE\_PGSQL\_PARAM\_BINARY(data, len)
+* KORE\_PGSQL\_PARAM\_TEXT\_LEN(data, len)
+
+The above macros automatically expand to the correct 3-pair values required
+by the kore\_pgsql\_query\_params() function.
+
 ---
 
 # kore\_pgsql\_register

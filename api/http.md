@@ -32,6 +32,9 @@ This page contains all available public functions related to understanding and r
 * [http\_argument\_get\_uint64](#http_argument_get_uint64)
 * [http\_argument\_get\_float](#http_argument_get_float)
 * [http\_argument\_get\_double](#http_argument_get_double)
+* [http\_runlock\_init](#http_runlock_init)
+* [http\_runlock\_acquire](#http_runlock_acquire)
+* [http\_runlock\_release](#http_runlock_release)
 
 ---
 
@@ -711,6 +714,79 @@ Lookup an argument as a double. This function will check that the result fits in
 ### Returns
 
 KORE\_RESULT\_OK if the argument was found or KORE\_RESULT\_ERROR if it was not found.
+
+---
+
+# http\_runlock\_init {#http_runlock_init}
+
+### Synopsis
+
+```
+void http_runlock_init(struct http_runlock *lock)
+```
+
+### Description
+
+Initializes a runlock for use later.
+
+| Parameter | Description |
+| --- | --- |
+| lock | The HTTP runlock to initialize. |
+
+### Returns
+
+Nothing
+
+---
+
+# http\_runlock\_acquire {#http_runlock_acquire}
+
+### Synopsis
+
+```
+int http_runlock_acquire(struct http_runlock *lock, struct http_request *req)
+```
+
+### Description
+
+Attempts to acquire a runlock. If the runlock is busy the **req** request
+is put to sleep.
+
+| Parameter | Description |
+| --- | --- |
+| lock | The HTTP runlock. |
+| req | The HTTP request that wants the lock. |
+
+### Returns
+
+Returns KORE\_RESULT\_OK if the runlock was acquired or KORE\_RESULT\_ERROR
+if the runlock was busy. If the runlock was busy the HTTP request is
+automatically put to sleep and the calling handler should return
+KORE\_RESULT\_RETRY accordingly.
+
+---
+
+# http\_runlock\_release {#http_runlock_release}
+
+### Synopsis
+
+```
+void http_runlock_release(struct http_runlock *lock, struct http_request *req)
+```
+
+### Description
+
+Releases the runlock held by the given **req** request. If the holder of
+the lock mismatches the request given the worker will fatal().
+
+| Parameter | Description |
+| --- | --- |
+| lock | The HTTP runlock. |
+| req | The HTTP request that held the lock. |
+
+### Returns
+
+Nothing
 
 ---
 

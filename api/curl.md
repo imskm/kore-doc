@@ -17,6 +17,7 @@ Kore must be built with CURL=1 in order to use this API.
 * [kore\_curl\_run](#run)
 * [kore\_curl\_success](#success)
 * [kore\_curl\_logerror](#logerror)
+* [kore\_curl\_strerror](#strerror)
 * [kore\_curl\_response\_as\_bytes](#responsebytes)
 * [kore\_curl\_response\_as\_string](#responsestring)
 * [kore\_curl\_http\_setup](#httpsetup)
@@ -186,6 +187,22 @@ Log a notice with the error that the curl handle has returned.
 
 ### Returns
 Nothing
+
+---
+# kore\_curl\_strerror {#strerror}
+### Synopsis
+```
+const char *kore_curl_strerror(struct kore_task *client)
+```
+### Description
+Returns a pointer to a human readable error string set by libcurl.
+
+| Parameter | Description |
+| -- | -- |
+| client | A kore\_curl data structure. |
+
+### Returns
+A pointer to a human readable error string.
 
 ---
 
