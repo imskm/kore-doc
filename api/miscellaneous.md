@@ -110,7 +110,7 @@ The number of components.
 void kore_strip_chars(char *in, const char strip, char **out)
 ```
 ### Description
-Safely strip all occurences of a certain character from a C string. The result must be freed by the caller.
+Safely strip all occurrences of a certain character from a C string. The result must be freed by the caller.
 
 | Parameter | Description |
 | -- | -- |

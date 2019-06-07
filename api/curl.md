@@ -163,7 +163,7 @@ Nothing
 int kore_curl_success(struct kore_curl *client)
 ```
 ### Description
-Check if a curl request was successfull (checks if the curl handle is CURLE\_OK).
+Check if a curl request was successful (checks if the curl handle is CURLE\_OK).
 
 | Parameter | Description |
 | -- | -- |

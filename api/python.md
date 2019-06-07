@@ -1088,7 +1088,7 @@ and data.
 
 ### Returns
 
-A tuple of (adress, port, data) for AF\_INET,
+A tuple of (address, port, data) for AF\_INET,
 A tuple of (address, data) for AF\_UNIX.
 
 None on EOF.

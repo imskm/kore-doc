@@ -17,7 +17,7 @@ You can skip chroot\(\) and privdrops using -n and -r.
 
 ### Random
 
-**Important** If you are running Kore chrooted and privilege seperated (which
+**Important** If you are running Kore chrooted and privilege separated (which
 you **should** be doing production), Kore will require /dev/urandom to be
 created under the chroot environment for both the keymgr and worker processes.
 
