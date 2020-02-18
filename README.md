@@ -5,7 +5,7 @@ Its primary goals are security, scalability and allowing rapid development and d
 
 Because of this Kore is an ideal candidate for building robust, scalable and secure web things.
 
-This documentation is for the 3.3.1 release.
+This documentation is for the 4.0.0 release.
 
 # Features
 
