@@ -52,5 +52,5 @@ kore_source = /path/to/kore/source/
 kore_flavor = <flavors..>
 ```
 
-This will cause _kore build_ to build the original Kore source code and link your application logic directly into it. It will also add in the configuration file and of course any assets that are under the **assets** directory. The result is a single dynamically linked binary that can be run.
+This will cause _kodev build_ to build the original Kore source code and link your application logic directly into it. It will also add in the configuration file and of course any assets that are under the **assets** directory. The result is a single dynamically linked binary that can be run.
 

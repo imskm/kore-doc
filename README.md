@@ -15,11 +15,13 @@ This documentation is for the 4.0.0 release.
 * TLS enabled by default.
 * Optional background tasks.
 * Built-in parameter validation.
+* Automatic HTTPS (via ACME protocol).
 * Fully privilege separated by default.
 * Optional asynchronous PostgreSQL support.
 * Private keys isolated in separate process \(RSA and ECDSA\).
 * Default sane TLS ciphersuites \(PFS in all major browsers\).
 * Modules can be reloaded on-the-fly, even while serving content.
+* Worker processes sandboxed on OpenBSD (pledge) and Linux (seccomp).
 * Optional support for page handlers in Python with async/await support.
 * Event driven \(epoll/kqueue\) architecture with per CPU worker processes.
 * Build your web application as a precompiled dynamic library or single binary.

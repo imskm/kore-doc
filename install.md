@@ -16,7 +16,10 @@ Basic compilation requires the following libraries:
 Get the 4.0.0 release tarball and signature from [https://kore.io/releases/4.0.0](https://kore.io/releases/4.0.0) and verify it using minisign:
 
 ```
-minisign -Vm kore-4.0.0.tar.gz -P RWSxkEDc2y+whfKTmvhqs/YaFmEwblmvar7l6RXMjnu6o9tZW3LC0Hc9
+minisign -Vm kore-4.0.0.tgz -P RWSxkEDc2y+whfKTmvhqs/YaFmEwblmvar7l6RXMjnu6o9tZW3LC0Hc9
+
+
+
 ```
 
 If verification is successful, build it. Do not build distributions that
@@ -31,10 +34,10 @@ $ sudo make install
 Kore has several build flavors available:
 
 * CURL=1 \(compiles in asynchronous curl support\)
+* ACME=1 \(compiles in ACME support\)
 * TASKS=1 \(compiles in task support\)
 * PGSQL=1 \(compiles in pgsql support\)
 * DEBUG=1 \(enables use of -d for debug\)
-* NOTLS=1 \(compiles Kore without TLS\)
 * NOHTTP=1 \(compiles Kore without HTTP support\)
 * NOOPT=1 \(disable compiler optimizations\)
 * JSONRPC=1 \(compiles in JSONRPC support\)
@@ -66,7 +69,4 @@ Kore is available on Homebrew under macOS and can be installed with:
 
 ```
 $ brew install kore
-```
-
-
-
+`

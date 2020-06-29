@@ -4,6 +4,35 @@ The configuration file of an application describes to Kore what modules to load,
 
 Therefore it is an integral part of Kore as a whole.
 
+# Server context
+
+A server context sets up a one or more listeners for the Kore server. These
+listeners can either be ipv4/ipv6 addresses or unix sockets.
+
+The old bind and bind_unix configuration options have been migrated since
+Kore 4.0.0 to these server contexts.
+
+You can also turn off TLS in a server context by specifying the **tls no**
+option inside of a context.
+
+Example:
+
+```
+server tls {
+	bind 127.0.0.1 443
+	bind ::1 443
+	bind_unix /var/run/socket.path
+	bind_unix @linux-abstract-socket
+}
+
+server notls {
+	bind 127.0.0.1 80
+	tls no
+}
+```
+
+# Configuration options.
+
 Below we will quickly go over all available quick toggle configuration options, their default settings and what they do.
 
 There are more options than what is listed below, specifically for validators, authentication blocks and domains. Please find those in https://github.com/jorisvink/kore/blob/master/conf/kore.conf.example.
@@ -12,13 +41,6 @@ There are more options than what is listed below, specifically for validators, a
 
 **socket_backlog**
 > Maximum length to queue pending connections (see listen(2)). Must be set before any bind directives.
-
-**bind**
-> Bind to a given IP address and port number.
-
-**bind_unix**
-> Bind to a given unix path. On Linux if this is prefixed with an '@' the
-> socket will become an abstract socket.
 
 **root**
 > The directory the worker processes will chroot() or chdir() into.

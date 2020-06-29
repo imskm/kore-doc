@@ -7,47 +7,79 @@ Python 3.6 or higher should be used.
 
 ---
 
-# Pulling in Python files
-You can import Python files into your Kore application using the
-**python_import** configuration option:
+# A Kore Python application
 
-```
-python_import ./src/hello.py
-```
+Since the 4.0.0 release you can use Kore as an asynchronous first
+Python web development platform.
 
-If you would like to add a search path for modules (PYTHONPATH) you can
-specify this using the **python\_path** configuration option:
+Completely configurable via code and easy to setup and write.
 
-```
-python_path /var/site-packages/mymodules/
-```
+A Kore Python application must be setup in the following way:
 
-# Intro
-Before you write any Python code you must import the kore module:
-```python
-import kore
-```
+* Import kore.
+* Define a class with a configure() method.
+* Instanciate the koreapp global with that class.
+
+The configure() method is called at startup by the Kore platform and
+will receive a list of arguments passed to the command-line.
+
+From there you can configure Kore via the kore.config object, create
+server contexts and setup domains and routes.
 
 Note that the Python code is expected to run inside of the Kore worker
 process, the kore module being imported is not available outside of
 this worker process.
 
+Example:
+
+```python
+import kore
+
+class MyApp:
+    def configure(self, args):
+        kore.config.workers = 1
+        kore.config.deployment = "dev"
+
+        kore.server("notls", ip="127.0.0.1", port="8888", tls=False)
+
+        domain = kore.domain("*", attach="notls")
+        domain.route("/", self.index, methods=["get"])
+        domain.route("^/(0-9)$", self.index_with_args, methods=["get"])
+
+        def index(self, req):
+            req.response(200, b'hello')
+
+        def index_with_args(self, req, specified_id):
+            req.response(200, specified_id)
+
+koreapp = MyApp()
+```
+
 ## Index
 
 * [Kore module](#koremodule)
+  * [functions](#functions) TODO
   * [constants](#koremoduleconstants)
   * [functions](#koremodulefunctions)
+    * [server](#server) TODO
+    * [domain](#domain) TODO
     * [log](#log)
     * [timer](#timer)
     * [proc](#proc)
     * [fatal](#fatal)
     * [tracer](#tracer)
     * [task\_create](#taskcreate)
+    * [task\_kill](#taskkill) TODO
     * [gather](#gather)
     * [suspend](#suspend)
     * [httpclient](#httpclient)
-    * [register\_database](#registerdatabase)
+    * [curl](#curl) TODO
+    * [dbsetup](#dbsetup) TODO
     * [websocket\_broadcast](#websocketbroadcast)
+    * [worker](#worker) TODO
+    * [setname](#setname) TODO
+    * [coroname](#coroname) TODO
+    * [corotrace](#corotrace) TODO
 
 
 * [Http module](#httpmodule)
