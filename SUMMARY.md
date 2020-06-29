@@ -10,6 +10,7 @@
   * [Configuration](applications/koreconf.md)
     * [Routes](applications/routes.md)
     * [Filemaps](applications/filemap.md)
+* [Automatic HTTPs](applications/acme.md)
 * [API](api/README.md)
   * [Hooks](api/hooks.md)
   * [Buffers](api/buffers.md)
