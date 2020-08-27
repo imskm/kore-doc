@@ -27,273 +27,368 @@ See the included [example](https://github.com/jorisvink/kore/tree/master/example
 
 ---
 
-# kore\_curl\_init {#init}
+# kore\_json\_init {#init}
 ### Synopsis
 ```
-void kore_curl_init(struct kore_curl *client, const char *url);
+void kore_json_init(struct kore_json *json, const u_int8_t *data, size_t len);
 ```
 ### Description
-Initializes a **kore\_curl** context. This must be called before any other
+Initializes a **kore\_json** context. This must be called before any other
 function can be safely used.
 
 | Parameter | Description |
 | -- | -- |
-| client | A kore\_curl data structure. |
-| url | The URL to be associated with this context. |
-
-### Settings {#settings}
-
-By default this function will set the following libcurl options:
-(some of these are **required** by the Kore curl API to function, it is
-advised you do not override these).
-
-- CURLOPT\_NOSIGNAL is set to 1.
-- CURLOPT\_URL is set to the URL passed.
-- CURLOPT\_USERAGENT is set to "kore/version".
-- CURLOPT\_PRIVATE is set to the kore\_client data structure.
-- CURLOPT\_WRITEFUNCTION is set to the kore\_curl\_tobuf function.
-- CURLOPT\_ERRORBUFFER is set to point to the internal error buffer.
-- CURLOPT\_TIMEOUT is set to the configuration option value curl\_timeout.
-- CURLOPT\_WRITEDATA is set to the response kore buffer of the data structure.
+| json | A kore\_json data structure. |
+| data | The JSON data to be parsed. |
+| len | The length of the JSON data to be parsed. |
 
 ### Returns
 Nothing
 
 ---
-# kore\_curl\_cleanup {#cleanup}
+# kore\_json\_cleanup {#cleanup}
 ### Synopsis
 ```
-void kore_curl_cleanup(struct kore_curl *client);
+void kore_json_cleanup(struct kore_json *json);
 ```
 ### Description
-Cleanup the **kore\_curl** context and release all resources. This must be
-called when you no longer need the context.
+Cleanup the **kore\_json** context and release all associated resources.
+This must be called when you no longer need the context.
 
 | Parameter | Description |
 | -- | -- |
-| client | A kore\_curl data structure. |
+| json | A kore\_json data structure. |
 
 ### Returns
 Nothing
 
 ---
-# kore\_curl\_bind\_request {#bindrequest}
+# kore\_json\_parse {#parse}
 ### Synopsis
 ```
-void kore_curl_bind_request(struct kore_curl *client, struct http_request *req);
+int kore_json_parse(struct kore_json *json);
 ```
 ### Description
-Bind an HTTP request to a kore\_curl request. Binding means that the HTTP
-request will be woken up by Kore once the curl request has a result.
-
-Using this in combination with the HTTP state machine allows you to build
-request handlers in a completely asynchronous fashion.
+Parse the JSON data that was set via **kore\_json\_init**.
 
 | Parameter | Description |
 | -- | -- |
-| client | A kore\_curl data structure. |
-| req | The HTTP request to be bound to the task. |
+| json | A kore\_json data structure. |
 
 ### Returns
-Nothing
+Returns KORE\_RESULT\_OK if parsing was successfull or KORE\_RESULT\_ERROR
+if the parsing failed. If the parsing failed the json-\>error field holds
+the error code.
+
+This error code can be translated to a human readable string via the
+kore\_json\_strerror() function.
 
 ---
-# kore\_curl\_bind\_callback {#bindcallback}
+# kore\_json\_find\_object {#findobject}
 ### Synopsis
 ```
-void kore_curl_bind_callback(struct kore_curl *client,
-    void (*cb)(struct kore_curl *, void *), void *arg)
+struct kore_json_item *kore_json_find_object(struct kore_json_item *item, const char *name);
 ```
 ### Description
-Bind a callback to a curl request. Much like the HTTP binding this will cause
-Kore to call this callback once a curl request has a result.
-
-You may **not** bind both a callback and an HTTP request.
+Find an object named **name** in the JSON root **item**.
 
 | Parameter | Description |
 | -- | -- |
-| client | A kore\_curl data structure. |
-| cb | The callback to call. |
-| arg | User-supplied pointer that is passed to the callback. |
+| item | A kore\_json\_item data structure representing the root. |
+| name | The name of the object to be found.|
 
 ### Returns
-Nothing
+A pointer to the JSON object as a kore\_json\_item data structure or NULL
+if the object was not found.
+
+```c
+struct kore_json_item		*object, *item;
+
+if ((object = kore_json_find_object(json.root, "person")) == NULL)
+	return;
+
+TAILQ_FOREACH(item, &object->data.items, list) {
+	printf("got a entry in the object of type %d\n", item->type);
+}
+```
 
 ---
-# kore\_curl\_run {#run}
+# kore\_json\_find\_array {#findarray}
 ### Synopsis
 ```
-void kore_curl_run(struct kore_curl *client)
+struct kore_json_item *kore_json_find_array(struct kore_json_item *item, const char *name);
 ```
 ### Description
-Schedules the kore\_curl context onto the event loop. After calling this
-Kore will wake-up the bound HTTP request or call the bound callback once
-there is a result.
+Find an array named **name** in the JSON root **item**.
 
 | Parameter | Description |
 | -- | -- |
-| client | A kore\_curl data structure. |
+| item | A kore\_json\_item data structure representing the root. |
+| name | The name of the array to be found.|
 
 ### Returns
-Nothing
+A pointer to the JSON array as a kore\_json\_item data structure or NULL
+if the array was not found.
+
+```c
+struct kore_json_item		*items, *item;
+
+if ((items = kore_json_find_array(json.root, "items")) == NULL)
+	return;
+
+TAILQ_FOREACH(item, &items->data.items, list) {
+	printf("got a entry in the array of type %d\n", item->type);
+}
+```
 
 ---
-# kore\_curl\_success {#success}
+# kore\_json\_find\_string {#findstring}
 ### Synopsis
 ```
-int kore_curl_success(struct kore_curl *client)
+struct kore_json_item *kore_json_find_string(struct kore_json_item *item, const char *name);
 ```
 ### Description
-Check if a curl request was successful (checks if the curl handle is CURLE\_OK).
+Find an string named **name** in the JSON root **item**.
 
 | Parameter | Description |
 | -- | -- |
-| client | A kore\_curl data structure. |
+| item | A kore\_json\_item data structure representing the root. |
+| name | The name of the string to be found.|
 
 ### Returns
-Returns 1 if the curl handle its result value was CURLE\_OK or 0 otherwise.
+A pointer to the JSON string as a kore\_json\_item data structure or NULL
+if the string was not found.
+
+### Example
+
+```c
+struct kore_json_item		*name;
+
+name = kore_json_find_string(json.root, "name");
+if (name != NULL)
+	printf("found name '%s'\n", name->data.string);
+```
 
 ---
-# kore\_curl\_logerror {#logerror}
+# kore\_json\_find\_number {#findnumber}
 ### Synopsis
 ```
-void kore_curl_logerror(struct kore_task *client)
+struct kore_json_item *kore_json_find_number(struct kore_json_item *item, const char *name);
 ```
 ### Description
-Log a notice with the error that the curl handle has returned.
+Find an number named **name** in the JSON root **item**.
 
 | Parameter | Description |
 | -- | -- |
-| client | A kore\_curl data structure. |
+| item | A kore\_json\_item data structure representing the root. |
+| name | The name of the number to be found.|
 
 ### Returns
-Nothing
+A pointer to the JSON number as a kore\_json\_item data structure or NULL
+if the number was not found.
+
+### Example
+
+```c
+struct kore_json_item		*price;
+
+price = kore_json_find_number(json.root, "price");
+if (price != NULL)
+	printf("found 'price' with value of %.0f\n", price->data.number);
+```
 
 ---
-# kore\_curl\_strerror {#strerror}
+# kore\_json\_find\_literal {#findliteral}
 ### Synopsis
 ```
-const char *kore_curl_strerror(struct kore_task *client)
+struct kore_json_item *kore_json_find_literal(struct kore_json_item *item, const char *name);
 ```
 ### Description
-Returns a pointer to a human readable error string set by libcurl.
+Find an literal named **name** in the JSON root **item**.
 
 | Parameter | Description |
 | -- | -- |
-| client | A kore\_curl data structure. |
+| item | A kore\_json\_item data structure representing the root. |
+| name | The name of the literal to be found.|
 
 ### Returns
-A pointer to a human readable error string.
+A pointer to the JSON literal as a kore\_json\_item data structure or NULL
+if the literal was not found.
+
+### Possible values
+
+KORE\_JSON\_TRUE		- The JSON true value
+KORE\_JSON\_FALSE		- The JSON false value
+KORE\_JSON\_NULL		- The JSON null value
+
+### Example
+
+```c
+struct kore_json_item		*istrue;
+
+istrue = kore_json_find_literal(json.root, "istrue");
+if (istrue != NULL && istrue->data.literal == KORE_JSON_TRUE)
+	printf("istrue is set to true\n");
+```
 
 ---
-
-# kore\_curl\_response\_as\_bytes {#responsebytes}
+# kore\_json\_create\_object {#createobject}
 ### Synopsis
 ```
-void kore_curl_response_as_bytes(struct kore_curl *client, const u_int8_t **body, size_t *len)
+struct kore_json_item *kore_json_create_object(struct kore_json_item *parent, const char *name);
 ```
 ### Description
-Obtain the response from a curl request as plain bytes. The **bytes** and **len** pointers are populated to point to the response that was obtained.
+Creates a new JSON object under the given **parent** with the given **name**.
 
 | Parameter | Description |
 | -- | -- |
-| client | A kore\_curl data structure. |
-| body | Pointer which will be pointed to the response bytes. |
-| len | Pointer to a size\_t that will contain the length of the response. |
+| parent | A kore\_json\_item data structure representing the parent. |
+| name | The name of the object to be created.|
+
+### Parent
+The parent parameter can be NULL if no parent is to be used.
 
 ### Returns
-Nothing
+A pointer to the JSON object as a kore\_json\_item data structure or NULL
+if something has failed.
+
+### Example
+
+```c
+struct kore_json_item		*person;
+
+if ((person = kore_json_create_object(NULL, "person")) == NULL)
+	/* handle */
+
+if (kore_json_create_number(person, "age", 34) == NULL)
+	/* handle */
+```
 
 ---
-
-# kore\_curl\_response\_as\_string {#responsestring}
+# kore\_json\_create\_array {#createarray}
 ### Synopsis
 ```
-char *kore_curl_response_as_string(struct kore_curl *client);
+struct kore_json_item *kore_json_create_array(struct kore_json_item *parent, const char *name);
 ```
 ### Description
-Obtain the response from a curl request as a pointer to a C string.
-
-You must not free the returned pointer.
+Creates a new JSON array under the given **parent** with the given **name**.
 
 | Parameter | Description |
 | -- | -- |
-| client | A kore\_curl data structure. |
+| parent | A kore\_json\_item data structure representing the parent. |
+| name | The name of the array to be created.|
+
+### Parent
+The parent parameter can be NULL if no parent is to be used.
 
 ### Returns
-A pointer to the response as a C string.
+A pointer to the JSON array as a kore\_json\_item data structure or NULL
+if something has failed.
+
+### Example
+
+```c
+struct kore_json_item		*array;
+
+if ((array = kore_json_create_array(NULL, "person")) == NULL)
+	/* handle */
+
+if (kore_json_create_number(array, NULL, 34) == NULL)
+	/* handle */
+
+if (kore_json_create_number(array, NULL, 27) == NULL)
+	/* handle */
+```
 
 ---
-
-# kore\_curl\_http\_setup {#httpsetup}
+# kore\_json\_create\_string {#createstring}
 ### Synopsis
 ```
-void kore_curl_http_setup(struct kore_curl *client, int method, const void *data, size_t len);
+struct kore_json_item *kore_json_create_string(struct kore_json_item *parent, const char *name, const char *value);
 ```
 ### Description
-Setup an HTTP client request. You must have called [kore\_curl\_init()](#init) first.
+Creates a new JSON string under the given **parent** with the given **name**.
 
 | Parameter | Description |
 | -- | -- |
-| client | A kore\_curl data structure. |
-| method | The HTTP method to be used, see [below](#httpmethod) |
-| data | Pointer to the HTTP body to be sent (may be NULL). |
-| len | The length of the HTTP body data (may be 0). |
+| parent | A kore\_json\_item data structure representing the parent. |
+| name | The name of the string to be created.|
+| value | The value of the string. |
 
-### HTTP methods {#httpmethod}
-
-Supported HTTP methods are:
-
-- HTTP\_METHOD\_GET
-- HTTP\_METHOD\_PUT
-- HTTP\_METHOD\_HEAD
-- HTTP\_METHOD\_POST
-- HTTP\_METHOD\_PATCH
-- HTTP\_METHOD\_DELETE
-- HTTP\_METHOD\_OPTIONS
+### Parent
+The parent parameter can be NULL if no parent is to be used.
 
 ### Returns
-Nothing
+A pointer to the JSON string as a kore\_json\_item data structure or NULL
+if something has failed.
+
+### Example
+
+```c
+if (kore_json_create_string(parent, "person", "hacker") == NULL)
+	/* handle */
+```
 
 ---
-
-# kore\_curl\_http\_set\_header {#setheader}
+# kore\_json\_create\_number {#createnumber}
 ### Synopsis
 ```
-void kore_curl_http_set_header(struct kore_curl *client, const char *header. const char *value);
+struct kore_json_item *kore_json_create_number(struct kore_json_item *parent, const char *name, double value);
 ```
 ### Description
-Add an HTTP header to a configured HTTP client request.
-
-If value is NULL or an empty string the header is removed.
+Creates a new JSON number under the given **parent** with the given **name**.
 
 | Parameter | Description |
 | -- | -- |
-| client | A kore\_curl data structure. |
-| header | The HTTP header name. |
-| value | The HTTP header value. |
+| parent | A kore\_json\_item data structure representing the parent. |
+| name | The name of the number to be created.|
+| value | The value of the number as a C double. |
+
+### Parent
+The parent parameter can be NULL if no parent is to be used.
 
 ### Returns
-Nothing
+A pointer to the JSON number as a kore\_json\_item data structure or NULL
+if something has failed.
+
+### Example
+
+```c
+if (kore_json_create_number(parent, "age", 34) == NULL)
+	/* handle */
+```
 
 ---
-
-# kore\_curl\_http\_get\_header {#getheader}
+# kore\_json\_create\_literal {#createliteral}
 ### Synopsis
 ```
-int kore_curl_http_get_header(struct kore_curl *client, const char *header. const char **out);
+struct kore_json_item *kore_json_create_literal(struct kore_json_item *parent, const char *name, int value);
 ```
 ### Description
-Obtain an HTTP header from the response (if [kore\_curl\_success()](#success) was 1).
+Creates a new JSON literal under the given **parent** with the given **name**.
 
 | Parameter | Description |
 | -- | -- |
-| client | A kore\_curl data structure. |
-| header | The HTTP header name. |
-| out | A pointer which will receive the pointer to the HTTP header value. |
+| parent | A kore\_json\_item data structure representing the parent. |
+| name | The name of the literal to be created.|
+| value | The value of the literal (see below). |
+
+### Parent
+The parent parameter can be NULL if no parent is to be used.
+
+### Possible values
+
+KORE\_JSON\_TRUE		- The JSON true value
+KORE\_JSON\_FALSE		- The JSON false value
+KORE\_JSON\_NULL		- The JSON null value
 
 ### Returns
+A pointer to the JSON literal as a kore\_json\_item data structure or NULL
+if something has failed.
 
-Returns KORE\_RESULT\_OK if the header was found, or KORE\_RESULT\_ERROR if not.
+### Example
 
----
+```c
+if (kore_json_create_literal(parent, "istrue", KORE_JSON_FALSE) == NULL)
+	/* handle */
+```
