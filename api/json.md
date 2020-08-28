@@ -148,7 +148,7 @@ TAILQ_FOREACH(item, &items->data.items, list) {
 struct kore_json_item *kore_json_find_string(struct kore_json_item *item, const char *name);
 ```
 ### Description
-Find an string named **name** in the JSON root **item**.
+Find a string named **name** in the JSON root **item**.
 
 | Parameter | Description |
 | -- | -- |
@@ -176,7 +176,7 @@ if (name != NULL)
 struct kore_json_item *kore_json_find_number(struct kore_json_item *item, const char *name);
 ```
 ### Description
-Find an number named **name** in the JSON root **item**.
+Find a number named **name** in the JSON root **item**.
 
 | Parameter | Description |
 | -- | -- |
@@ -204,7 +204,7 @@ if (price != NULL)
 struct kore_json_item *kore_json_find_literal(struct kore_json_item *item, const char *name);
 ```
 ### Description
-Find an literal named **name** in the JSON root **item**.
+Find a literal named **name** in the JSON root **item**.
 
 | Parameter | Description |
 | -- | -- |
