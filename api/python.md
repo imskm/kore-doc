@@ -69,11 +69,11 @@ koreapp = MyApp()
     * [fatal](#fatal)
     * [tracer](#tracer)
     * [task\_create](#taskcreate)
-    * [task\_kill](#taskkill) TODO
+    * [task\_kill](#taskkill)
     * [gather](#gather)
     * [suspend](#suspend)
     * [httpclient](#httpclient)
-    * [curl](#curl) TODO
+    * [curl](#curl)
     * [dbsetup](#dbsetup) TODO
     * [websocket\_broadcast](#websocketbroadcast)
     * [worker](#worker) TODO
@@ -340,7 +340,7 @@ it returns from the parent function.
 
 ### Returns
 
-Nothing
+The unique task identifier that can be passed to kore.task\_kill().
 
 ### Example
 
@@ -353,6 +353,50 @@ async def coro(id):
 def kore_worker_configure():
 	kore.task_create(coro(1))
 	kore.task_create(coro(2))
+```
+
+---
+
+# task\_kill {#taskkill}
+
+### Synopsis
+
+```python
+kore.task_kill(taskid)
+```
+
+### Description
+
+Kills the coroutine task specified in the **taskid** identifier.
+
+The coroutine will immediately be killed.
+
+| Parameter | Description |
+| --- | --- |
+| taskid | The taskid identifier to be killed. |
+
+### Returns
+
+Nothing
+
+### Example
+
+```python
+import kore
+
+async def coro(id):
+	while True:
+		await kore.suspend(1000)
+		print("i am coro %d" % id)
+
+async def kill(taskid):
+	await kore.suspend(5000)
+	kore.task_kill(taskid)
+
+def kore_worker_configure():
+	task = kore.task_create(coro(1))
+
+	kore.task_create(kill(task))
 ```
 
 ---
@@ -509,6 +553,40 @@ status, body = await client.post(
 
 # Get the headers from a GET request.
 status, headers, body = await client.get(return_headers=True)
+```
+
+---
+
+## Asynchronous libcurl client {#curl}
+
+The Python API in Kore contains a full asynchronous libcurl client that allows
+you to fire off any protocol that libcurl supports from your Python code and
+await their result.
+
+Before you can use the client you must set it up.
+
+**note** Kore must be built with CURL=1 for the curl handler to be included.
+
+```python
+client = kore.curl(url)
+```
+
+| Parameter | Description |
+| --- | --- |
+| url | The URL to send the request to. |
+
+Once the libcurl object is created you can call handle.run() to perform
+the call to the specified url.
+
+Additionally you can call handle.setopt() which behaves a lot like
+the curl\_easy\_setopt() function.
+### Example
+
+```python
+handle = kore.curl("https://kore.io")
+
+# Run the libcurl handle.
+data = await handle.run()
 ```
 
 ---
