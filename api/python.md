@@ -58,6 +58,7 @@ koreapp = MyApp()
 ## Index
 
 * [Kore module](#koremodule)
+  * [configuration](#koreconfig)
   * [constants](#koremoduleconstants)
   * [functions](#koremodulefunctions)
     * [server](#server)
@@ -111,6 +112,43 @@ koreapp = MyApp()
  * [setopt](#curlsetopt)
 
 # Kore {#koremodule}
+
+## Configuration {#koreconfig}
+
+Kore configuration options can be set via the kore.config module.
+
+All options available in the traditional kore configuration be
+set via the Python code.
+
+| Configuration option | Description |
+| --- | --- |
+| root | The root path in which the Kore server runs (either via chroot or chdir). If not set, the current working directory. |
+| runas | The user the worker processes will run as. If not set, the current user. |
+| workers | The number of worker processes to use. If not set, the number of CPU cores in the system. |
+| worker\_max\_connections | The maximum number of active connections a worker process holds before refusing to accept more. |
+| worker\_rlimit\_nofiles | The maximum number of open file descriptor per worker. |
+| worker\_accept\_threshold | The maximum number of new connections to accept in a single event loop. |
+| worker\_death\_policy | The death policy for a worker, "restart" by default. If set to "terminate" will cause the Kore server to shutdown on abnormal worker termination. |
+| worker\_set\_affinity | Worker CPU affinity (0 or 1, default 1). |
+| pidfile | The path to a file in which the server will write the PID for the parent process. |
+| socket\_backlog | The number of pending connections. |
+| tls\_version | The TLS version to use (default: both, 1.2 for TLSv1.2 only and 1.3 for TLSv1.3 only). |
+| tls\_cipher | OpenSSL ciphersuite list to use. Defaults to a very sane list with only AEAD ciphers and ephemeral key exchanges. |
+| tls\_dhparam | Path to DH parameters for the server to use. |
+| rand\_file | Path to a 2048 byte file containing entropy used to seed the PRNG. |
+| keymgr\_runas | The user the keymgr process will run as. If not set, the current user. |
+| keymgr\_root | The root path for the keymgr process. If not set, inherited from the root option. |
+| acme\_runas | The user the acme process will run as. If not set, the current user. |
+| acme\_root | The root path for the acme process. If not set, inherited from the root option. |
+| acme\_email | An email adress used for account registration. |
+| acme\_provider | A URL to the directory for an ACME provider. Defaults to Let's Encrypt. |
+| pledge | OpenBSD only, pledge categories for the worker processes. |
+| seccomp\_tracing | Linux only, seccomp violations will be logged and not cause the process to terminate. Either "yes" or "no". |
+| filemap\_ext | The default extension for files in a filemap. |
+| filemap\_index | The root file in a filemap. (eg index.html). |
+| http\_media\_type | Add a new HTTP media type (in the form of "mediatype ext1 ext2 ext". |
+
+| TODO | TODO |
 
 ## Constants {#koremoduleconstants}
 
@@ -727,7 +765,7 @@ Before you can use the client you must set it up.
 ### Synopsis
 
 ```python
-client = kore.curl(url)
+handle = kore.curl(url)
 ```
 
 | Parameter | Description |
@@ -767,6 +805,7 @@ All libcurl constants are exported under the kore module directly.
 
 Example:
 ```python
+handle = kore.curl("https://kore.io")
 handle.setopt(kore.CURLOPT_TIMEOUT, 10)
 ```
 
