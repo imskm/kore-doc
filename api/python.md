@@ -58,11 +58,10 @@ koreapp = MyApp()
 ## Index
 
 * [Kore module](#koremodule)
-  * [functions](#functions) TODO
   * [constants](#koremoduleconstants)
   * [functions](#koremodulefunctions)
-    * [server](#server) TODO
-    * [domain](#domain) TODO
+    * [server](#server)
+    * [domain](#domain)
     * [log](#log)
     * [timer](#timer)
     * [proc](#proc)
@@ -73,8 +72,8 @@ koreapp = MyApp()
     * [gather](#gather)
     * [suspend](#suspend)
     * [httpclient](#httpclient)
-    * [dbsetup](#dbsetup) TODO
-    * [dbquery](#dbquery) TODO
+    * [dbsetup](#dbsetup)
+    * [dbquery](#dbquery)
     * [websocket\_broadcast](#websocketbroadcast)
     * [worker](#worker) TODO
     * [setname](#setname) TODO
@@ -131,7 +130,87 @@ The kore module exports some constants that can be used by the Python code.
 * CONN\_PROTO\_WEBSOCKET
 * CONN\_STATE\_ESTABLISHED
 
+If Kore was built with CURL=1 all curl\_easy\_setopt CURLoption constants
+are exported via the kore module as well.
+
 ## Functions {#koremodulefunctions}
+
+---
+
+# server {#server}
+
+### Synopsis
+
+```python
+kore.server(name, ip="ip", port="port", path="/tmp/web.sock", tls=True)
+```
+
+### Description
+
+Setup a new server with the given **name**.
+
+The ip and path keywords are mutually exclusive.
+
+| Parameter | Description |
+| --- | --- |
+| name | The name of this listener. |
+
+| Keyword | Description |
+| --- | --- |
+| ip | This keyword specifies the IP address to bind to. |
+| port | This keyword specifies the port to bind to. |
+| path | This keyword specifies the UNIX path to bind to. |
+| tls | This keyword specifies if TLS is enabled or not (True by default). |
+
+### Returns
+
+Nothing
+
+### Example
+
+```python
+kore.server("default", ip="127.0.0.1", port="8888", tls=False)
+```
+
+---
+
+# domain {#domain}
+
+### Synopsis
+
+```python
+kore.domain(host, attach="server", cert="cert.pem", key="key.pem", acme=False,
+    client_verify="ca.pem", verify_depth=1))
+```
+
+### Description
+
+Setup a new domain for **host** attached to the given server.
+
+| Parameter | Description |
+| --- | --- |
+| host | The hostname of this domain (eg: kore.io). |
+
+The cert and key keywords should not be specified if acme is True.
+
+| Keyword | Description |
+| --- | --- |
+| cert | The path to the certificate for this domain. |
+| key | The path to the private key for this domain. |
+| acme | If true will use the configured ACME provider (let's encrypt by default) to automaticall obtain an X509 for this domain. |
+| client\_verify | If present points to a PEM file containing a Certificate Authority for which the client should present a certificate for. |
+| verify\_depth | Maximum depth for the certificate chain. |
+
+### Returns
+
+A domain handle on which you can install routes.
+
+### Example
+
+```python
+dom = kore.domain("kore.io", attach="server", acme=True)
+dom.route("/", self.index, methods=["get"])
+```
 
 ---
 
@@ -484,6 +563,76 @@ async def request(req):
 	await kore.suspend(1000)
 	req.response(200, b'')
 ```
+
+---
+
+# dbsetup {#dbsetup}
+
+### Synopsis
+
+```python
+kore.dbsetup(name, connection_string)
+```
+
+### Description
+
+Associates a pgsql connection string with a shortname for a database that
+can be used later via <a href="#dbquery">dbquery</a>.
+
+| Parameter | Description |
+| --- | --- |
+| name | The friendly name for the database. |
+| connection\_string | The pgsql connection string. |
+
+### Returns
+
+Nothing
+
+### Example
+
+```python
+kore.dbsetup("db", "host=/tmp dbname=hello")
+```
+
+---
+
+# dbquery {#dbquery}
+
+### Synopsis
+
+```python
+result = await kore.dbquery(db, query, params=[v1, v2, ...])
+```
+
+### Description
+
+Performs an asynchronous PostgreSQL query. The query should be a parameterized
+and the arguments for each parameter are passed via the **params** keyword.
+
+| Parameter | Description |
+| --- | --- |
+| db | A previously configured database name. |
+| query | The query to be performed. |
+| params | A list of strings or byte object arguments. |
+
+### Returns
+
+The result of the query as a dictionary where each key is the column name
+and the matching value for that column.
+
+If the returned data for a column was binary the returned value will be
+of the **bytes** type, otherwise the returned value will be a python string.
+
+### Example
+
+```python
+async def myquery(req):
+	name = "bar"
+	result = await kore.dbquery("db",
+		"SELECT * FROM table WHERE foo = $1", params=[name])
+	req.response(200, json.dumps(result).encode("utf-8"))
+```
+
 ---
 
 ## Asynchronous HTTP client {#httpclient}
@@ -654,36 +803,6 @@ def onmessage(c, op, data):
 
 ---
 
-# register\_database {#registerdatabase}
-
-### Synopsis
-
-```python
-kore.register_database(name, connstring)
-```
-
-### Description
-
-Associates a pgsql connection string with a shortname for a database that
-can be used later in <a href="#pgsql">pgsql</a>.
-
-| Parameter | Description |
-| --- | --- |
-| name | The friendly name for the database. |
-| connstring | The pgsql connection string. |
-
-### Returns
-
-Nothing
-
-### Example
-
-```python
-kore.register_database("db", "host=/tmp dbname=hello")
-```
-
----
-
 
 # HTTP {#httpmodule}
 
@@ -711,45 +830,6 @@ Python page handler. This data structure is of type **kore.http\_request**.
 * connection - The underlying client connection as a **kore.connection** object.
 
 ## Functions {#httpmodulefunctions}
-
----
-
-# pgsql {#pgsql}
-
-### Synopsis
-
-```python
-result = await req.pgsql(db, query, params=[v1, v2, ...])
-```
-
-### Description
-
-Performs an asynchronous PostgreSQL query. The query should be a parameterized
-and the arguments for each parameter are passed via the **params** keyword.
-
-| Parameter | Description |
-| --- | --- |
-| db | A previously configured database name. |
-| query | The query to be performed. |
-| params | A list of strings or byte object arguments. |
-
-### Returns
-
-The result of the query as a dictionary where each key is the column name
-and the matching value for that column.
-
-If the returned data for a column was binary the returned value will be
-of the **bytes** type, otherwise the returned value will be a python string.
-
-### Example
-
-```python
-async def myquery(req):
-	name = "bar"
-	result = await req.pgsql("db",
-		"SELECT * FROM table WHERE foo = $1", params=[name])
-	req.response(200, json.dumps(result).encode("utf-8"))
-```
 
 ---
 
