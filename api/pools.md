@@ -4,9 +4,16 @@ Kore provides a memory pool interface allowing you to create your own.
 
 Pools are automatically thread-safe if Kore was built with TASKS=1.
 
+## Index
+
+* [kore\_pool\_init](#init)
+* [kore\_pool\_cleanup](#cleanup)
+* [kore\_pool\_get](#get)
+* [kore\_pool\_put](#put)
+
 ---
 
-# kore_pool_init
+# kore\_pool\_init {#init}
 ### Synopsis
 ```
 void kore_pool_init(struct kore_pool *pool, const char *name, size_t len, size_t elm)
@@ -26,7 +33,7 @@ Nothing
 
 ---
 
-# kore_pool_cleanup
+# kore\_pool\_cleanup {#cleanup}
 ### Synopsis
 ```
 void kore_pool_cleanup(struct kore_pool *pool)
@@ -43,7 +50,7 @@ Nothing
 
 ---
 
-# kore_pool_get
+# kore\_pool\_get {#get}
 ### Synopsis
 ```
 void *kore_pool_get(struct kore_pool *pool)
@@ -60,7 +67,7 @@ Returns a pointer to an area that is large enough to hold the data length the po
 
 ---
 
-# kore_pool_put
+# kore\_pool\_put {#put}
 ### Synopsis
 ```
 void kore_pool_put(struct kore_pool *pool, void *ptr)
