@@ -55,6 +55,6 @@ all your private keys (even the ACME account key is only held by keymgr).
 All certificates and private keys are stored under the directory that
 was configured via the **keymgr_root** configuration option.
 
-The RSA account key is stored as **account.pem** in the **keymgr_root**
+The RSA account key is stored as **account-key.pem** in the **keymgr_root**
 directory while certificates and matching domain keys are stored under
 the **certificates** and **keys** directories respectively.
