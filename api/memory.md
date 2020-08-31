@@ -4,9 +4,17 @@ The memory system in Kore for heap allocation is based on pools. At startup Kore
 
 Any data allocated via _kore\_malloc\(\)_, _kore\_strdup\(\)_ or _kore\_realloc\(\)_ comes from the common pools unless it is larger than 8192 in which case _calloc\(\)_ is used.
 
+## Index
+
+* [kore\_malloc](#malloc)
+* [kore\_calloc](#calloc)
+* [kore\_realloc](#realloc)
+* [kore\_free](#free)
+* [kore\_strdup](#strdup)
+
 ---
 
-# kore\_malloc
+# kore\_malloc {#malloc}
 
 ### Synopsis
 
@@ -28,7 +36,7 @@ A pointer to allocated memory that can hold _length_ bytes. The returned pointer
 
 ---
 
-# kore\_calloc
+# kore\_calloc {#calloc}
 
 ### Synopsis
 
@@ -51,7 +59,7 @@ A pointer to allocated memory that can hold _ memb \* len_ bytes. The returned p
 
 ---
 
-# kore\_realloc
+# kore\_realloc {#realloc}
 
 ### Synopsis
 
@@ -74,7 +82,7 @@ A pointer to the newly allocated memory.
 
 ---
 
-# kore\_free
+# kore\_free {#free}
 
 ### Synopsis
 
@@ -96,7 +104,7 @@ Nothing
 
 ---
 
-# kore\_strdup
+# kore\_strdup {#strdup}
 
 ### Synopsis
 
