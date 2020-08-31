@@ -73,8 +73,8 @@ koreapp = MyApp()
     * [gather](#gather)
     * [suspend](#suspend)
     * [httpclient](#httpclient)
-    * [curl](#curl)
     * [dbsetup](#dbsetup) TODO
+    * [dbquery](#dbquery) TODO
     * [websocket\_broadcast](#websocketbroadcast)
     * [worker](#worker) TODO
     * [setname](#setname) TODO
@@ -106,6 +106,10 @@ koreapp = MyApp()
   * [Queues](#asyncqueue)
   * [Processes](#asyncproc)
 
+
+* [Asynchronous libcurl support](#curl)
+ * [curl](#curlhandle)
+ * [setopt](#curlsetopt)
 
 # Kore {#koremodule}
 
@@ -567,6 +571,10 @@ Before you can use the client you must set it up.
 
 **note** Kore must be built with CURL=1 for the curl handler to be included.
 
+---
+
+### Synopsis {#curlhandle}
+
 ```python
 client = kore.curl(url)
 ```
@@ -588,6 +596,29 @@ handle = kore.curl("https://kore.io")
 # Run the libcurl handle.
 data = await handle.run()
 ```
+
+---
+
+### Synopsis {#curlsetopt}
+
+```python
+handle.setopt(option, value)
+```
+
+| Parameter | Description |
+| --- | --- |
+| option | The libcurl option to be set. |
+| value | The value to set the option to. |
+
+All libcurl constants are exported under the kore module directly.
+
+Example:
+```python
+handle.setopt(kore.CURLOPT_TIMEOUT, 10)
+```
+
+Depending on what the original option in libcurl takes the value must
+either be a string, an integer or a list.
 
 ---
 
