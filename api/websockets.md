@@ -10,9 +10,15 @@ void onmessage(struct connection *c, u_int8_t op, const void *data, size_t lengt
 void ondisconnect(struct connection *);
 ```
 
+## Index
+
+* [kore\_websocket\_handshake](#handshake)
+* [kore\_websocket\_send](#send)
+* [kore\_websocket\_broadcast](#broadcast)
+
 ---
 
-# kore\_websocket\_handshake
+# kore\_websocket\_handshake {#handshake}
 
 ### Synopsis
 
@@ -38,7 +44,7 @@ Nothing
 
 ---
 
-# kore\_websocket\_send
+# kore\_websocket\_send {#send}
 
 ### Synopsis
 
@@ -68,7 +74,7 @@ Nothing
 
 ---
 
-# kore\_websocket\_broadcast
+# kore\_websocket\_broadcast {#broadcast}
 
 ### Synopsis
 
