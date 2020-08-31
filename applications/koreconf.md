@@ -33,109 +33,42 @@ server notls {
 
 # Configuration options.
 
-Below we will quickly go over all available quick toggle configuration options, their default settings and what they do.
-
 There are more options than what is listed below, specifically for validators, authentication blocks and domains. Please find those in https://github.com/jorisvink/kore/blob/master/conf/kore.conf.example.
 
 ---
 
-**socket_backlog**
-> Maximum length to queue pending connections (see listen(2)). Must be set before any bind directives.
-
-**root**
-> The directory the worker processes will chroot() or chdir() into.
-
-**runas**
-> The username the worker processes drop privileges to.
-
-**workers** (default: number of cores on system)
-> The number of worker processes to spawn and keep alive.
-
-**worker_max_connections** (default: 748)
-> The number of active connections each worker will accept.
-
-**worker_rlimit_nofiles** (default: 1024)
-> Limit of maximum open files per worker.
-
-**worker_accept_threshold** (default: 16)
-> The number of accepts a worker will do in one go before going up its
-> accept lock to another worker.
-
-**worker_death_policy** (default: restart)
-> Workers are restarted when they unexpectedly exit. Setting this to "terminate" will instead bring down the entire Kore server.
-
-**worker_set_affinity** (default: enabled)
-> Workers bind themselves to a single CPU by default. Turn this off by setting this option to 0.
-
-**rand_file** (default: none)
-> The entropy file to be loaded at startup time.
-
-**keymgr_root**
-> The root path for the keymgr process (if not set, will use root from above).
-
-**keymgr_runas**
-> The user the keymgr process will drop privileges towards.
-
-**filemap_index** (default: index.html)
-> The default filemap index file.
-
-**pidfile** (default: none)
-> Store the pid of the parent process in this file.
-
-**http_header_max** (default: 4096)
-> Maximum size of HTTP headers (in bytes).
-
-**http_header_timeout** (default: 10)
->  Timeout in seconds for receiving the HTTP headers before the connection is closed.
-
-**http_body_max** (default: 1024000)
-> Maximum size of an HTTP body (in bytes).
-> 
-> If set to 0 disallows requests with a body all together.
-
-**http_body_timeout** (default: 60)
-> Timeout in seconds for receiving the HTTP body in full before the connection is closed with an 408.
-
-**http_body_disk_offload** (default: disabled)
-> Number of bytes after which Kore will use a temporary file to hold the HTTP body instead of holding it in memory.
-> 
-> If set to 0 no disk offloading will be done. This is turned off by default.
-
-**http_body_disk_path** (default: tmp_files)
-> Path where Kore will store any temporary HTTP body files.
-
-**http_keepalive_time** (default: 20 seconds)
-> Maximum seconds an HTTP connection can be kept open by the browser.
-> 
-> Set to 0 to turn off keep-alive completely.
-
-**http_hsts_enable** (default: 31536000 seconds)
-> If not 0 the age of the HSTS header that is included in all responses.
-
-**http_request_limit** (default: disabled)
-> The number of HTTP requests Kore workers will process in one loop.
-
-**websocket_maxframe** (default: 16384)
-> The maximum number of bytes per websocket frame.
-
-**websocket_timeout** (default: 120 seconds)
-> The number of seconds a websocket connection is kept open without traffic.
-
-**task_threads** (default: 2)
-> The number of OS threads to use for background tasks.
-
-**tls_version** (default: 1.2, 1.3)
-> The TLS versions allowed, by default this is set to TLSv1.2 + TLSv1.3.
-
-**tls_cipher** (default: A very sane set of ciphersuites preferring AEAD ciphers and ephemeral key exchanges, RSA key exchanges are not enabled).
-> The server TLS ciphersuites that are allowed.
-
-**tls_dhparam** (default: dh2048.pem)
-> The DH parameters to load (**required**)
-
-**curl_recv_max** (default: 2097152)
-> Maximum incoming bytes for a response.
-
-**curl_timeout** (default: 60)
-> Timeout in seconds before a transfer is cancelled.
-
+| Configuration option | Description |
+| --- | --- |
+| root | The root path in which the Kore server runs (either via chroot or chdir). If not set, the current working directory. |
+| runas | The user the worker processes will run as. If not set, the current user. |
+| workers | The number of worker processes to use. If not set, the number of CPU cores in the system. |
+| worker\_max\_connections | The maximum number of active connections a worker process holds before refusing to accept more. |
+| worker\_rlimit\_nofiles | The maximum number of open file descriptor per worker. |
+| worker\_accept\_threshold | The maximum number of new connections to accept in a single event loop. |
+| worker\_death\_policy | The death policy for a worker, "restart" by default. If set to "terminate" will cause the Kore server to shutdown on abnormal worker termination. |
+| worker\_set\_affinity | Worker CPU affinity (0 or 1, default 1). |
+| pidfile | The path to a file in which the server will write the PID for the parent process. |
+| socket\_backlog | The number of pending connections. |
+| tls\_version | The TLS version to use (default: both, 1.2 for TLSv1.2 only and 1.3 for TLSv1.3 only). |
+| tls\_cipher | OpenSSL ciphersuite list to use. Defaults to a very sane list with only AEAD ciphers and ephemeral key exchanges. |
+| tls\_dhparam | Path to DH parameters for the server to use. |
+| rand\_file | Path to a 2048 byte file containing entropy used to seed the PRNG. |
+| keymgr\_runas | The user the keymgr process will run as. If not set, the current user. |
+| keymgr\_root | The root path for the keymgr process. If not set, inherited from the root option. |
+| acme\_runas | The user the acme process will run as. If not set, the current user. |
+| acme\_root | The root path for the acme process. If not set, inherited from the root option. |
+| acme\_email | An email adress used for account registration. |
+| acme\_provider | A URL to the directory for an ACME provider. Defaults to Let's Encrypt. |
+| pledge | OpenBSD only, pledge categories for the worker processes. |
+| seccomp\_tracing | Linux only, seccomp violations will be logged and not cause the process to terminate. Either "yes" or "no". |
+| filemap\_ext | The default extension for files in a filemap. |
+| filemap\_index | The root file in a filemap. (eg index.html). |
+| http\_media\_type | Add a new HTTP media type (in the form of "mediatype ext1 ext2 ext"). |
+| http\_header\_max | The maximum number of bytes HTTP headers can consist of. If a request comes in with headers larger than this the connection is closed. Defaults to 4096 bytes. |
+| http\_header\_timeout | The number of seconds after which Kore will close a connection if no HTTP headers were received. Defaults to 10. |
+| http\_body\_max | The maximum number of bytes an HTTP body can consist of. If a request comes in with a body larger than this the connection is closed with a 413 response. Defaults to 1MB. |
+| http\_body\_timeout | The number of seconds after which Kore will close a connection if no HTTP body was received in full. Defaults to 60. |
+| http\_body\_disk\_offload | The number in bytes from which point Kore will offload incoming HTTP bodies onto a file on disk instead of keeping it in memory. Disabled by default. |
+| http\_body\_disk\_path | A path where the temporary body files are written if the http\_body\_disk\_offload setting is enabled. |
+| http\_server\_version | Allows you to override the Kore server header. |
+| http\_pretty\_error | If set to "yes" will display HTML based HTTP error codes. Defaults to "no". |
