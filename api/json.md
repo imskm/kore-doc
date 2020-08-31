@@ -33,7 +33,7 @@ See the included [example](https://github.com/jorisvink/kore/tree/master/example
 void kore_json_init(struct kore_json *json, const u_int8_t *data, size_t len);
 ```
 ### Description
-Initializes a **kore\_json** context. This must be called before any other
+Initializes a **kore_json** context. This must be called before any other
 function can be safely used.
 
 | Parameter | Description |
@@ -52,7 +52,7 @@ Nothing
 void kore_json_cleanup(struct kore_json *json);
 ```
 ### Description
-Cleanup the **kore\_json** context and release all associated resources.
+Cleanup the **kore_json** context and release all associated resources.
 This must be called when you no longer need the context.
 
 | Parameter | Description |
@@ -69,7 +69,7 @@ Nothing
 int kore_json_parse(struct kore_json *json);
 ```
 ### Description
-Parse the JSON data that was set via **kore\_json\_init**.
+Parse the JSON data that was set via **kore_json_init**.
 
 | Parameter | Description |
 | -- | -- |
@@ -391,4 +391,27 @@ if something has failed.
 ```c
 if (kore_json_create_literal(parent, "istrue", KORE_JSON_FALSE) == NULL)
 	/* handle */
+```
+
+---
+# kore\_json\_strerror {#strerror}
+### Synopsis
+```
+const char *kore_json_strerror(struct kore_json *json);
+```
+### Description
+Returns a human readable string for the error that occurred in the context.
+
+| Parameter | Description |
+| -- | -- |
+| json | A kore\_json context in which an error occurred. |
+
+### Returns
+A pointer to a human readable string that describes the error.
+This pointer should not be freed by the caller.
+
+### Example
+
+```c
+kore_log(LOG_INFO, "parsing error '%s'", kore_json_strerror(&json));
 ```
