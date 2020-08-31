@@ -310,37 +310,65 @@ Nothing
 ### Example
 
 ```python
-async def validate_user(req, data):
-    return True
+import kore
+import json
 
-async def validate_auth(req, data):
-    return True
+class RouteExample:
+    def configure(self, args):
+        kore.config.workers = 1
+        kore.config.deployment = "dev"
 
-def route_gethash(req, hash):
-    req.response(200, hash.encode())
+        kore.server("default", ip="127.0.0.1", port="8888", tls=False)
+        dom = kore.domain("*", attach="default")
 
-dom = kore.domain("kore.io", attach="server", acme=True)
+        # Simple GET route.
+        dom.route("/", self.index, methods=["get"])
 
-dom.route("/", route_index, methods=["get"])
+        # Example post route with some arguments (which are validated
+        # automatically and removed if verification fails).
+        dom.route("/update", self.update, methods=["post"],
+            post={
+                "number"   : "^[0-9]{4}$",
+                "user"     : "^[a-z]{4,12}$"
+            }
+        )
 
-dom.route("/update", route_update, methods=["post"],
-    post={
-        "id"   :   "^[0-9]+$",
-        "user" : validate_user
-    }
-)
+        # Authenticate via header or cookie.
+        dom.route("/secret", self.secret, methods=["get"],
+            auth={
+                "type"     : "header",      # header or cookie
+                "value"    : "x-header",    # header or cookie name
+                "redirect" : "/",           # redirect location upon failure,
+                                            # if not set, 403 is returned.
+                "verify"   : self.verify    # The callback to verify
+            }
+        )
 
-dom.route("^/([a-f0-9]{32})$", route_gethash, methods=["get"])
+    def verify(self, req, data):
+        kore.log(kore.LOG_INFO, "verify called with %s" % data)
+        return True
 
-dom.route("/secret", route_secret, methods=["get"],
-    auth={
-        "type"      : "header",      # header or cookie are both supported.
-        "value"     : "x-header",    # header name or cookie name.
-        "redirect"  : "/",           # Redirect to / on auth failure, if not set
-                                     # auth failure will result in a 403.
-        "verify"    : validate_auth  # Callback to verify the authenticator.
-    }
-)
+    def index(self, req):
+        req.response(200, b'this is the index')
+
+    def secret(self, req):
+        req.response(200, b'this is the secret')
+
+    def update(self, req):
+        req.populate_post()
+
+        payload = {}
+        nr = req.argument("number")
+        user = req.argument("user")
+
+        if nr:
+            payload.update({"number": nr})
+        if user:
+            payload.update({"user": user})
+
+        req.response(200, json.dumps(payload).encode())
+
+koreapp = RouteExample()
 ```
 
 ---
