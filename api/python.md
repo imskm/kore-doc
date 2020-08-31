@@ -77,10 +77,10 @@ koreapp = MyApp()
     * [dbsetup](#dbsetup)
     * [dbquery](#dbquery)
     * [websocket\_broadcast](#websocketbroadcast)
-    * [worker](#worker) TODO
-    * [setname](#setname) TODO
-    * [coroname](#coroname) TODO
-    * [corotrace](#corotrace) TODO
+    * [worker](#worker)
+    * [setname](#setname)
+    * [coroname](#coroname)
+    * [corotrace](#corotrace)
 
 
 * [Http module](#httpmodule)
@@ -932,6 +932,108 @@ Nothing
 ```python
 def onmessage(c, op, data):
 	kore.websocket_broadcast(c, op, data, kore.WEBSOCKET_BROADCAST_GLOBAL)
+```
+
+---
+
+# worker {#worker}
+
+### Synopsis
+
+```python
+kore.worker()
+```
+
+### Description
+
+Returns the worker ID the code is currently running under.
+
+### Returns
+
+The worker ID.
+
+### Example
+
+```python
+kore.log(kore.LOG_INFO, "running on %d" % kore.worker())
+```
+
+---
+
+# setname {#setname}
+
+### Synopsis
+
+```python
+kore.setname(name)
+```
+
+### Description
+
+Sets the kore\_progname variable which is used when constructing
+proctitle.
+
+### Returns
+
+Nothing
+
+### Example
+
+```python
+kore.setname("myapp")
+```
+
+---
+
+# coroname {#coroname}
+
+### Synopsis
+
+```python
+kore.coroname(name)
+```
+
+### Description
+
+Sets the current coroutine its friendly name. This name is used when
+coroutine tracing is enabled in its output.
+
+### Returns
+
+Nothing
+
+### Example
+
+```python
+kore.coroname("consumer")
+```
+
+---
+
+# corotrace {#corotrace}
+
+### Synopsis
+
+```python
+kore.corotrace(enabled)
+```
+
+### Description
+
+Enables or disable coroutine tracing.
+
+If enabled the application will print out all coroutines their
+suspend / resume activities and where in the Python code this
+is happening.
+
+### Returns
+
+Nothing
+
+### Example
+
+```python
+kore.corotrace(True)
 ```
 
 ---
