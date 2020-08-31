@@ -329,11 +329,11 @@ dom.route("/update", self.update, methods=["post"],
 
 dom.route("/secret", self.secret, methods=["get"],
     auth={
-        "type"      : "header",    # header or cookie are both supported.
-        "value"     : "x-header",  # header name or cookie name.
-        "redirect"  : "/",         # Redirect to / on auth failure, if not set
-                                   # auth failure will result in a 403.
-        "verify"    : verify_auth  # Callback to verify the authenticator.
+        "type"      : "header",      # header or cookie are both supported.
+        "value"     : "x-header",    # header name or cookie name.
+        "redirect"  : "/",           # Redirect to / on auth failure, if not set
+                                     # auth failure will result in a 403.
+        "verify"    : validate_auth  # Callback to verify the authenticator.
     }
 )
 ```
