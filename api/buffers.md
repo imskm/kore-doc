@@ -9,8 +9,8 @@ The kore_buf interface provides a safe way of constructing data. Buffers automat
 * [kore\_buf\_cleanup](#bufcleanup)
 * [kore\_buf\_free](#buffree)
 * [kore\_buf\_append](#bufappend)
-* [kore\_buf\_appendv](#bufappendf)
-* [kore\_buf\_appendf](#bufappendv)
+* [kore\_buf\_appendv](#bufappendv)
+* [kore\_buf\_appendf](#bufappendf)
 * [kore\_buf\_stringify](#bufstringify)
 * [kore\_buf\_release](#bufrelease)
 
