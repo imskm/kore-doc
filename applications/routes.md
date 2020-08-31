@@ -3,31 +3,20 @@
 Configuring routes in Kore happens in the Kore configuration inside
 of the domain configuration block.
 
-There are 2 type routes:
-
-* static routes
-* dynamic routes
-
 Routes are evaluated from top to bottom.
-
-A static route is a path that is simply matched to the incoming path
-for the request with a straight forward string comparison.
-
-A dynamic route is a regular expression that is matched against the
-incoming path. This allows you to capture multiple routes towards
-the same callback.
+Routes can either contain a fixed string of be a regular expression.
 
 ```
 domain * {
-	static / root_page
-	static /about/ about_page
+	route / root_page
+	route /about/ about_page
 
-	dynamic ^.*$ redirect
+	route ^.*$ redirect
 }
 ```
 
-In the example above the configuration specifies 2 static routes and one
-dynamic route that captures all the other paths and sends them to some
+In the example above the configuration specifies 2 fixed routes and one
+regex route that captures all the other paths and sends them to some
 redirection function.
 
 # Parameter configuration
