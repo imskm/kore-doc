@@ -2,9 +2,21 @@
 
 The kore_buf interface provides a safe way of constructing data. Buffers automatically grow when more data is written to them and can either exist on the heap or on the stack.
 
+## Index
+
+* [kore\_buf\_alloc](#bufalloc)
+* [kore\_buf\_init](#bufinit)
+* [kore\_buf\_cleanup](#bufcleanup)
+* [kore\_buf\_free](#buffree)
+* [kore\_buf\_append](#bufappend)
+* [kore\_buf\_appendv](#bufappendf)
+* [kore\_buf\_appendf](#bufappendv)
+* [kore\_buf\_stringify](#bufstringify)
+* [kore\_buf\_release](#bufrelease)
+
 ---
 
-# kore_buf_alloc
+# kore\_buf\_alloc {#bufalloc}
 ### Synopsis
 ```
 struct kore_buf *kore_buf_alloc(size_t initial)
@@ -21,7 +33,7 @@ A pointer to a new *kore_buf* data structure. This must be freed by the caller u
 
 ---
 
-# kore_buf_init
+# kore\_buf\_init {#bufinit}
 ### Synopsis
 ```
 void kore_buf_init(struct kore_buf *buf, size_t initial)
@@ -39,7 +51,7 @@ Nothing.
 
 ---
 
-# kore_buf_cleanup
+# kore\_buf\_cleanup {#bufcleanup}
 ### Synopsis
 ```
 void kore_buf_cleanup(struct kore_buf *buf)
@@ -56,7 +68,7 @@ Nothing
 
 ---
 
-# kore_buf_free
+# kore\_buf\_free {#buffree}
 ### Synopsis
 ```
 void kore_buf_free(struct kore_buf *buf)
@@ -73,7 +85,7 @@ Nothing
 
 ---
 
-# kore_buf_append
+# kore\_buf\_append {#bufappend}
 ### Synopsis
 ```
 void kore_buf_append(struct kore_buf *buf, const void *data, size_t length)
@@ -92,7 +104,7 @@ Nothing
 
 ---
 
-# kore_buf_appendv
+# kore\_buf\_appendv {#bufappendv}
 ### Synopsis
 ```
 void kore_buf_appendv(struct kore_buf *buf, const char *fmt, va_list args)
@@ -112,7 +124,7 @@ Nothing
 
 ---
 
-# kore_buf_appendf
+# kore\_buf\_appendf {#bufappendf}
 ### Synopsis
 ```
 void kore_buf_appendf(struct kore_buf *buf, const char *fmt, ...)
@@ -131,7 +143,7 @@ Nothing
 
 ---
 
-# kore_buf_stringify
+# kore\_buf\_stringify {#bufstringify}
 ### Synopsis
 ```
 char *kore_buf_stringify(struct kore_buf *buf, size_t *length)
@@ -149,7 +161,7 @@ A pointer to the C string.
 
 ---
 
-# kore_buf_release
+# kore\_buf\_release {#bufrelease}
 ### Synopsis
 ```
 u_int8_t *kore_buf_release(struct kore_buf *buf, size_t *length)
