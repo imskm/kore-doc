@@ -4,9 +4,27 @@ The pgsql API in Kore allows you to use PostgreSQL in a straight forward manner.
 
 Note that you must have built Kore with PGSQL=1 in order to use this API.
 
+## Index
+
+* [kore\_pgsql\_init](#init)
+* [kore\_pgsql\_setup](#setup)
+* [kore\_pgsql\_bind\_request](#bindrequest)
+* [kore\_pgsql\_bind\_callback](#bindcallback)
+* [kore\_pgsql\_query](#query)
+* [kore\_pgsql\_query\_params](#queryparams)
+* [kore\_pgsql\_register](#register)
+* [kore\_pgsql\_cleanup](#cleanup)
+* [kore\_pgsql\_continue](#continue)
+* [kore\_pgsql\_logerror](#logerror)
+* [kore\_pgsql\_ntuples](#ntuples)
+* [kore\_pgsql\_nfields](#nfields)
+* [kore\_pgsql\_getlength](#getlength)
+* [kore\_pgsql\_getvalue](#getvalue)
+* [kore\_pgsql\_column\_binary](#binary)
+
 ---
 
-# kore\_pgsql\_init
+# kore\_pgsql\_init {#init}
 
 ### Synopsis
 
@@ -28,7 +46,7 @@ Nothing.
 
 ---
 
-# kore\_pgsql\_setup
+# kore\_pgsql\_setup {#setup}
 
 ### Synopsis
 
@@ -57,7 +75,7 @@ KORE\_RESULT\_OK or KORE\_RESULT\_ERROR. If KORE\_RESULT\_ERROR was returned but
 
 ---
 
-# kore\_pgsql\_bind\_request
+# kore\_pgsql\_bind\_request {#bindrequest}
 
 ### Synopsis
 
@@ -80,7 +98,7 @@ Nothing.
 
 ---
 
-# kore\_pgsql\_bind\_callback
+# kore\_pgsql\_bind\_callback {#bindcallback}
 
 ### Synopsis
 
@@ -103,7 +121,7 @@ Nothing.
 
 ---
 
-# kore\_pgsql\_query
+# kore\_pgsql\_query {#query}
 
 ### Synopsis
 
@@ -126,7 +144,7 @@ KORE\_RESULT\_OK or KORE\_RESULT\_ERROR.
 
 ---
 
-# kore\_pgsql\_query\_params {#kore_pgsql_query_params}
+# kore\_pgsql\_query\_params {#queryparams}
 
 ### Synopsis
 
@@ -166,7 +184,7 @@ by the kore\_pgsql\_query\_params() function.
 
 ---
 
-# kore\_pgsql\_register
+# kore\_pgsql\_register {#register}
 
 ### Synopsis
 
@@ -189,7 +207,7 @@ KORE\_RESULT\_OK or KORE\_RESULT\_ERROR if the dbname was already taken.
 
 ---
 
-# kore\_pgsql\_continue
+# kore\_pgsql\_continue {#continue}
 
 ### Synopsis
 
@@ -212,7 +230,7 @@ Nothing
 
 ---
 
-# kore\_pgsql\_cleanup
+# kore\_pgsql\_cleanup {#cleanup}
 
 ### Synopsis
 
@@ -234,7 +252,7 @@ Nothing
 
 ---
 
-# kore\_pgsql\_logerror
+# kore\_pgsql\_logerror {#logerror}
 
 ### Synopsis
 
@@ -256,7 +274,7 @@ Nothing
 
 ---
 
-# kore\_pgsql\_ntuples
+# kore\_pgsql\_ntuples {#ntuples}
 
 ### Synopsis
 
@@ -278,7 +296,7 @@ The number of tuples.
 
 ---
 
-# kore\_pgsql\_nfields
+# kore\_pgsql\_nfields {#nfields}
 
 ### Synopsis
 
@@ -300,7 +318,7 @@ The number of fields.
 
 ---
 
-# kore\_pgsql\_getlength
+# kore\_pgsql\_getlength {#getlength}
 
 ### Synopsis
 
@@ -324,7 +342,7 @@ The length of the data at row, col.
 
 ---
 
-# kore\_pgsql\_getvalue
+# kore\_pgsql\_getvalue {#getvalue}
 
 ### Synopsis
 
@@ -348,7 +366,7 @@ A pointer to the data. This should not be freed by the caller.
 
 ---
 
-# kore\_pgsql\_column\_binary
+# kore\_pgsql\_column\_binary {#binary}
 
 ### Synopsis
 
