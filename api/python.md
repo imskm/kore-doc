@@ -316,18 +316,23 @@ async def validate_user(req, data):
 async def validate_auth(req, data):
     return True
 
+def route_gethash(req, hash):
+    req.response(200, hash.encode())
+
 dom = kore.domain("kore.io", attach="server", acme=True)
 
-dom.route("/", self.index, methods=["get"])
+dom.route("/", route_index, methods=["get"])
 
-dom.route("/update", self.update, methods=["post"],
+dom.route("/update", route_update, methods=["post"],
     post={
         "id"   :   "^[0-9]+$",
         "user" : validate_user
     }
 )
 
-dom.route("/secret", self.secret, methods=["get"],
+dom.route("^/([a-f0-9]{32})$", route_gethash, methods=["get"])
+
+dom.route("/secret", route_secret, methods=["get"],
     auth={
         "type"      : "header",      # header or cookie are both supported.
         "value"     : "x-header",    # header name or cookie name.
