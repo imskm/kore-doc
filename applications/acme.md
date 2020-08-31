@@ -57,4 +57,4 @@ was configured via the **keymgr_root** configuration option.
 
 The RSA account key is stored as **account-key.pem** in the **keymgr_root**
 directory while certificates and matching domain keys are stored under
-the **certificates** and **keys** directories respectively.
+the **certificates**  directory separated by hostnames.
