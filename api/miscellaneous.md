@@ -2,9 +2,18 @@
 
 Kore provides several helper functions.
 
+## Index
+
+* [kore\_log](#log)
+* [kore\_strlcpy](#strlcpy)
+* [kore\_strtonum](#strtonum)
+* [kore\_strtonum64](#strtonum64)
+* [kore\_split\_string](#splitstring)
+* [kore\_strip\_chars](#stripchars)
+
 ---
 
-# kore_log
+# kore\_log {#log}
 ### Synopsis
 ```
 void kore_log(int prio, const char *fmt, ...)
@@ -25,7 +34,7 @@ Nothing
 
 ---
 
-# kore_strlcpy
+# kore\_strlcpy {#strlcpy}
 ### Synopsis
 ```
 size_t kore_strlcpy(char *dst, const char *src, const size_t length)
@@ -44,7 +53,7 @@ The length of the original string. If this length is equal or larger than the de
 
 ---
 
-# kore_strtonum
+# kore\_strtonum {#strtonum}
 ### Synopsis
 ```
 long long kore_strtonum(const char *str, int base, long long min, long long max, int *err)
@@ -65,7 +74,7 @@ Returns the converted integer. If the *err* parameter was set to KORE_RESULT_OK 
 
 ---
 
-# kore_strtonum64
+# kore\_strtonum64 {#strtonum64}
 ### Synopsis
 ```
 u_int64_t kore_strtonum64(const char *str, int sign, int *err)
@@ -84,7 +93,7 @@ Returns the converted integer. If the *err* parameter was set to KORE_RESULT_OK 
 
 ---
 
-# kore_split_string
+# kore\_split\_string {#splitstring}
 ### Synopsis
 ```
 int kore_split_string(char *input, char *delim, char **out, size_t ele)
@@ -104,7 +113,7 @@ The number of components.
 
 ---
 
-# kore_strip_chars
+# kore\_strip\_chars {#stripchars}
 ### Synopsis
 ```
 void kore_strip_chars(char *in, const char strip, char **out)
