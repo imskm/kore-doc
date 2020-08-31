@@ -8,6 +8,15 @@ such as Let's Encrypt and others.
 Enabling ACME is quite straight forward. Make sure Kore was built with
 the ACME=1 directive set at compile time.
 
+If ACME support was compiled in it can be verified by showing the
+version string for the Kore binary installed.
+
+```
+$ kore -v
+master-8097d22d curl-7.64.1 pgsql python-3.7.7 acme
+$
+```
+
 In your configuration, under the domain context you set the acme
 configuration option to yes.
 
