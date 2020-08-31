@@ -30,6 +30,8 @@ There are a few ACME related configuration options.
 | acme\_email | An email adress used for account registration. |
 | acme\_provider | A URL to the directory for an ACME provider. Defaults to Let's Encrypt. |
 
+The default ACME provider is "https://acme-v02.api.letsencrypt.org/directory".
+
 ## ACME architecture
 
 When ACME is enabled, Kore will create a new acme process that stands
