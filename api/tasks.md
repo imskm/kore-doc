@@ -6,9 +6,20 @@ Background tasks can communicate with the main thread via a socket pair.
 
 Kore must be built with TASKS=1 in order to use this API.
 
+## Index
+
+* [kore\_task\_create](#create)
+* [kore\_task\_run](#run)
+* [kore\_task\_bind\_request](#bindrequest)
+* [kore\_task\_bind\_callback](#bindcallback)
+* [kore\_task\_destroy](#destroy)
+* [kore\_task\_finished](#finished)
+* [kore\_task\_channel\_write](#write)
+* [kore\_task\_channel\_read](#read)
+
 ---
 
-# kore_task_create
+# kore\_task\_create {#create}
 ### Synopsis
 ```
 void kore_task_create(struct kore_task *t, int (*entry)(struct kore_task *))
@@ -25,7 +36,7 @@ Creates a new task which when run will call the given callback.
 Nothing
 
 ---
-# kore_task_run
+# kore\_task\_run {#run}
 ### Synopsis
 ```
 void kore_task_run(struct kore_task *t)
@@ -41,7 +52,7 @@ Allows a task to be run. After this function returns the task will be scheduled 
 Nothing
 
 ---
-# kore_task_bind_request
+# kore\_task\_bind\_request {#bindrequest}
 ### Synopsis
 ```
 void kore_task_bind_request(struct kore_task *t, struct http_request *req)
@@ -60,7 +71,7 @@ Using this in combination with the HTTP state machine allows you to build reques
 Nothing
 
 ---
-# kore_task_bind_callback
+# kore\_task\_bind\_callback {#bindcallback}
 ### Synopsis
 ```
 void kore_task_bind_callback(struct kore_task *t, void (*cb)(struct kore_task *))
@@ -77,7 +88,7 @@ Bind a callback to a task. Binding means that the callback will be called whenev
 Nothing
 
 ---
-# kore_task_destroy
+# kore\_task\_destroy {#destroy}
 ### Synopsis
 ```
 void kore_task_destroy(struct kore_task *t)
@@ -93,7 +104,7 @@ Destroys a task.
 Nothing
 
 ---
-# kore_task_finished
+# kore\_task\_finished {#finished}
 ### Synopsis
 ```
 int kore_task_finished(struct kore_task *t)
@@ -109,7 +120,7 @@ Check if a task has finished running.
 Returns 1 if the task has finished running, otherwise 0.
 
 ---
-# kore_task_channel_write
+# kore\_task\_channel\_write {#write}
 ### Synopsis
 ```
 void kore_task_channel_write(struct kore_task *t, void *data, u_int32_t length)
@@ -128,7 +139,7 @@ Nothing
 
 ---
 
-# kore_task_channel_read
+# kore\_task\_channel\_read {#read}
 ### Synopsis
 ```
 u_int32_t kore_task_channel_read(struct kore_task *t, void *out, u_int32_t length)
