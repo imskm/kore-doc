@@ -180,7 +180,7 @@ kore.server("default", ip="127.0.0.1", port="8888", tls=False)
 
 ```python
 kore.domain(host, attach="server", cert="cert.pem", key="key.pem", acme=False,
-    client_verify="ca.pem", verify_depth=1))
+    client_verify="ca.pem", verify_depth=1)
 ```
 
 ### Description
@@ -722,7 +722,9 @@ Before you can use the client you must set it up.
 
 ---
 
-### Synopsis {#curlhandle}
+# Creating a new curl handle {#curlhandle}
+
+### Synopsis
 
 ```python
 client = kore.curl(url)
@@ -748,7 +750,9 @@ data = await handle.run()
 
 ---
 
-### Synopsis {#curlsetopt}
+# Using libcurl setopt from Python {#curlsetopt}
+
+### Synopsis
 
 ```python
 handle.setopt(option, value)
