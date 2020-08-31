@@ -146,9 +146,34 @@ set via the Python code.
 | seccomp\_tracing | Linux only, seccomp violations will be logged and not cause the process to terminate. Either "yes" or "no". |
 | filemap\_ext | The default extension for files in a filemap. |
 | filemap\_index | The root file in a filemap. (eg index.html). |
-| http\_media\_type | Add a new HTTP media type (in the form of "mediatype ext1 ext2 ext". |
+| http\_media\_type | Add a new HTTP media type (in the form of "mediatype ext1 ext2 ext"). |
+| http\_header\_max | The maximum number of bytes HTTP headers can consist of. If a request comes in with headers larger than this the connection is closed. Defaults to 4096 bytes. |
+| http\_header\_timeout | The number of seconds after which Kore will close a connection if no HTTP headers were received. Defaults to 10. |
+| http\_body\_max | The maximum number of bytes an HTTP body can consist of. If a request comes in with a body larger than this the connection is closed with a 413 response. Defaults to 1MB. |
+| http\_body\_timeout | The number of seconds after which Kore will close a connection if no HTTP body was received in full. Defaults to 60. |
+| http\_body\_disk\_offload | The number in bytes from which point Kore will offload incoming HTTP bodies onto a file on disk instead of keeping it in memory. Disabled by default. |
+| http\_body\_disk\_path | A path where the temporary body files are written if the http\_body\_disk\_offload setting is enabled. |
+| http\_server\_version | Allows you to override the Kore server header. |
+| http\_pretty\_error | If set to "yes" will display HTML based HTTP error codes. Defaults to "no". |
+| deployment | The deployment type of the application. Either "production" or "development". The production setting will cause Kore to chroot and drop privileges and run in the background. The development setting will run Kore in the foreground and only chdir into the root setting. |
 
-| TODO | TODO |
+Any configuration options should be set in your App.configure method.
+
+Example
+
+```python
+import os
+import kore
+
+class MyApp:
+    def configure(self, args):
+        kore.config.workers = 1
+        kore.config.http_header_max = 1024
+        kore.config.http_header_timeout = 60
+        kore.config.seccomp_tracing = "yes"
+        kore.config.deployment = os.getenv("DEPLOYMENT", default="dev")
+
+```
 
 ## Constants {#koremoduleconstants}
 
