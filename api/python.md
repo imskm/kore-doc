@@ -278,6 +278,68 @@ dom.route("/", self.index, methods=["get"])
 
 ---
 
+# domain.route {#domainroute}
+
+### Synopsis
+
+```python
+domain.route(url, callback, methods=[], methodname={}, auth=None)
+```
+
+### Description
+
+Setup a new route in the domain. The route is attached to the given
+**url** and will call the **callback** function when hit.
+
+| Parameter | Description |
+| --- | --- |
+| url | URL for this route, can contain regex and capture groups. Each capture group is passed as a seperate parameter to the callback after the initial request object. |
+| callback | The callback to call for this route. This callback takes at least one parameter: the request object. |
+
+| Keyword | Description |
+| --- | --- |
+| methods | A list of allowed methods. Any request to this route with an uncorrect method will automatically result in a 405. |
+| key | The path to the private key for this domain. |
+| methodname | For each supported method a dictionary containing parameters for the route and how they are validated. |
+| auth | If set should be a dictionary containing the authentication information for the route. |
+
+### Returns
+
+Nothing
+
+### Example
+
+```python
+async def validate_user(req, data):
+    return True
+
+async def validate_auth(req, data):
+    return True
+
+dom = kore.domain("kore.io", attach="server", acme=True)
+
+dom.route("/", self.index, methods=["get"])
+
+dom.route("/update", self.update, methods=["post"],
+    post={
+        "id"   :   "^[0-9]+$",
+        "user" : validate_user
+    }
+)
+
+dom.route("/secret", self.secret, methods=["get"],
+    auth={
+        "type"      : "header",    # header or cookie are both supported.
+        "value"     : "x-header",  # header name or cookie name.
+        "redirect"  : "/",         # Redirect to / on auth failure, if not set
+                                   # auth failure will result in a 403.
+        "verify"    : verify_auth  # Callback to verify the authenticator.
+    }
+)
+```
+
+---
+
 # log {#log}
 
 ### Synopsis
@@ -477,9 +539,6 @@ kore.task_create(method)
 ### Description
 
 Creates a new task that will run the given method.
-
-There is no way to obtain the result from a task, it will run until
-it returns from the parent function.
 
 | Parameter | Description |
 | --- | --- |
