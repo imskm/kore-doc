@@ -46,11 +46,11 @@ class MyApp:
         domain.route("/", self.index, methods=["get"])
         domain.route("^/(0-9)$", self.index_with_args, methods=["get"])
 
-        def index(self, req):
-            req.response(200, b'hello')
+    def index(self, req):
+        req.response(200, b'hello')
 
-        def index_with_args(self, req, specified_id):
-            req.response(200, specified_id)
+    def index_with_args(self, req, specified_id):
+        req.response(200, specified_id)
 
 koreapp = MyApp()
 ```
