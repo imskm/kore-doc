@@ -76,7 +76,7 @@ Parse the JSON data that was set via **kore_json_init**.
 | json | A kore\_json data structure. |
 
 ### Returns
-Returns KORE\_RESULT\_OK if parsing was successfull or KORE\_RESULT\_ERROR
+Returns KORE\_RESULT\_OK if parsing was successful or KORE\_RESULT\_ERROR
 if the parsing failed. If the parsing failed the json-\>error field holds
 the error code.
 

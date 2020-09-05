@@ -57,7 +57,7 @@ There are more options than what is listed below, specifically for validators, a
 | keymgr\_root | The root path for the keymgr process. If not set, inherited from the root option. |
 | acme\_runas | The user the acme process will run as. If not set, the current user. |
 | acme\_root | The root path for the acme process. If not set, inherited from the root option. |
-| acme\_email | An email adress used for account registration. |
+| acme\_email | An email address used for account registration. |
 | acme\_provider | A URL to the directory for an ACME provider. Defaults to Let's Encrypt. |
 | pledge | OpenBSD only, pledge categories for the worker processes. |
 | seccomp\_tracing | Linux only, seccomp violations will be logged and not cause the process to terminate. Either "yes" or "no". |

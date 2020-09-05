@@ -18,7 +18,7 @@ A Kore Python application must be setup in the following way:
 
 * Import kore.
 * Define a class with a configure() method.
-* Instanciate the koreapp global with that class.
+* Instantiate the koreapp global with that class.
 
 The configure() method is called at startup by the Kore platform and
 will receive a list of arguments passed to the command-line.
@@ -141,7 +141,7 @@ set via the Python code.
 | keymgr\_root | The root path for the keymgr process. If not set, inherited from the root option. |
 | acme\_runas | The user the acme process will run as. If not set, the current user. |
 | acme\_root | The root path for the acme process. If not set, inherited from the root option. |
-| acme\_email | An email adress used for account registration. |
+| acme\_email | An email address used for account registration. |
 | acme\_provider | A URL to the directory for an ACME provider. Defaults to Let's Encrypt. |
 | pledge | OpenBSD only, pledge categories for the worker processes. |
 | seccomp\_tracing | Linux only, seccomp violations will be logged and not cause the process to terminate. Either "yes" or "no". |
@@ -261,7 +261,7 @@ The cert and key keywords should not be specified if acme is True.
 | --- | --- |
 | cert | The path to the certificate for this domain. |
 | key | The path to the private key for this domain. |
-| acme | If true will use the configured ACME provider (let's encrypt by default) to automaticall obtain an X509 for this domain. |
+| acme | If true will use the configured ACME provider (let's encrypt by default) to automatically obtain an X509 for this domain. |
 | client\_verify | If present points to a PEM file containing a Certificate Authority for which the client should present a certificate for. |
 | verify\_depth | Maximum depth for the certificate chain. |
 
@@ -293,12 +293,12 @@ Setup a new route in the domain. The route is attached to the given
 
 | Parameter | Description |
 | --- | --- |
-| url | URL for this route, can contain regex and capture groups. Each capture group is passed as a seperate parameter to the callback after the initial request object. |
+| url | URL for this route, can contain regex and capture groups. Each capture group is passed as a separate parameter to the callback after the initial request object. |
 | callback | The callback to call for this route. This callback takes at least one parameter: the request object. |
 
 | Keyword | Description |
 | --- | --- |
-| methods | A list of allowed methods. Any request to this route with an uncorrect method will automatically result in a 405. |
+| methods | A list of allowed methods. Any request to this route with an incorrect method will automatically result in a 405. |
 | key | The path to the private key for this domain. |
 | methodname | For each supported method a dictionary containing parameters for the route and how they are validated. |
 | auth | If set should be a dictionary containing the authentication information for the route. |

@@ -36,7 +36,7 @@ There are a few ACME related configuration options.
 | --- | --- |
 | acme\_runas | The user the acme process will run as. If not set, the current user. |
 | acme\_root | The root path for the acme process. If not set, inherited from the root option. |
-| acme\_email | An email adress used for account registration. |
+| acme\_email | An email address used for account registration. |
 | acme\_provider | A URL to the directory for an ACME provider. Defaults to Let's Encrypt. |
 
 The default ACME provider is "https://acme-v02.api.letsencrypt.org/directory".
