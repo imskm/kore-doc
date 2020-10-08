@@ -22,6 +22,7 @@
   * [Pgsql](api/pgsql.md)
   * [Pools](api/pools.md)
   * [Python](api/python.md)
+  * [Seccomp](api/seccomp.md)
   * [Tasks](api/tasks.md)
   * [Websockets](api/websockets.md)
 * [Examples](examples.md)
