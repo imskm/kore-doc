@@ -16,8 +16,8 @@ macro. In the example below we allow ioctl(2) and shmat(2) are allowed.
 #include <kore/seccomp.h>
 
 KORE_SECCOMP_FILTER("app",
-	KORE_SYSCALL_ALLOW("ioctl"),
-	KORE_SYSCALL_ALLOW("shmat")
+	KORE_SYSCALL_ALLOW(ioctl),
+	KORE_SYSCALL_ALLOW(shmat)
 );
 ```
 
@@ -27,8 +27,8 @@ In another example, we allow write() to stdout but no other file descriptor.
 #include <kore/seccomp.h>
 
 KORE_SECCOMP_FILTER("app",
-	KORE_SYSCALL_ALLOW_ARG("write", 0, STDOUT_FILENO),
-	KORE_SYSCALL_DENY("write", EPERM)
+	KORE_SYSCALL_ALLOW_ARG(write, 0, STDOUT_FILENO),
+	KORE_SYSCALL_DENY(write, EPERM)
 );
 ```
 
