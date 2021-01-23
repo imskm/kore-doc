@@ -1,7 +1,7 @@
 {
 	"author": "Joris Vink",
-	"title": "Kore 4.0.0 documentation",
-	"description": "The documentation for the 4.0.0 release",
+	"title": "Kore 4.1.0 documentation",
+	"description": "The documentation for the 4.1.0 release",
 
 	"plugins": [
 		"highlight"
