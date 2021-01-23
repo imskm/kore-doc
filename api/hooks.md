@@ -3,6 +3,12 @@
 Kore supports several hooking functions allowing your application
 to do things at certain times in the Kore startup / shutdown procedure.
 
+The prototypes for these are found in the kore/hooks.h header file.
+
+```
+#include <kore/hooks.h>
+```
+
 * [kore\_parent\_configure](#parentconfigure)
 * [kore\_parent\_daemonized](#parentdaemonized)
 * [kore\_parent\_teardown](#parentteardown)

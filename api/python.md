@@ -1515,7 +1515,7 @@ async def page(req):
 ### Synopsis
 
 ```python
-data = await sock.recv(1024)
+data = await sock.recv(maxlen, timeout)
 ```
 
 ### Description
@@ -1558,7 +1558,7 @@ except TimeoutError as e:
 ### Synopsis
 
 ```python
-tuple = await sock.recvfrom(1024)
+tuple = await sock.recvfrom(maxlen)
 ```
 
 ### Description
@@ -1585,6 +1585,48 @@ if data is None:
     printf("eof!")
 else:
     await sock.sendto(ip, port, data)
+```
+
+---
+
+### sock.recvmsg {#socketrecvmsg}
+
+### Synopsis
+
+```python
+data, ancdata = await sock.recvmsg(maxlen, timeout)
+```
+
+### Description
+
+Reads up to **maxlen** bytes from the socket. The optional **timeout** argument
+will throw a TimeoutError exception in case the timeout is hit before data is
+read from the socket. If no timeout argument is specified, the call will wait
+until data is available.
+
+The return ancillary data is in a list, with one tuple of 3 per entry:
+
+(cmsg_level, cmsg_type, cmsg_data)
+
+| Parameter | Description |
+
+| --- | --- |
+| maxlen | Maximum number of bytes to be read. |
+| timeout | Optional timeout in milliseconds. |
+
+### Returns
+
+The bytes read as a byte object, the ancelliry data as a list or None on EOF.
+
+### Example
+
+```python
+data, ancdata = await sock.recvmsg(1024)
+if data is None:
+    printf("eof!")
+else:
+    for cmsg_level, cmsg_type, cmsg_data in ancdata:
+        # handle
 ```
 
 ---
