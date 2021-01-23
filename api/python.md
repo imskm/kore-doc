@@ -9,8 +9,7 @@ Python 3.6 or higher should be used.
 
 # A Kore Python application
 
-Since the 4.0.0 release you can use Kore as an asynchronous first
-Python web development platform.
+Since Kore 4.x you can use Kore as an asynchronous first Python web development platform.
 
 Completely configurable via code and easy to setup and write.
 
