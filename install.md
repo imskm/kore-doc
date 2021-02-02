@@ -13,7 +13,7 @@ Basic compilation requires the following libraries:
 
 * OpenSSL 1.1.0, 1.1.1 / LibreSSL
 
-Get the 4.0.0 release tarball and signature from [https://kore.io/releases/4.0.0](https://kore.io/releases/4.0.0) and verify it using minisign:
+Get the 4.1.0 release tarball and signature from [https://kore.io/releases/4.1.0](https://kore.io/releases/4.1.0) and verify it using minisign:
 
 ```
 minisign -Vm kore-4.0.0.tgz -P RWSxkEDc2y+whfKTmvhqs/YaFmEwblmvar7l6RXMjnu6o9tZW3LC0Hc9
