@@ -29,7 +29,7 @@ domain needsauth.example.com {
 You can enable client authentication via the Python API as well by
 passing the **client_verify** and **verify_depth** keyword to the domain setup.
 
-```
+```python
 dom = kore.domain("needsauth.example.com",
     attach="server",
     cert="cert/example.com/server.pem",
