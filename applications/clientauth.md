@@ -13,14 +13,14 @@ to enable it on.
 
 ```
 domain needsauth.example.com {
-	certfile	cert/example.com/server.pem
-	certkey		cert/example.com/key.pem
+    certfile   cert/example.com/server.pem
+    certkey    cert/example.com/key.pem
 
-	# Bundle of trusted certificate authorities and an optional CRL 
-	client_verify	cert/cabundle.pem cert/crloptional.pem
+    # Bundle of trusted certificate authorities and an optional CRL 
+    client_verify   cert/cabundle.pem cert/crloptional.pem
 
-	# The verification depth
-	client_verify_depth	1
+    # The verification depth
+    client_verify_depth 1
 }
 ```
 
