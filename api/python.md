@@ -1909,7 +1909,7 @@ if not d:
 
 For a more detailed example, see [this](https://git.kore.io/kore/file/examples/python-async/src/async_process.py) source file.
 
-Or see the [kore.proc](https://docs.kore.io/3.2.0/api/python.html#proc) description.
+Or see the [kore.proc](https://docs.kore.io/4.1.0/api/python.html#proc) description.
 
 * [kill](#prockill)
 * [reap](#procreap)
