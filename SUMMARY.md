@@ -11,6 +11,7 @@
     * [Routes](applications/routes.md)
     * [Filemaps](applications/filemap.md)
     * [Automatic HTTPs](applications/acme.md)
+    * [Client authentication](applications/clientauth.md)
 * [API](api/README.md)
   * [Buffers](api/buffers.md)
   * [Curl](api/curl.md)
