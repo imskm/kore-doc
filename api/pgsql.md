@@ -284,7 +284,7 @@ int kore_pgsql_ntuples(struct kore_pgsql *pgsql)
 
 ### Description
 
-Returns the number of tuples affected by a query.
+Returns the number of rows (tuples) in the query result.
 
 | Parameter | Description |
 | --- | --- |
@@ -292,7 +292,7 @@ Returns the number of tuples affected by a query.
 
 ### Returns
 
-The number of tuples.
+The number of rows (tuples) in the query result.
 
 ---
 
