@@ -18,7 +18,7 @@ macro. In the example below we allow ioctl(2) and shmat(2) are allowed.
 KORE_SECCOMP_FILTER("app",
 	KORE_SYSCALL_ALLOW(ioctl),
 	KORE_SYSCALL_ALLOW(shmat)
-);
+)
 ```
 
 In another example, we allow write() to stdout but no other file descriptor.
@@ -29,7 +29,7 @@ In another example, we allow write() to stdout but no other file descriptor.
 KORE_SECCOMP_FILTER("app",
 	KORE_SYSCALL_ALLOW_ARG(write, 0, STDOUT_FILENO),
 	KORE_SYSCALL_DENY(write, EPERM)
-);
+)
 ```
 
 Kore provides a few handy macros that can be used in a KORE_SECCOMP_FILTER:
