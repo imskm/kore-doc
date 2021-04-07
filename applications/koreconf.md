@@ -10,7 +10,8 @@ A server context sets up a one or more listeners for the Kore server. These
 listeners can either be ipv4/ipv6 addresses or unix sockets.
 
 The old bind and bind_unix configuration options have been migrated since
-Kore 4.0.0 to these server contexts.
+Kore 4.0.0 to these server contexts. Note that the bind_unix option has been
+renamed to unix.
 
 You can also turn off TLS in a server context by specifying the **tls no**
 option inside of a context.
@@ -21,8 +22,8 @@ Example:
 server tls {
 	bind 127.0.0.1 443
 	bind ::1 443
-	bind_unix /var/run/socket.path
-	bind_unix @linux-abstract-socket
+	unix /var/run/socket.path
+	unix @linux-abstract-socket
 }
 
 server notls {
