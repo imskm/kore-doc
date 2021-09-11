@@ -28,14 +28,14 @@ The example below configures / to serve the static asset index.html.
 
 ```
 domain * {
-	static	/	asset_serve_index_html
+	route	/	asset_serve_index_html
 }
 ```
 
 You may specify media types for these static assets in **conf/build.conf**.
 
 ```
-mime_add=jpg:imge/jpg
+mime_add=jpg:image/jpeg
 mime_add=css:text/css; charset=utf-8
 mime_add=html:text/html; charset=utf-8
 ```
