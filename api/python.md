@@ -378,7 +378,7 @@ koreapp = RouteExample()
 ### Synopsis
 
 ```python
-domain.filemaps(dict)
+domain.filemaps(maps)
 ```
 
 ### Description
