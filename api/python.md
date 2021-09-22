@@ -383,7 +383,7 @@ domain.filemaps(dict)
 
 ### Description
 
-Add [https://docs.kore.io/4.1.0/applications/filemap.html](filemaps) to the domain.
+Add [filemaps](https://docs.kore.io/4.1.0/applications/filemap.html) to the domain.
 
 | Parameter | Description |
 | --- | --- |
