@@ -63,6 +63,7 @@ koreapp = MyApp()
     * [server](#server)
     * [domain](#domain)
       * [route](#domainroute)
+      * [filemaps](#filemaps)
     * [log](#log)
     * [timer](#timer)
     * [proc](#proc)
@@ -368,6 +369,45 @@ class RouteExample:
         req.response(200, json.dumps(payload).encode())
 
 koreapp = RouteExample()
+```
+
+---
+
+# domain.filemaps {#filemaps}
+
+### Synopsis
+
+```python
+domain.filemaps(dict)
+```
+
+### Description
+
+Add [https://docs.kore.io/4.1.0/applications/filemap.html](filemaps) to the domain.
+
+| Parameter | Description |
+| --- | --- |
+| maps | A dict containing the filemaps. The key is the URL part, the value is the local part on disk relative to the root of the worker process. |
+
+### Returns
+
+Nothing
+
+### Example
+
+```python
+import kore
+
+class FileMap:
+    def configure(self, args):
+        kore.config.workers = 1
+        kore.config.deployment = "dev"
+
+        kore.server("default", ip="127.0.0.1", port="8888", tls=False)
+        dom = kore.domain("*", attach="default")
+        dom.filemaps({ "/": "webroot"})
+
+koreapp = FileMap()
 ```
 
 ---
