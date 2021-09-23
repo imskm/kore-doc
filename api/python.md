@@ -259,6 +259,7 @@ The cert and key keywords should not be specified if acme is True.
 
 | Keyword | Description |
 | --- | --- |
+| attach | Attach this domain to the given server name. |
 | cert | The path to the certificate for this domain. |
 | key | The path to the private key for this domain. |
 | acme | If true will use the configured ACME provider (let's encrypt by default) to automatically obtain an X509 for this domain. |
