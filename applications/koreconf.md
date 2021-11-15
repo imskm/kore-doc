@@ -64,7 +64,7 @@ There are more options than what is listed below, specifically for validators, a
 | seccomp\_tracing | Linux only, seccomp violations will be logged and not cause the process to terminate. Either "yes" or "no". |
 | filemap\_ext | The default extension for files in a filemap. |
 | filemap\_index | The root file in a filemap. (eg index.html). |
-| http\_keepalive\_time | The time an HTTP connection is kept-alive server side. Defaults to 20 seconds.. |
+| http\_keepalive\_time | The time an HTTP connection is kept-alive server side. Defaults to 20 seconds. |
 | http\_media\_type | Add a new HTTP media type (in the form of "mediatype ext1 ext2 ext"). |
 | http\_header\_max | The maximum number of bytes HTTP headers can consist of. If a request comes in with headers larger than this the connection is closed. Defaults to 4096 bytes. |
 | http\_header\_timeout | The number of seconds after which Kore will close a connection if no HTTP headers were received. Defaults to 10. |
